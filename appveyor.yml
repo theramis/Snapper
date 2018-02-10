@@ -1,34 +1,39 @@
-version: 0.0.{build}
+version: 0.0.{build}-beta
 
-skip_tags: true
 max_jobs: 1
-
-skip_non_tags: true
+configuration: Release
 
 image: Visual Studio 2017
-
-platform: Any CPU
-
-before_build:
-  - nuget restore
 
 init:
   - git config --global core.autocrlf input
 
-configuration: Release
 
-build:
-  parallel: true
-  project: Snapper.sln
-
-artifacts:
-  - path: '**\*.nupkg'
+install:
+  - ps: $version = (cat version.txt); Set-AppveyorBuildVariable 'nugetVersion' $version
 
 dotnet_csproj:
   patch: true
   file: '**\*.csproj'
-  version: '{version}'
-  package_version: '{version}'
-  assembly_version: '{version}'
-  file_version: '{version}'
-  informational_version: '{version}'
+  version: $(nugetVersion)
+  package_version: $(nugetVersion)
+  assembly_version: $(nugetVersion)
+  file_version: $(nugetVersion)
+  informational_version: $(nugetVersion)
+
+before_build:
+  - nuget restore
+
+build:
+  parallel: true
+  project: Snapper.sln
+  publish_nuget: true
+
+deploy:
+  - provider: NuGet
+    api_key:
+      secure: YqF5spLEf4ATLwb/BhCXnRf/uLN1i2+Y3fgfZz2mN+bwSNMh52JGAR8FNkXe/Kmw
+    skip_symbols: true
+    artifact: /.*\.nupkg/
+    on:
+      appveyor_repo_tag: true

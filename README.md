@@ -6,8 +6,11 @@ Bringing Jest-esque Snapshot testing to C#
 
 ## Todo
 - Write tests
-- -Extend XUnit Assert e.g. `Assert.Snap(obj)` rather than `XUnitSnapper.Snap(obj)`-
-- Write docs
-- Update appveyor to build on every commit and publish nuget on tag
+- ~~Extend XUnit Assert e.g. `Assert.Snap(obj)` rather than `XUnitSnapper.Snap(obj)`~~
+- Write wiki docs
+- Write method/class docs
+- ~~Update appveyor to build on every commit and publish nuget on tag~~
 - Create sample project
-- Publish to Nuget
+- ~~Publish to Nuget~~
+- Add tags to Nuget
+- Add logo to Nuget

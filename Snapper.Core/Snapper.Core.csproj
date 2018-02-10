@@ -1,0 +1,9 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+    <Version>0.0.0</Version>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <Authors>Simar Kalra</Authors>
+    <RepositoryUrl>https://github.com/theramis/Snapper</RepositoryUrl>
+  </PropertyGroup>
+</Project>

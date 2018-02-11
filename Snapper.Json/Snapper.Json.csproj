@@ -5,6 +5,10 @@
     <Version>0.0.0</Version>
     <Authors>Simar Kalra</Authors>
     <RepositoryUrl>https://github.com/theramis/Snapper</RepositoryUrl>
+    <Description>Bringing Jest-esque Snapshot testing to C#
+
+See Project Site for more details</Description>
+    <PackageProjectUrl>https://github.com/theramis/Snapper</PackageProjectUrl>
   </PropertyGroup>
 
   <ItemGroup>

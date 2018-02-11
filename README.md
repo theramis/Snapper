@@ -12,7 +12,7 @@ It is very heavily based on Jest Snapshot Testing.
 ## Getting Started
 Currently Snapper consists of three different NuGet packages for extensibility.
 
-Choose which package best fits your needs
+Choose the package which best fits your needs
 - **Snapper.Core**: Basic snapshot functionality. Stores snapshots in bytes. Use for extending Snapper.
 - **Snapper.Json**: Extends Snapper.Core to provide storing snapshots in Json format
 - **Snapper.Json.Xunit**: Extends Snapper.Json. Adds extensions to XUnit Assert.

@@ -55,9 +55,9 @@ You can safely remove the `xunit.assert` package and just use what is imported t
 
 ```cs
 // Snapshot name will be the same as the name of the test
-Assert.MatchSnapshot(objectToSnapshot)
+Assert.MatchSnapshot(objectToSnapshot);
 
-Assert.MatchSnapshot(snapshotName, objectToSnapshot)
+Assert.MatchSnapshot(snapshotName, objectToSnapshot);
 ```
 To update snapshots set the Environment Variable `UpdateSnapshots` to `true` and run the tests.
 

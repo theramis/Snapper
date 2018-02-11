@@ -8,5 +8,7 @@
     <Description>Bringing Jest-esque Snapshot testing to C#
 
 See Project Site for more details</Description>
+    <PackageLicenseUrl>https://github.com/theramis/Snapper/blob/master/LICENSE</PackageLicenseUrl>
+    <PackageTags>testing, test, snapshot, jest</PackageTags>
   </PropertyGroup>
 </Project>

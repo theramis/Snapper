@@ -69,7 +69,7 @@ To update snapshots set the Environment Variable `UpdateSnapshots` to `true` and
 - ~~Update appveyor to build on every commit and publish nuget on tag~~
 - Create sample project
 - ~~Publish to Nuget~~
-- Add tags to Nuget
+- ~~Add tags to Nuget~~
 - Add logo to Nuget
 - Downgrade project to lowest .net standard possible
 - Downgrade nuget dependencies to lowest possible

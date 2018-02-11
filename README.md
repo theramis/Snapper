@@ -1,8 +1,61 @@
 # Snapper (WIP)
+**Bringing Jest-esque Snapshot testing to C#**
 [![Build status](https://ci.appveyor.com/api/projects/status/85loj4pnk1msawxp/branch/master?svg=true)](https://ci.appveyor.com/project/theramis/snapper/branch/master)
 
-Bringing Jest-esque Snapshot testing to C#
+Snapper is a [NuGet library](https://www.nuget.org/packages/Snapper.Core) which captures snapshots of objects to simplify testing.
+It is very heavily based on Jest Snapshot Testing.
 
+## Getting Started
+Currently Snapper consists of three different NuGet packages for extensibility.
+
+Choose which package best fits your needs
+- **Snapper.Core**: Basic snapshot functionality. Stores snapshots in bytes. Use for extending Snapper.
+- **Snapper.Json**: Extends Snapper.Core to provide storing snapshots in Json format
+- **Snapper.Json.Xunit**: Extends Snapper.Json. Adds extensions to XUnit Assert.
+
+Install the package through NuGet
+```
+nuget install <package_name>
+```
+
+## Using Snapper
+
+### Snapper.Core
+
+```cs
+// Create class which implements IAssert
+var asserter = new ClassWhichImplementsIAssert();
+
+var snapper = new Snapper(asserter, directoryToStoreSnapshots);
+
+// the object to snapshot must be marked as `Serializable`
+snapper.Snap("snapshotName", objectToSnapshot);
+```
+To update snapshots set the Environment Variable `UpdateSnapshots` to `true` and run the tests.
+
+### Snapper.Json
+
+```cs
+// Create class which implements IAssert
+var asserter = new ClassWhichImplementsIAssert();
+
+var snapper = new JsonSnapper(asserter, directoryToStoreSnapshots);
+
+snapper.Snap("snapshotName", objectToSnapshot);
+```
+To update snapshots set the Environment Variable `UpdateSnapshots` to `true` and run the tests.
+
+### Snapper.Json.Xunit
+This package extends XUnits `Assert` class and therefore conflicts with `xunit.assert` package.
+You can safely remove the `xunit.assert` package and just use what is imported through this package.
+
+```cs
+// Snapshot name will be the same as the name of the test
+Assert.MatchSnapshot(objectToSnapshot)
+
+Assert.MatchSnapshot(snapshotName, objectToSnapshot)
+```
+To update snapshots set the Environment Variable `UpdateSnapshots` to `true` and run the tests.
 
 ## Todo
 - Write tests
@@ -14,3 +67,5 @@ Bringing Jest-esque Snapshot testing to C#
 - ~~Publish to Nuget~~
 - Add tags to Nuget
 - Add logo to Nuget
+- Downgrade project to lowest .net standard possible
+- Downgrade nuget dependencies to lowest possible

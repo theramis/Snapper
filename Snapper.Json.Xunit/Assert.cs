@@ -1,5 +1,6 @@
 ﻿using Snapper.Json.Xunit;
 
+// ReSharper disable once CheckNamespace
 namespace Xunit
 {
     public partial class Assert

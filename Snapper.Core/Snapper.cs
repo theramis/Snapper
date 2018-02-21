@@ -7,10 +7,5 @@
                 new DefaultSnapComparer())
         {
         }
-
-        private Snapper(IAssert asserter, ISnapStore store, IPathResolver resolver, ISnapUpdateDecider snapUpdateDecider, ISnapComparer comparer)
-            : base(asserter, store, resolver, snapUpdateDecider, comparer)
-        {
-        }
     }
 }

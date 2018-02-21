@@ -1,13 +1,17 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
-VisualStudioVersion = 15.0.27130.2010
+VisualStudioVersion = 15.0.27130.2027
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Snapper.Core", "Snapper.Core\Snapper.Core.csproj", "{1605F3E8-7DA5-47B1-BA57-3B52A4EFADEE}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Snapper.Core", "Snapper.Core\Snapper.Core.csproj", "{1605F3E8-7DA5-47B1-BA57-3B52A4EFADEE}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Snapper.Json", "Snapper.Json\Snapper.Json.csproj", "{BCBA16A1-A361-43ED-96FF-71960BC7AD84}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Snapper.Json", "Snapper.Json\Snapper.Json.csproj", "{BCBA16A1-A361-43ED-96FF-71960BC7AD84}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Snapper.Json.Xunit", "Snapper.Json.Xunit\Snapper.Json.Xunit.csproj", "{010FA290-B3B5-4AD4-8C7E-486D116E9868}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Snapper.Json.Xunit", "Snapper.Json.Xunit\Snapper.Json.Xunit.csproj", "{010FA290-B3B5-4AD4-8C7E-486D116E9868}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Snapper.Core.Tests", "Snapper.Core.Tests\Snapper.Core.Tests.csproj", "{8B491CA7-A86D-47F5-86BF-8A545076892B}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{634162BB-9132-43E2-8741-DEE5F2F202A1}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -27,9 +31,16 @@ Global
 		{010FA290-B3B5-4AD4-8C7E-486D116E9868}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{010FA290-B3B5-4AD4-8C7E-486D116E9868}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{010FA290-B3B5-4AD4-8C7E-486D116E9868}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8B491CA7-A86D-47F5-86BF-8A545076892B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8B491CA7-A86D-47F5-86BF-8A545076892B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8B491CA7-A86D-47F5-86BF-8A545076892B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8B491CA7-A86D-47F5-86BF-8A545076892B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{8B491CA7-A86D-47F5-86BF-8A545076892B} = {634162BB-9132-43E2-8741-DEE5F2F202A1}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {24DD48CC-B026-4BFC-BED2-9554A34FB24C}

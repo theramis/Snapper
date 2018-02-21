@@ -1,4 +1,4 @@
-version: 0.0.{build}-beta
+version: 0.0.{build}
 
 max_jobs: 1
 configuration: Release

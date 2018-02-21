@@ -29,11 +29,10 @@ build:
   project: Snapper.sln
   publish_nuget: true
 
-test:
-  assemblies:
-    only:
-      - '**\*.Tests.dll'
+test: off
 
+test_script:
+  - ps: dotnet vstest (Get-ChildItem -Path "*/bin/*Tests.dll" -Recurse)
 
 deploy:
   - provider: NuGet
@@ -43,3 +42,11 @@ deploy:
     artifact: /.*\.nupkg/
     on:
       appveyor_repo_tag: true
+
+skip_commits:
+  files:
+  - .editorconfig
+  - .gitattributes
+  - .gitignore
+  - LICENSE
+  - README.md

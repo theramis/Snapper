@@ -40,15 +40,15 @@
 
         private void AssertSnapshot(string path, object newSnapValue, object oldSnapshot)
         {
-            if (_snapUpdateDecider.ShouldUpdateSnap())
+            if (_comparer.Compare(oldSnapshot, newSnapValue))
             {
-                _store.StoreSnap(path, newSnapValue);
                 _asserter.AssertEqual();
                 return;
             }
 
-            if (_comparer.Compare(oldSnapshot, newSnapValue))
+            if (_snapUpdateDecider.ShouldUpdateSnap())
             {
+                _store.StoreSnap(path, newSnapValue);
                 _asserter.AssertEqual();
                 return;
             }

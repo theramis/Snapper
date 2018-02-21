@@ -1,4 +1,5 @@
-﻿using System.IO;
+﻿using System;
+using System.IO;
 using System.Runtime.Serialization.Formatters.Binary;
 
 namespace Snapper.Core
@@ -21,9 +22,9 @@ namespace Snapper.Core
             File.WriteAllText(path, ObjectToString(value));
         }
 
-        private static object StringToObject(string data)
+        public static object StringToObject(string data)
         {
-            var bytes = System.Text.Encoding.UTF8.GetBytes(data);
+            var bytes = Convert.FromBase64String(data);
             var memStream = new MemoryStream();
             var binForm = new BinaryFormatter();
             memStream.Write(bytes, 0, bytes.Length);
@@ -32,7 +33,7 @@ namespace Snapper.Core
             return obj;
         }
 
-        private static string ObjectToString(object obj)
+        public static string ObjectToString(object obj)
         {
             if (obj == null)
                 return null;
@@ -40,7 +41,7 @@ namespace Snapper.Core
             var ms = new MemoryStream();
             bf.Serialize(ms, obj);
             var bytes = ms.ToArray();
-            return System.Text.Encoding.UTF8.GetString(bytes);
+            return Convert.ToBase64String(bytes);
         }
     }
 }

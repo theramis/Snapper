@@ -7,7 +7,7 @@ namespace Snapper.Json.Xunit
         internal static XUnitSnapper Create()
             => new XUnitSnapper(new XUnitAsserter(), new JsonSnapStore(), new XUnitPathResolver(), new XUnitEnvironmentVariableUpdateDecider(), new JsonSnapComparer());
 
-        protected XUnitSnapper(IAssert asserter, ISnapStore store, IPathResolver resolver, ISnapUpdateDecider snapUpdateDecider, ISnapComparer comparer) 
+        private XUnitSnapper(IAssert asserter, ISnapStore store, IPathResolver resolver, ISnapUpdateDecider snapUpdateDecider, ISnapComparer comparer)
             : base(asserter, store, resolver, snapUpdateDecider, comparer)
         {
         }

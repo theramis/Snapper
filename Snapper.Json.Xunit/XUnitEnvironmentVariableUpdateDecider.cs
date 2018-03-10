@@ -12,7 +12,6 @@ namespace Snapper.Json.Xunit
             _envUpdateDecider = new EnvironmentVariableUpdateDecider();
         }
 
-
         public bool ShouldUpdateSnap()
         {
             if (_envUpdateDecider.ShouldUpdateSnap())
@@ -20,7 +19,7 @@ namespace Snapper.Json.Xunit
 
             var (method, _) = XUnitTestHelper.GetCallingTestInfo();
 
-            return method?.GetCustomAttributes(typeof(UpdateTestSnapshots), true).Any() ?? false;
+            return method?.GetCustomAttributes(typeof(UpdateTestSnapshot), true).Any() ?? false;
         }
     }
 }

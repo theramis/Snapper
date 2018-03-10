@@ -14,12 +14,12 @@ namespace Snapper.Core
     public class ByteSnapStore : ISnapStore
     {
         private readonly IFileSystem _fileSystem;
-        
+
         public ByteSnapStore(IFileSystem fileSystem = null)
         {
             _fileSystem = fileSystem ?? new FileSystem();
         }
-        
+
         public object GetSnap(string path)
             => _fileSystem.FileExists(path) ? StringToObject(_fileSystem.ReadTextFromFile(path)) : null;
 
@@ -29,7 +29,7 @@ namespace Snapper.Core
             _fileSystem.WriteTextToFile(path, ObjectToString(value));
         }
 
-        public static object StringToObject(string data)
+        private static object StringToObject(string data)
         {
             var bytes = Convert.FromBase64String(data);
             var memStream = new MemoryStream();
@@ -40,7 +40,7 @@ namespace Snapper.Core
             return obj;
         }
 
-        public static string ObjectToString(object obj)
+        private static string ObjectToString(object obj)
         {
             if (obj == null)
                 return null;

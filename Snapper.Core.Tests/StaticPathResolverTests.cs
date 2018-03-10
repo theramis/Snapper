@@ -1,4 +1,6 @@
-﻿using Xunit;
+﻿using System.IO;
+using System.Linq;
+using Xunit;
 
 namespace Snapper.Core.Tests
 {
@@ -17,7 +19,7 @@ namespace Snapper.Core.Tests
         {
             var path = _resolver.ResolvePath("snap_name");
 
-            Assert.Equal($"{SnapshotDir}\\snap_name", path);
+            Assert.Equal(Path.Combine(SnapshotDir, "snap_name"), path);
         }
     }
 }

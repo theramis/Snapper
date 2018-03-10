@@ -2,3 +2,6 @@
 .vs/
 bin/
 obj/
+
+.idea
+.DS_Store

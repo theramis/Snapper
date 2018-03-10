@@ -1,5 +1,4 @@
 ﻿using System.IO;
-using System.Linq;
 using Xunit;
 
 namespace Snapper.Core.Tests

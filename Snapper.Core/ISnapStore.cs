@@ -13,13 +13,20 @@ namespace Snapper.Core
 
     public class ByteSnapStore : ISnapStore
     {
+        private readonly IFileSystem _fileSystem;
+        
+        public ByteSnapStore(IFileSystem fileSystem = null)
+        {
+            _fileSystem = fileSystem ?? new FileSystem();
+        }
+        
         public object GetSnap(string path)
-            => File.Exists(path) ? StringToObject(File.ReadAllText(path)) : null;
+            => _fileSystem.FileExists(path) ? StringToObject(_fileSystem.ReadTextFromFile(path)) : null;
 
         public void StoreSnap(string path, object value)
         {
-            Directory.CreateDirectory(Path.GetDirectoryName(path));
-            File.WriteAllText(path, ObjectToString(value));
+            _fileSystem.CreateFolder(_fileSystem.GetFolderPath(path));
+            _fileSystem.WriteTextToFile(path, ObjectToString(value));
         }
 
         public static object StringToObject(string data)

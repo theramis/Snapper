@@ -13,6 +13,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Snapper.Core.Tests", "Snapp
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{634162BB-9132-43E2-8741-DEE5F2F202A1}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Snapper.Json.Tests", "Snapper.Json.Tests\Snapper.Json.Tests.csproj", "{A0ADBE86-459B-49B3-878D-36DF32D75CA9}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -35,12 +37,17 @@ Global
 		{8B491CA7-A86D-47F5-86BF-8A545076892B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8B491CA7-A86D-47F5-86BF-8A545076892B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{8B491CA7-A86D-47F5-86BF-8A545076892B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A0ADBE86-459B-49B3-878D-36DF32D75CA9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A0ADBE86-459B-49B3-878D-36DF32D75CA9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A0ADBE86-459B-49B3-878D-36DF32D75CA9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A0ADBE86-459B-49B3-878D-36DF32D75CA9}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{8B491CA7-A86D-47F5-86BF-8A545076892B} = {634162BB-9132-43E2-8741-DEE5F2F202A1}
+		{A0ADBE86-459B-49B3-878D-36DF32D75CA9} = {634162BB-9132-43E2-8741-DEE5F2F202A1}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {24DD48CC-B026-4BFC-BED2-9554A34FB24C}

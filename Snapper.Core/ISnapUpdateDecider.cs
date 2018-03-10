@@ -1,5 +1,4 @@
 ﻿using System;
-using System.IO;
 
 namespace Snapper.Core
 {
@@ -29,13 +28,15 @@ namespace Snapper.Core
     public sealed class UpdateFileUpdateDecider : ISnapUpdateDecider
     {
         private readonly string _updateFilePath;
+        private readonly IFileSystem _fileSystem;
 
-        public UpdateFileUpdateDecider(string updateFilePath)
+        public UpdateFileUpdateDecider(string updateFilePath, IFileSystem fileSystem = null)
         {
             _updateFilePath = updateFilePath;
+            _fileSystem = fileSystem ?? new FileSystem();
         }
 
         public bool ShouldUpdateSnap()
-            => File.Exists(_updateFilePath);
+            => _fileSystem.FileExists(_updateFilePath);
     }
 }

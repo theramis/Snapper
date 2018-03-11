@@ -11,7 +11,7 @@ namespace Snapper.Json.Xunit
     {
         public static (MethodBase method, string filePath) GetCallingTestInfo()
         {
-            var stackTrace = new StackTrace(2, true);
+            var stackTrace = new StackTrace(null, true);
             foreach (var stackFrame in stackTrace.GetFrames() ?? new StackFrame[0])
             {
                 var method = stackFrame.GetMethod();
@@ -27,7 +27,7 @@ namespace Snapper.Json.Xunit
             throw new InvalidOperationException("Snapshots can only be created from classes decorated with the [Fact] or [Theory] attribute");
         }
 
-        private static bool IsXUnitTestMethod(ICustomAttributeProvider method)
+        private static bool IsXUnitTestMethod(MemberInfo method)
             => method?.GetCustomAttributes(typeof(FactAttribute), true).Any() ?? false;
 
         private static MethodBase GetMethodBaseOfAsyncMethod(MemberInfo asyncMethod)

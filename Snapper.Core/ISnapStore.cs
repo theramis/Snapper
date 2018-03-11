@@ -1,7 +1,6 @@
-﻿using System;
+﻿#if NETSTANDARD2_0
+using System;
 using System.IO;
-
-#if NETSTANDARD2_0
 using System.Runtime.Serialization.Formatters.Binary;
 #endif
 

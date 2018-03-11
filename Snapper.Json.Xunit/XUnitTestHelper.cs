@@ -11,7 +11,7 @@ namespace Snapper.Json.Xunit
     {
         public static (MethodBase method, string filePath) GetCallingTestInfo()
         {
-            var stackTrace = new StackTrace(null, true);
+            var stackTrace = new StackTrace(2, true);
             foreach (var stackFrame in stackTrace.GetFrames() ?? new StackFrame[0])
             {
                 var method = stackFrame.GetMethod();

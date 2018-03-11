@@ -60,9 +60,10 @@ Assert.MatchSnapshot(objectToSnapshot);
 Assert.MatchSnapshot(snapshotName, objectToSnapshot);
 ```
 To update snapshots set the Environment Variable `UpdateSnapshots` to `true` and run the tests.
+You can also add the `[UpdateTestSnapshot]` attribute to you test and run it. (Remember to remove it before you commit your code)
 
 ## Todo
-- Write tests
+- ~~Write tests~~
 - ~~Extend XUnit Assert e.g. `Assert.Snap(obj)` rather than `XUnitSnapper.Snap(obj)`~~
 - Write wiki docs
 - Write method/class docs

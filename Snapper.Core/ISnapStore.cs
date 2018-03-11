@@ -1,6 +1,9 @@
 ﻿using System;
 using System.IO;
+
+#if NETSTANDARD2_0
 using System.Runtime.Serialization.Formatters.Binary;
+#endif
 
 namespace Snapper.Core
 {
@@ -11,6 +14,7 @@ namespace Snapper.Core
         void StoreSnap(string path, object value);
     }
 
+    #if NETSTANDARD2_0
     public class ByteSnapStore : ISnapStore
     {
         private readonly IFileSystem _fileSystem;
@@ -51,4 +55,5 @@ namespace Snapper.Core
             return Convert.ToBase64String(bytes);
         }
     }
+    #endif
 }

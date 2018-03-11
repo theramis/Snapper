@@ -1,6 +1,6 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <TargetFramework>netstandard2.0</TargetFramework>
+    <TargetFramework>netstandard1.3</TargetFramework>
     <Version>0.0.0</Version>
     <Authors>Simar Kalra</Authors>
     <RepositoryUrl>https://github.com/theramis/Snapper</RepositoryUrl>
@@ -14,6 +14,9 @@ See Project Site for more details</Description>
   </PropertyGroup>
   <ItemGroup>
     <PackageReference Include="Newtonsoft.Json" Version="10.0.3" />
+    <PackageReference Include="System.Diagnostics.StackTrace" Version="4.3.0" />
+    <PackageReference Include="System.Reflection.TypeExtensions" Version="4.4.0" />
+    <PackageReference Include="System.ValueTuple" Version="4.4.0" />
     <PackageReference Include="xunit.assert.source" Version="2.3.1" />
     <PackageReference Include="xunit.extensibility.core" Version="2.3.1" />
     <ProjectReference Include="..\Snapper.Core\Snapper.Core.csproj" />

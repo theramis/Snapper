@@ -72,5 +72,5 @@ You can also add the `[UpdateTestSnapshot]` attribute to your test and run it. (
 - ~~Publish to Nuget~~
 - ~~Add tags to Nuget~~
 - Add logo to Nuget
-- Downgrade project to lowest .net standard possible
-- Downgrade nuget dependencies to lowest possible
+- ~~Downgrade project to lowest .net standard possible~~
+- ~~Downgrade nuget dependencies to lowest possible~~

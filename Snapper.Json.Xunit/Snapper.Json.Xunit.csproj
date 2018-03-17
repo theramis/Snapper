@@ -14,8 +14,6 @@ See Project Site for more details</Description>
   </PropertyGroup>
   <ItemGroup>
     <PackageReference Include="Newtonsoft.Json" Version="10.0.3" />
-    <PackageReference Include="System.Reflection.TypeExtensions" Version="4.4.0" />
-    <PackageReference Include="System.ValueTuple" Version="4.4.0" />
     <PackageReference Include="xunit.assert.source" Version="2.3.1" />
     <PackageReference Include="xunit.extensibility.core" Version="2.3.1" />
     <ProjectReference Include="..\Snapper.Core\Snapper.Core.csproj" />

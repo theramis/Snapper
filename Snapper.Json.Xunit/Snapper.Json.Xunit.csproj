@@ -15,7 +15,7 @@ See Project Site for more details</Description>
   <ItemGroup>
     <PackageReference Include="Newtonsoft.Json" Version="10.0.3" />
     <PackageReference Include="xunit.assert" Version="2.3.0" />
-    <PackageReference Include="xunit.extensibility.core" Version="2.3.1" />
+    <PackageReference Include="xunit.extensibility.core" Version="2.3.0" />
     <ProjectReference Include="..\Snapper.Core\Snapper.Core.csproj" />
     <ProjectReference Include="..\Snapper.Json\Snapper.Json.csproj" />
   </ItemGroup>

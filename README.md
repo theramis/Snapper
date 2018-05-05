@@ -1,4 +1,4 @@
-# Snapper (WIP)
+# Snapper
 **Bringing Jest-esque Snapshot testing to C#**
 
 [![AppVeyor](https://img.shields.io/appveyor/ci/gruntjs/grunt.svg?style=for-the-badge)](https://ci.appveyor.com/project/theramis/snapper)

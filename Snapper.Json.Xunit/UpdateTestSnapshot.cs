@@ -2,8 +2,8 @@
 
 namespace Snapper.Json.Xunit
 {
-    [AttributeUsage(AttributeTargets.Method)]
-    public sealed class UpdateTestSnapshot : Attribute
+    [AttributeUsage(AttributeTargets.Method | AttributeTargets.Class)]
+    public sealed class UpdateSnapshots : Attribute
     {
     }
 }

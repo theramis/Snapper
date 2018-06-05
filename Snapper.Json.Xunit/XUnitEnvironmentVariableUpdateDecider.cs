@@ -19,7 +19,10 @@ namespace Snapper.Json.Xunit
 
             var (method, _) = XUnitTestHelper.GetCallingTestInfo();
 
-            return method?.GetCustomAttributes(typeof(UpdateTestSnapshot), true).Any() ?? false;
+            var methodHasAttribute = method?.GetCustomAttributes(typeof(UpdateSnapshots), true).Any() ?? false;
+            var classHasAttribute = method?.ReflectedType?.GetCustomAttributes(typeof(UpdateSnapshots), true).Any() ?? false;
+
+            return methodHasAttribute || classHasAttribute;
         }
     }
 }

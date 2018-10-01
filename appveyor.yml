@@ -2,12 +2,12 @@ version: 0.0.{build}
 
 max_jobs: 1
 configuration: Release
+skip_branch_with_pr: true
 
 image: Visual Studio 2017
 
 init:
   - git config --global core.autocrlf input
-
 
 install:
   - ps: $version = (cat version.txt); Set-AppveyorBuildVariable 'nugetVersion' $version

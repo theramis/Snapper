@@ -10,6 +10,7 @@ See Project Site for more details</Description>
     <PackageLicenseUrl>https://github.com/theramis/Snapper/blob/master/LICENSE</PackageLicenseUrl>
     <PackageTags>testing, test, snapshot, jest</PackageTags>
     <LangVersion>latest</LangVersion>
+    <LangVersion >latest</LangVersion >
     <TargetFrameworks>netstandard1.3;netstandard2.0</TargetFrameworks>
   </PropertyGroup>
 </Project>

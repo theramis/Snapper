@@ -3,7 +3,7 @@ using Snapper.Core;
 
 namespace Snapper.Json.Xunit
 {
-    internal class XUnitPathResolver : IPathResolver
+    public class XUnitPathResolver : IPathResolver
     {
         public string ResolvePath(string snapshotName)
         {

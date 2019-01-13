@@ -7,7 +7,7 @@ using Xunit;
 
 namespace Snapper.Json.Xunit
 {
-    public static class XUnitTestHelper
+    internal static class XUnitTestHelper
     {
         public static (MethodBase method, string filePath) GetCallingTestInfo()
         {

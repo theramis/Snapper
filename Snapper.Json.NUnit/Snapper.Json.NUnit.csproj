@@ -10,14 +10,14 @@ See Project Site for more details</Description>
     <PackageProjectUrl>https://github.com/theramis/Snapper</PackageProjectUrl>
     <PackageLicenseUrl>https://github.com/theramis/Snapper/blob/master/LICENSE</PackageLicenseUrl>
     <PackageTags>testing, test, snapshot, jest, json, xunit</PackageTags>
-    <LangVersion>latest</LangVersion>
-    <LangVersion >latest</LangVersion >
+    <LangVersion>7.2</LangVersion>
+    <RootNamespace >Snapper.Json.NUnit</RootNamespace >
   </PropertyGroup>
   <ItemGroup>
-    <PackageReference Include="Newtonsoft.Json" Version="10.0.3" />
-    <PackageReference Include="xunit.assert" Version="2.3.0" />
-    <PackageReference Include="xunit.extensibility.core" Version="2.3.0" />
     <ProjectReference Include="..\Snapper.Core\Snapper.Core.csproj" />
     <ProjectReference Include="..\Snapper.Json\Snapper.Json.csproj" />
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="NUnit" Version="3.11.0" />
   </ItemGroup>
 </Project>

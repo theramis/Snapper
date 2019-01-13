@@ -8,7 +8,7 @@ using Xunit;
 
 namespace Snapper.Json.Xunit
 {
-    public class XUnitAsserter : IAssert
+    internal class XUnitAsserter : IAssert
     {
         public void AssertEqual()
         {

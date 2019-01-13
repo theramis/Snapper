@@ -3,7 +3,7 @@ using Snapper.Core;
 
 namespace Snapper.Json.Xunit
 {
-    internal class XUnitEnvironmentVariableUpdateDecider : ISnapUpdateDecider
+    public class XUnitEnvironmentVariableUpdateDecider : ISnapUpdateDecider
     {
         private readonly ISnapUpdateDecider _envUpdateDecider;
 

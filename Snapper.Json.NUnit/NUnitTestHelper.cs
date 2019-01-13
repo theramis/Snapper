@@ -1,34 +1,35 @@
-﻿using System;
+using System;
 using System.Diagnostics;
 using System.Linq;
 using System.Reflection;
 using System.Runtime.CompilerServices;
-using Xunit;
+using NUnit.Framework;
 
-namespace Snapper.Json.Xunit
+namespace Snapper.Json.NUnit
 {
-    internal static class XUnitTestHelper
+    internal static class NUnitTestHelper
     {
-        public static (MethodBase method, string filePath) GetCallingTestInfo()
+        public static (MethodBase, string) GetCallingTestInfo()
         {
             var stackTrace = new StackTrace(2, true);
             foreach (var stackFrame in stackTrace.GetFrames() ?? new StackFrame[0])
             {
                 var method = stackFrame.GetMethod();
 
-                if (IsXUnitTestMethod(method))
+                if (IsNUnitTestMethod(method))
                     return (method, stackFrame.GetFileName());
 
                 var asyncMethod = GetMethodBaseOfAsyncMethod(method);
-                if (IsXUnitTestMethod(asyncMethod))
+                if (IsNUnitTestMethod(asyncMethod))
                     return (asyncMethod, stackFrame.GetFileName());
             }
 
-            throw new InvalidOperationException("Snapshots can only be created from classes decorated with the [Fact] or [Theory] attribute");
+            throw new InvalidOperationException(
+                "Snapshots can only be created from classes decorated with the [Test] attribute");
         }
 
-        private static bool IsXUnitTestMethod(MemberInfo method)
-            => method?.GetCustomAttributes(typeof(FactAttribute), true).Any() ?? false;
+        private static bool IsNUnitTestMethod(MemberInfo method)
+            => method?.GetCustomAttributes(typeof(TestAttribute), true).Any() ?? false;
 
         private static MethodBase GetMethodBaseOfAsyncMethod(MemberInfo asyncMethod)
         {

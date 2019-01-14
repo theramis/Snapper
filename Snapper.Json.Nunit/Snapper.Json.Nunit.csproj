@@ -11,7 +11,7 @@ See Project Site for more details</Description>
     <PackageLicenseUrl>https://github.com/theramis/Snapper/blob/master/LICENSE</PackageLicenseUrl>
     <PackageTags>testing, test, snapshot, jest, json, xunit</PackageTags>
     <LangVersion>7.2</LangVersion>
-    <RootNamespace >Snapper.Json.NUnit</RootNamespace >
+    <RootNamespace >Snapper.Json.Nunit</RootNamespace >
   </PropertyGroup>
   <ItemGroup>
     <ProjectReference Include="..\Snapper.Core\Snapper.Core.csproj" />

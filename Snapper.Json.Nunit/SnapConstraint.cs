@@ -2,7 +2,7 @@ using System;
 using NUnit.Framework.Constraints;
 using NUnitFramework = NUnit.Framework;
 
-namespace Snapper.Json.NUnit
+namespace Snapper.Json.Nunit
 {
     public static class EqualToSnapshotConstraintExtensions
     {

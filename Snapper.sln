@@ -15,9 +15,9 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{634162BB
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Snapper.Json.Tests", "Snapper.Json.Tests\Snapper.Json.Tests.csproj", "{A0ADBE86-459B-49B3-878D-36DF32D75CA9}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Snapper.Json.NUnit", "Snapper.Json.NUnit\Snapper.Json.NUnit.csproj", "{CF835107-C383-42A6-B71B-0854BD72138C}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Snapper.Json.Nunit", "Snapper.Json.Nunit\Snapper.Json.Nunit.csproj", "{CF835107-C383-42A6-B71B-0854BD72138C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Snapper.Json.NUnit.Tests", "Snapper.Json.NUnit.Tests\Snapper.Json.NUnit.Tests.csproj", "{B1C0D671-DDE2-44A1-8D58-B0370508A32E}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Snapper.Json.Nunit.Tests", "Snapper.Json.Nunit.Tests\Snapper.Json.Nunit.Tests.csproj", "{B1C0D671-DDE2-44A1-8D58-B0370508A32E}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

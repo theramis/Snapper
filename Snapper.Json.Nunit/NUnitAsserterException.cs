@@ -1,6 +1,6 @@
 using System;
 
-namespace Snapper.Json.NUnit
+namespace Snapper.Json.Nunit
 {
     internal class NUnitAsserterException : Exception
     {

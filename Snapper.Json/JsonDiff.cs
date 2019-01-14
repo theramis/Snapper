@@ -6,7 +6,7 @@ using Newtonsoft.Json.Linq;
 
 namespace Snapper.Json
 {
-    public class JsonDiff
+    internal class JsonDiff
     {
         internal static string GetDiffMessage(JToken old, JToken @new)
         {

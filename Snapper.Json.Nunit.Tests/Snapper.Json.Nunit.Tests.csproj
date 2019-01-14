@@ -4,6 +4,8 @@
     <TargetFramework >netcoreapp2.0</TargetFramework >
 
     <IsPackable >false</IsPackable >
+
+    <RootNamespace >Snapper.Json.NUnit.Tests</RootNamespace >
   </PropertyGroup >
 
   <ItemGroup >
@@ -16,7 +18,7 @@
   </ItemGroup >
 
   <ItemGroup >
-    <ProjectReference Include="..\Snapper.Json.NUnit\Snapper.Json.NUnit.csproj" />
+    <ProjectReference Include="..\Snapper.Json.Nunit\Snapper.Json.Nunit.csproj" />
   </ItemGroup >
 
 </Project >

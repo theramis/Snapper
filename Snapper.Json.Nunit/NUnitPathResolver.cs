@@ -1,8 +1,7 @@
 ﻿using System.IO;
-using System.Security;
 using Snapper.Core;
 
-namespace Snapper.Json.NUnit
+namespace Snapper.Json.Nunit
 {
     internal class NUnitPathResolver : IPathResolver
     {

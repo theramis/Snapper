@@ -1,7 +1,7 @@
 ﻿using System.Linq;
 using Snapper.Core;
 
-namespace Snapper.Json.NUnit
+namespace Snapper.Json.Nunit
 {
     internal class NUnitEnvironmentVariableUpdateDecider : ISnapUpdateDecider
     {

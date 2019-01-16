@@ -34,7 +34,7 @@ build:
 test: off
 
 test_script:
-  - ps: dotnet test
+  - ps: dotnet test --no-build
 
 deploy:
   - provider: NuGet

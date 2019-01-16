@@ -9,8 +9,8 @@
 See Project Site for more details</Description>
     <PackageProjectUrl>https://github.com/theramis/Snapper</PackageProjectUrl>
     <PackageLicenseUrl>https://github.com/theramis/Snapper/blob/master/LICENSE</PackageLicenseUrl>
-    <PackageTags>testing, test, snapshot, jest, json, xunit</PackageTags>
-    <LangVersion>7.2</LangVersion>
+    <PackageTags>testing, test, snapshot, jest, json, nunit</PackageTags>
+    <LangVersion>latest</LangVersion>
     <RootNamespace >Snapper.Json.Nunit</RootNamespace >
   </PropertyGroup>
   <ItemGroup>

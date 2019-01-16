@@ -10,6 +10,7 @@ See Project Site for more details</Description>
     <PackageProjectUrl>https://github.com/theramis/Snapper</PackageProjectUrl>
     <PackageLicenseUrl>https://github.com/theramis/Snapper/blob/master/LICENSE</PackageLicenseUrl>
     <PackageTags>testing, test, snapshot, jest, json, xunit</PackageTags>
+    <LangVersion >latest</LangVersion >
     <LangVersion>latest</LangVersion>
   </PropertyGroup>
   <ItemGroup>

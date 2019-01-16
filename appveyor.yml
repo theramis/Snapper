@@ -29,6 +29,8 @@ build:
   project: Snapper.sln
   publish_nuget: true
 
+skip_branch_with_pr: true
+
 test: off
 
 test_script:

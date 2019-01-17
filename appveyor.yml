@@ -34,7 +34,7 @@ skip_branch_with_pr: true
 test: off
 
 test_script:
-  - ps: dotnet test --no-build
+  - ps: dotnet test --no-build --test-adapter-path:. --logger:Appveyor
 
 deploy:
   - provider: NuGet

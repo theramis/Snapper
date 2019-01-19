@@ -1,0 +1,23 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+    <Version>0.0.0</Version>
+    <Authors>Simar Kalra</Authors>
+    <RepositoryUrl>https://github.com/theramis/Snapper</RepositoryUrl>
+    <Description>Bringing Jest-esque Snapshot testing to C#
+
+See Project Site for more details</Description>
+    <PackageProjectUrl>https://github.com/theramis/Snapper</PackageProjectUrl>
+    <PackageLicenseUrl>https://github.com/theramis/Snapper/blob/master/LICENSE</PackageLicenseUrl>
+    <PackageTags>testing, test, snapshot, jest, json, nunit</PackageTags>
+    <LangVersion>latest</LangVersion>
+    <RootNamespace>Snapper.Json.Nunit</RootNamespace>
+  </PropertyGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Snapper.Core\Snapper.Core.csproj" />
+    <ProjectReference Include="..\Snapper.Json\Snapper.Json.csproj" />
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="NUnit" Version="3.11.0" />
+  </ItemGroup>
+</Project>

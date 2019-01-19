@@ -3,6 +3,7 @@
     <TargetFramework>netcoreapp2.0</TargetFramework>
     <RuntimeFrameworkVersion>2.0.5</RuntimeFrameworkVersion>
     <IsPackable>false</IsPackable>
+    <IsTestProject>true</IsTestProject>
     <LangVersion>latest</LangVersion>
   </PropertyGroup>
   <ItemGroup>

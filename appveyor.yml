@@ -34,7 +34,7 @@ build:
 test: off
 
 test_script:
-  - ps: dotnet vstest (Get-ChildItem -Path "*/bin/*Tests.dll" -Recurse)
+  - ps: dotnet test --no-build
 
 deploy:
   - provider: NuGet

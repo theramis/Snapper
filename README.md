@@ -14,8 +14,9 @@ Currently Snapper consists of three different NuGet packages for extensibility.
 
 Choose the package which best fits your needs
 - **Snapper.Core**: Basic snapshot functionality. Stores snapshots in bytes. Use for extending Snapper.
-- **Snapper.Json**: Extends Snapper.Core to provide storing snapshots in Json format
-- **Snapper.Json.Xunit**: Extends Snapper.Json and integrates with the XUnit testing framework.
+- **Snapper.Json**: Extends `Snapper.Core` to provide storing snapshots in Json format
+- **Snapper.Json.Xunit**: Extends `Snapper.Json` and integrates with the XUnit testing framework.
+- **Snapper.Json.Nunit**: Extends `Snapper.Json` and integrates with the NUnit testing framework.
 
 Install the package through NuGet
 ```
@@ -59,7 +60,19 @@ XUnitSnapper.MatchSnapshot(objectToSnapshot);
 XUnitSnapper.MatchSnapshot(snapshotName, objectToSnapshot);
 ```
 To update snapshots set the Environment Variable `UpdateSnapshots` to `true` and run the tests.
-You can also add the `[UpdateSnapshots]` attribute to your test and run it. (Remember to remove it before you commit your code)
+You can also add the `[UpdateSnapshots]` attribute to your test method/class and run it. (Remember to remove it before you commit your code)
+
+### Snapper.Json.Nunit
+This package extends `Snapper.Json` to provide integration with the `NUnit` testing framework.
+
+```cs
+// Snapshot name will be the same as the name of the test
+Assert.That(objectToSnapshot, Is.EqualToSnapshot());
+
+Assert.That(objectToSnapshot, Is.EqualToSnapshot(snapshotName));
+```
+To update snapshots set the Environment Variable `UpdateSnapshots` to `true` and run the tests.
+You can also add the `[UpdateSnapshots]` attribute to your test method/class and run it. (Remember to remove it before you commit your code)
 
 ## Todo
 - ~~Write tests~~

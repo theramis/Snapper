@@ -1,0 +1,19 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <TargetFramework>netcoreapp2.0</TargetFramework>
+    <IsPackable>false</IsPackable>
+    <IsTestProject>true</IsTestProject>
+    <LangVersion>latest</LangVersion>
+    <RootNamespace>Snapper.Json.NUnit.Tests</RootNamespace>
+  </PropertyGroup>
+  <ItemGroup>
+    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="15.7.2" />
+    <PackageReference Include="NUnit3TestAdapter" Version="3.12.0" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="_snapshots" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Snapper.Json.Nunit\Snapper.Json.Nunit.csproj" />
+  </ItemGroup>
+</Project>

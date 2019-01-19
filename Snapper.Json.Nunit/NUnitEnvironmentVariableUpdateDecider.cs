@@ -1,13 +1,13 @@
 ﻿using System.Linq;
 using Snapper.Core;
 
-namespace Snapper.Json.Xunit
+namespace Snapper.Json.Nunit
 {
-    public class XUnitEnvironmentVariableUpdateDecider : ISnapUpdateDecider
+    internal class NUnitEnvironmentVariableUpdateDecider : ISnapUpdateDecider
     {
         private readonly ISnapUpdateDecider _envUpdateDecider;
 
-        public XUnitEnvironmentVariableUpdateDecider()
+        public NUnitEnvironmentVariableUpdateDecider()
         {
             _envUpdateDecider = new EnvironmentVariableUpdateDecider();
         }
@@ -17,7 +17,7 @@ namespace Snapper.Json.Xunit
             if (_envUpdateDecider.ShouldUpdateSnap())
                 return true;
 
-            var (method, _) = XUnitTestHelper.GetCallingTestInfo();
+            var (method, _) = NUnitTestHelper.GetCallingTestInfo();
 
             var methodHasAttribute = method?.GetCustomAttributes(typeof(UpdateSnapshots), true).Any() ?? false;
             var classHasAttribute =

@@ -35,6 +35,7 @@ test: off
 
 test_script:
   - ps: dotnet test --no-build
+  - ps: dotnet test Snapper.Json.Nunit.Tests/Snapper.Json.Nunit.Tests.csproj --logger:Appveyor --no-build
 
 deploy:
   - provider: NuGet

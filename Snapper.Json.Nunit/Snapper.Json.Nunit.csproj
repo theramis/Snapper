@@ -18,6 +18,6 @@ See Project Site for more details</Description>
     <ProjectReference Include="..\Snapper.Json\Snapper.Json.csproj" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="NUnit" Version="3.11.0" />
+    <PackageReference Include="NUnit" Version="3.6.0" />
   </ItemGroup>
 </Project>

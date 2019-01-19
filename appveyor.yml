@@ -52,3 +52,4 @@ skip_commits:
   - .gitignore
   - LICENSE
   - README.md
+  - CHANGELOG.md

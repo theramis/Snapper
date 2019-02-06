@@ -13,6 +13,6 @@
     <DotNetCliToolReference Include="dotnet-xunit" Version="2.3.1" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Snapper.Core\Snapper.Core.csproj" />
+    <ProjectReference Include="..\..\Snapper.Core\Snapper.Core.csproj" />
   </ItemGroup>
 </Project>

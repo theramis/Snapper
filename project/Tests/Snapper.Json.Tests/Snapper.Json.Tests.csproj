@@ -13,9 +13,6 @@
     <DotNetCliToolReference Include="dotnet-xunit" Version="2.3.1" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Snapper.Json\Snapper.Json.csproj">
-      <Project>{BCBA16A1-A361-43ED-96FF-71960BC7AD84}</Project>
-      <Name>Snapper.Json</Name>
-    </ProjectReference>
+    <ProjectReference Include="..\..\Snapper.Json\Snapper.Json.csproj" />
   </ItemGroup>
 </Project>

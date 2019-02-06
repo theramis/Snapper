@@ -15,6 +15,6 @@
     <Folder Include="_snapshots" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Snapper.Json.Nunit\Snapper.Json.Nunit.csproj" />
+    <ProjectReference Include="..\..\Snapper.Json.Nunit\Snapper.Json.Nunit.csproj" />
   </ItemGroup>
 </Project>

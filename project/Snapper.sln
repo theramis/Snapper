@@ -9,15 +9,15 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Snapper.Json", "Snapper.Jso
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Snapper.Json.Xunit", "Snapper.Json.Xunit\Snapper.Json.Xunit.csproj", "{010FA290-B3B5-4AD4-8C7E-486D116E9868}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Snapper.Core.Tests", "Snapper.Core.Tests\Snapper.Core.Tests.csproj", "{8B491CA7-A86D-47F5-86BF-8A545076892B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Snapper.Core.Tests", "Tests\Snapper.Core.Tests\Snapper.Core.Tests.csproj", "{8B491CA7-A86D-47F5-86BF-8A545076892B}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{634162BB-9132-43E2-8741-DEE5F2F202A1}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Snapper.Json.Tests", "Snapper.Json.Tests\Snapper.Json.Tests.csproj", "{A0ADBE86-459B-49B3-878D-36DF32D75CA9}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Snapper.Json.Tests", "Tests\Snapper.Json.Tests\Snapper.Json.Tests.csproj", "{A0ADBE86-459B-49B3-878D-36DF32D75CA9}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Snapper.Json.Nunit", "Snapper.Json.Nunit\Snapper.Json.Nunit.csproj", "{CF835107-C383-42A6-B71B-0854BD72138C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Snapper.Json.Nunit.Tests", "Snapper.Json.Nunit.Tests\Snapper.Json.Nunit.Tests.csproj", "{B1C0D671-DDE2-44A1-8D58-B0370508A32E}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Snapper.Json.Nunit.Tests", "Tests\Snapper.Json.Nunit.Tests\Snapper.Json.Nunit.Tests.csproj", "{B1C0D671-DDE2-44A1-8D58-B0370508A32E}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

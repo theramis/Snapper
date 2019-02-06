@@ -1,4 +1,5 @@
-﻿using Moq;
+﻿using FluentAssertions;
+using Moq;
 using Xunit;
 
 namespace Snapper.Core.Tests
@@ -7,101 +8,117 @@ namespace Snapper.Core.Tests
     {
         private readonly object _obj = new {value = 1};
         private readonly SnapperCore _snapper;
-        private readonly Mock<IAssert> _asserter;
         private readonly Mock<ISnapStore> _store;
-        private readonly Mock<IPathResolver> _pathResolver;
         private readonly Mock<ISnapUpdateDecider> _updateDecider;
         private readonly Mock<ISnapComparer> _comparer;
+        private readonly Mock<ISnapIdResolver> _idResolver;
 
         public SnapperCoreTests()
         {
-            _asserter = new Mock<IAssert>();
             _store = new Mock<ISnapStore>();
-            _pathResolver = new Mock<IPathResolver>();
             _updateDecider = new Mock<ISnapUpdateDecider>();
             _comparer = new Mock<ISnapComparer>();
+            _idResolver = new Mock<ISnapIdResolver>();
 
-            _snapper = new SnapperCore(_asserter.Object, _store.Object, _pathResolver.Object,
-                _updateDecider.Object, _comparer.Object);
+            _snapper = new SnapperCore(_store.Object, _updateDecider.Object,
+                _comparer.Object, _idResolver.Object);
         }
 
         [Fact]
-        public void SnapshotDoesNotExist_AssertNotEqual()
+        public void SnapshotDoesNotExist_ResultStatusIs_SnapshotDoesNotExist()
         {
-            _pathResolver.Setup(a => a.ResolvePath(It.IsAny<string>())).Returns("path");
-            _updateDecider.Setup(a => a.ShouldUpdateSnap()).Returns(false);
+            _idResolver.Setup(a => a.ResolveSnapId(It.IsAny<string>())).Returns("id");
             _store.Setup(a => a.GetSnap(It.IsAny<string>())).Returns(null);
-
-            _snapper.Snap("name", _obj);
-
-            _asserter.Verify(a => a.AssertNotEqual(It.IsAny<string>()), Times.Once);
-        }
-
-        [Fact]
-        public void SnapshotMatches_AssertEqual()
-        {
-            _pathResolver.Setup(a => a.ResolvePath(It.IsAny<string>())).Returns("path");
             _updateDecider.Setup(a => a.ShouldUpdateSnap()).Returns(false);
-            _comparer.Setup(a => a.Compare(It.IsAny<object>(), It.IsAny<object>())).Returns(true);
-            _store.Setup(a => a.GetSnap(It.IsAny<string>())).Returns(_obj);
 
-            _snapper.Snap("name", _obj);
+            var result = _snapper.Snap("name", _obj);
 
-            _asserter.Verify(a => a.AssertEqual(), Times.Once);
+            result.Status.Should().BeEquivalentTo(SnapResultStatus.SnapshotDoesNotExist);
+            result.OldSnapshot.Should().BeNull();
+            result.NewSnapshot.Should().BeEquivalentTo(_obj);
         }
 
         [Fact]
-        public void SnapshotDoesNotMatch_AssertNotEqual()
+        public void SnapshotMatches_ResultStatusIs_SnapshotsMatch()
         {
-            _pathResolver.Setup(a => a.ResolvePath(It.IsAny<string>())).Returns("path");
+            _idResolver.Setup(a => a.ResolveSnapId(It.IsAny<string>())).Returns("id");
+            _store.Setup(a => a.GetSnap(It.IsAny<string>())).Returns(_obj);
             _updateDecider.Setup(a => a.ShouldUpdateSnap()).Returns(false);
-            _comparer.Setup(a => a.Compare(It.IsAny<object>(), It.IsAny<object>())).Returns(false);
-            _store.Setup(a => a.GetSnap(It.IsAny<string>())).Returns(_obj);
+            _comparer.Setup(a => a.Compare(It.IsAny<object>(), It.IsAny<object>()))
+                .Returns(true);
 
-            _snapper.Snap("name", _obj);
+            var result = _snapper.Snap("name", _obj);
 
-            _asserter.Verify(a => a.AssertNotEqual(It.IsAny<object>(), It.IsAny<object>()), Times.Once);
+            result.Status.Should().BeEquivalentTo(SnapResultStatus.SnapshotsMatch);
+            result.OldSnapshot.Should().BeEquivalentTo(_obj);
+            result.NewSnapshot.Should().BeEquivalentTo(_obj);
         }
 
         [Fact]
-        public void SnapshotDoesNotMatch_ShouldUpdate_Updates()
+        public void SnapshotDoesNotMatch_ResultStatusIs_SnapshotsDoNotMatch()
         {
-            _pathResolver.Setup(a => a.ResolvePath(It.IsAny<string>())).Returns("path");
+            _idResolver.Setup(a => a.ResolveSnapId(It.IsAny<string>())).Returns("id");
+            _store.Setup(a => a.GetSnap(It.IsAny<string>())).Returns(_obj);
+            _updateDecider.Setup(a => a.ShouldUpdateSnap()).Returns(false);
+            _comparer.Setup(a => a.Compare(It.IsAny<object>(), It.IsAny<object>()))
+                .Returns(false);
+
+            var newObj = new {value = 2};
+            var result = _snapper.Snap("name",  newObj);
+
+            result.Status.Should().BeEquivalentTo(SnapResultStatus.SnapshotsDoNotMatch);
+            result.OldSnapshot.Should().BeEquivalentTo(_obj);
+            result.NewSnapshot.Should().BeEquivalentTo(newObj);
+        }
+
+        [Fact]
+        public void SnapshotDoesNotMatch_ShouldUpdate_ResultStatusIs_SnapshotUpdated()
+        {
+            _idResolver.Setup(a => a.ResolveSnapId(It.IsAny<string>())).Returns("id");
+            _store.Setup(a => a.GetSnap(It.IsAny<string>())).Returns(_obj);
             _updateDecider.Setup(a => a.ShouldUpdateSnap()).Returns(true);
-            _comparer.Setup(a => a.Compare(It.IsAny<object>(), It.IsAny<object>())).Returns(false);
-            _store.Setup(a => a.GetSnap(It.IsAny<string>())).Returns(_obj);
+            _comparer.Setup(a => a.Compare(It.IsAny<object>(), It.IsAny<object>()))
+                .Returns(false);
 
-            _snapper.Snap("name", _obj);
+            var newObj = new {value = 2};
+            var result = _snapper.Snap("name",  newObj);
 
             _store.Verify(a => a.StoreSnap(It.IsAny<string>(), It.IsAny<object>()), Times.Once);
-            _asserter.Verify(a => a.AssertEqual(), Times.Once);
+            result.Status.Should().BeEquivalentTo(SnapResultStatus.SnapshotUpdated);
+            result.OldSnapshot.Should().BeEquivalentTo(_obj);
+            result.NewSnapshot.Should().BeEquivalentTo(newObj);
         }
 
         [Fact]
-        public void SnapshotMatches_ShouldUpdate_AssertEqual()
+        public void SnapshotMatches_ShouldUpdate_ResultStatusIs_SnapshotsMatch()
         {
-            _pathResolver.Setup(a => a.ResolvePath(It.IsAny<string>())).Returns("path");
-            _updateDecider.Setup(a => a.ShouldUpdateSnap()).Returns(true);
-            _comparer.Setup(a => a.Compare(It.IsAny<object>(), It.IsAny<object>())).Returns(true);
+            _idResolver.Setup(a => a.ResolveSnapId(It.IsAny<string>())).Returns("id");
             _store.Setup(a => a.GetSnap(It.IsAny<string>())).Returns(_obj);
+            _updateDecider.Setup(a => a.ShouldUpdateSnap()).Returns(true);
+            _comparer.Setup(a => a.Compare(It.IsAny<object>(), It.IsAny<object>()))
+                .Returns(true);
 
-            _snapper.Snap("name", _obj);
+            var result = _snapper.Snap("name",  _obj);
 
             _store.Verify(a => a.StoreSnap(It.IsAny<string>(), It.IsAny<object>()), Times.Never);
-            _asserter.Verify(a => a.AssertEqual(), Times.Once);
+            result.Status.Should().BeEquivalentTo(SnapResultStatus.SnapshotsMatch);
+            result.OldSnapshot.Should().BeEquivalentTo(_obj);
+            result.NewSnapshot.Should().BeEquivalentTo(_obj);
         }
 
         [Fact]
-        public void SnapshotDoesNotExist_ShouldUpdate_Updates()
+        public void SnapshotDoesNotExist_ShouldUpdate_ResultStatusIs_SnapshotUpdated()
         {
-            _pathResolver.Setup(a => a.ResolvePath(It.IsAny<string>())).Returns("path");
-            _updateDecider.Setup(a => a.ShouldUpdateSnap()).Returns(true);
+            _idResolver.Setup(a => a.ResolveSnapId(It.IsAny<string>())).Returns("id");
             _store.Setup(a => a.GetSnap(It.IsAny<string>())).Returns(null);
+            _updateDecider.Setup(a => a.ShouldUpdateSnap()).Returns(true);
 
-            _snapper.Snap("name", _obj);
+            var result = _snapper.Snap("name",  _obj);
 
             _store.Verify(a => a.StoreSnap(It.IsAny<string>(), It.IsAny<object>()), Times.Once);
-            _asserter.Verify(a => a.AssertEqual(), Times.Once);
+            result.Status.Should().BeEquivalentTo(SnapResultStatus.SnapshotUpdated);
+            result.OldSnapshot.Should().BeNull();
+            result.NewSnapshot.Should().BeEquivalentTo(_obj);
         }
     }
 }

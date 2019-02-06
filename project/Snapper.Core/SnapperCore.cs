@@ -2,58 +2,40 @@
 {
     public class SnapperCore
     {
-        private readonly IAssert _asserter;
-        private readonly ISnapStore _store;
-        private readonly IPathResolver _pathResolver;
+        private readonly ISnapStore _snapStore;
         private readonly ISnapUpdateDecider _snapUpdateDecider;
-        private readonly ISnapComparer _comparer;
+        private readonly ISnapComparer _snapComparer;
+        private readonly ISnapIdResolver _snapIdResolver;
 
-        public SnapperCore(IAssert asserter, ISnapStore store, IPathResolver resolver, ISnapUpdateDecider snapUpdateDecider, ISnapComparer comparer)
+        public SnapperCore(ISnapStore snapStore, ISnapUpdateDecider snapUpdateDecider,
+            ISnapComparer snapComparer, ISnapIdResolver snapIdResolver)
         {
-            _asserter = asserter;
-            _store = store;
-            _pathResolver = resolver;
+            _snapStore = snapStore;
             _snapUpdateDecider = snapUpdateDecider;
-            _comparer = comparer;
+            _snapComparer = snapComparer;
+            _snapIdResolver = snapIdResolver;
         }
 
-        public void Snap(string snapshotName, object newSnapValue)
+        public SnapResult Snap(string snapName, object newSnapshot)
         {
-            var path = _pathResolver.ResolvePath(snapshotName);
-            var oldSnapshot = _store.GetSnap(path);
+            var snapId = _snapIdResolver.ResolveSnapId(snapName);
+            var currentSnapshot = _snapStore.GetSnap(snapId);
+            var areSnapshotsEqual = _snapComparer.Compare(currentSnapshot, newSnapshot);
 
-            if (oldSnapshot != null)
+            if (!areSnapshotsEqual && _snapUpdateDecider.ShouldUpdateSnap())
             {
-                AssertSnapshot(path, newSnapValue, oldSnapshot);
-                return;
+                _snapStore.StoreSnap(snapId, newSnapshot);
+                return SnapResult.SnapshotUpdated(currentSnapshot, newSnapshot);
             }
 
-            if (_snapUpdateDecider.ShouldUpdateSnap())
+            if (currentSnapshot == null)
             {
-                _store.StoreSnap(path, newSnapValue);
-                _asserter.AssertEqual();
-                return;
+                return SnapResult.SnapshotDoesNotExist(newSnapshot);
             }
 
-            _asserter.AssertNotEqual("A snapshot for this does not exist yet.");
-        }
-
-        private void AssertSnapshot(string path, object newSnapValue, object oldSnapshot)
-        {
-            if (_comparer.Compare(oldSnapshot, newSnapValue))
-            {
-                _asserter.AssertEqual();
-                return;
-            }
-
-            if (_snapUpdateDecider.ShouldUpdateSnap())
-            {
-                _store.StoreSnap(path, newSnapValue);
-                _asserter.AssertEqual();
-                return;
-            }
-
-            _asserter.AssertNotEqual(oldSnapshot, newSnapValue);
+            return areSnapshotsEqual
+                ? SnapResult.SnapshotsMatch(currentSnapshot, newSnapshot)
+                : SnapResult.SnapshotsDoNotMatch(currentSnapshot, newSnapshot);
         }
     }
 }

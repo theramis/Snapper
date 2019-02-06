@@ -86,4 +86,6 @@ You can also add the `[UpdateSnapshots]` attribute to your test method/class and
 - ~~Downgrade project to lowest .net standard possible~~
 - ~~Downgrade nuget dependencies to lowest possible~~
 - Create PR and Issue templates
+- Write tests for testing json store. Use goldmaster testing
+- Write tests for json diff message maker
 

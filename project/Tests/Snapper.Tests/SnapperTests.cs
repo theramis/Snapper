@@ -1,3 +1,4 @@
+using System;
 using Xunit;
 
 namespace Snapper.Tests
@@ -7,8 +8,9 @@ namespace Snapper.Tests
         [Fact]
         public void Test()
         {
+            Environment.SetEnvironmentVariable("UpdateSnapshots", "false");
             var obj = new {value = 1};
-//            obj.ShouldMatchSnapshot();
+            obj.ShouldMatchSnapshot();
         }
     }
 }

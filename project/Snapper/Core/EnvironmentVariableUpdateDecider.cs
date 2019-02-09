@@ -2,6 +2,7 @@ using System;
 
 namespace Snapper.Core
 {
+    // TODO Make this look for the Update Snapshot attribute in assembly or class or method
     public class EnvironmentVariableUpdateDecider : ISnapshotUpdateDecider
     {
         private const string UpdateSnapshotEnvironmentVariableName = "UpdateSnapshots";

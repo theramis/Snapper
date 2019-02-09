@@ -17,7 +17,8 @@
         public SnapResult Snap(string snapshotId, object newSnapshot)
         {
             var currentSnapshot = _snapshotStore.GetSnapshot(snapshotId);
-            var areSnapshotsEqual = _snapshotComparer.CompareSnapshots(currentSnapshot, newSnapshot);
+            var areSnapshotsEqual = currentSnapshot != null
+                                    && _snapshotComparer.CompareSnapshots(currentSnapshot, newSnapshot);
 
             if (!areSnapshotsEqual && _snapshotUpdateDecider.ShouldUpdateSnapshot())
             {

@@ -27,7 +27,7 @@ namespace Snapper
             var result = Snap(snapId, snapshot);
 
             // TODO call asserter
-            if (result.Status == SnapResultStatus.SnapshotDoesNotExist)
+            if (result.Status != SnapResultStatus.SnapshotsMatch || result.Status == SnapResultStatus.SnapshotUpdated)
                 throw new Exception("Break break break");
         }
     }

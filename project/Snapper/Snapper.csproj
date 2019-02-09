@@ -12,6 +12,8 @@ See Project Site for more details</Description>
     <PackageLicenseUrl>https://github.com/theramis/Snapper/blob/master/LICENSE</PackageLicenseUrl>
     <PackageTags>testing, test, snapshot, jest</PackageTags>
     <LangVersion>latest</LangVersion>
+    <IsPackable>true</IsPackable>
+    <IsTestProject>false</IsTestProject>
   </PropertyGroup>
 
   <ItemGroup>

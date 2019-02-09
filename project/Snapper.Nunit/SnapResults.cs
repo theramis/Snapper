@@ -1,4 +1,4 @@
-namespace Snapper.Json.Nunit
+namespace Snapper.Nunit
 {
     internal class SnapResults
     {

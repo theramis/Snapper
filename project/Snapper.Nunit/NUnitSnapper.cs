@@ -1,6 +1,4 @@
-﻿using Snapper.Core;
-
-namespace Snapper.Json.Nunit
+﻿namespace Snapper.Nunit
 {
 //    internal class NUnitSnapper : JsonSnapper
 //    {

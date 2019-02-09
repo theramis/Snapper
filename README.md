@@ -88,4 +88,5 @@ You can also add the `[UpdateSnapshots]` attribute to your test method/class and
 - Create PR and Issue templates
 - Write tests for testing json store. Use goldmaster testing
 - Write tests for json diff message maker
-
+- Update nuget package descriptions for xunit and nunit to say they have extra features
+- Figure out all of the .netstandards to target and lowest nuget package versions

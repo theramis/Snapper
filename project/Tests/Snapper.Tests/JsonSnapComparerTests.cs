@@ -1,7 +1,8 @@
 ﻿using Snapper.Core;
+using Snapper.Json;
 using Xunit;
 
-namespace Snapper.Json.Tests
+namespace Snapper.Tests
 {
     public class JsonSnapComparerTests
     {
@@ -18,7 +19,7 @@ namespace Snapper.Json.Tests
             var obj = new { v = 1 };
             Assert.True(_comparer.Compare(obj, obj));
         }
-        
+
         [Fact]
         public void Compare_SameObject_DifferentInstances()
         {
@@ -26,7 +27,7 @@ namespace Snapper.Json.Tests
             var obj2 = new { v = 1 };
             Assert.True(_comparer.Compare(obj1, obj2));
         }
-        
+
         [Fact]
         public void Compare_DifferentPropertyOrder()
         {
@@ -34,7 +35,7 @@ namespace Snapper.Json.Tests
             var obj2 = new { vv = 2, v = 1 };
             Assert.True(_comparer.Compare(obj1, obj2));
         }
-        
+
         [Fact]
         public void Compare_ComplexObjects()
         {
@@ -46,7 +47,7 @@ namespace Snapper.Json.Tests
                 },
                 v = 1
             };
-            
+
             var obj2 = new
             {
                 v = 1,
@@ -57,7 +58,7 @@ namespace Snapper.Json.Tests
             };
             Assert.True(_comparer.Compare(obj1, obj2));
         }
-        
+
         [Fact]
         public void Compare_DifferentValues()
         {
@@ -65,7 +66,7 @@ namespace Snapper.Json.Tests
             var obj2 = new { v = 2 };
             Assert.False(_comparer.Compare(obj1, obj2));
         }
-        
+
         [Fact]
         public void Compare_DifferentValues_ComplexObjects()
         {
@@ -77,7 +78,7 @@ namespace Snapper.Json.Tests
                 },
                 v = 1
             };
-            
+
             var obj2 = new
             {
                 v = 1,
@@ -88,7 +89,7 @@ namespace Snapper.Json.Tests
             };
             Assert.False(_comparer.Compare(obj1, obj2));
         }
-        
+
         [Fact]
         public void Compare_DifferentValues_PropertyCase()
         {
@@ -96,7 +97,7 @@ namespace Snapper.Json.Tests
             {
                 V = 1
             };
-            
+
             var obj2 = new
             {
                 v = 1

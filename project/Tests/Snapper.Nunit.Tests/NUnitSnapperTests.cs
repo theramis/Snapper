@@ -1,7 +1,4 @@
-using Newtonsoft.Json.Linq;
-using NUnit.Framework;
-
-namespace Snapper.Json.Nunit.Tests
+namespace Snapper.Nunit.Tests
 {
 //    public class NUnitSnapperTests
 //    {

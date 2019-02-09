@@ -1,7 +1,4 @@
-using Newtonsoft.Json.Linq;
-using Snapper.Core;
-
-namespace Snapper.Json.Nunit
+namespace Snapper.Nunit
 {
 //    internal class NUnitAsserter : IAssert
 //    {

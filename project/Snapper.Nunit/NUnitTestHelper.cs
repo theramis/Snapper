@@ -5,7 +5,7 @@ using System.Reflection;
 using System.Runtime.CompilerServices;
 using NUnit.Framework;
 
-namespace Snapper.Json.Nunit
+namespace Snapper.Nunit
 {
     internal static class NUnitTestHelper
     {

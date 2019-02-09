@@ -1,5 +1,6 @@
 ﻿using System.Linq;
 using Snapper.Core;
+using Snapper.Xunit;
 
 namespace Snapper.Json.Xunit
 {

@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Snapper.Json.Nunit
+namespace Snapper.Nunit
 {
     [AttributeUsage(AttributeTargets.Method | AttributeTargets.Class)]
     public sealed class UpdateSnapshots : Attribute

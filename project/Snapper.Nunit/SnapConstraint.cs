@@ -1,8 +1,7 @@
 using System;
 using NUnit.Framework.Constraints;
-using NUnitFramework = NUnit.Framework;
 
-namespace Snapper.Json.Nunit
+namespace Snapper.Nunit
 {
 //    public static class EqualToSnapshotConstraintExtensions
 //    {

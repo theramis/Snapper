@@ -1,8 +1,9 @@
 ﻿using FluentAssertions;
 using Moq;
+using Snapper.Core;
 using Xunit;
 
-namespace Snapper.Core.Tests
+namespace Snapper.Tests
 {
     public class SnapperCoreTests
     {

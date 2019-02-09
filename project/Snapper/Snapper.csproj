@@ -1,0 +1,21 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+    <Version>0.0.0</Version>
+    <Authors>Simar Kalra</Authors>
+    <RepositoryUrl>https://github.com/theramis/Snapper</RepositoryUrl>
+    <Description>Bringing Jest-esque Snapshot testing to C#.
+
+See Project Site for more details</Description>
+    <PackageProjectUrl>https://github.com/theramis/Snapper</PackageProjectUrl>
+    <PackageLicenseUrl>https://github.com/theramis/Snapper/blob/master/LICENSE</PackageLicenseUrl>
+    <PackageTags>testing, test, snapshot, jest</PackageTags>
+    <LangVersion>latest</LangVersion>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Newtonsoft.Json" Version="10.0.3" />
+  </ItemGroup>
+
+</Project>

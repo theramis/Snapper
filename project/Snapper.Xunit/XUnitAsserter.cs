@@ -1,6 +1,5 @@
 ﻿using Newtonsoft.Json.Linq;
 using Snapper.Core;
-using Xunit;
 
 namespace Snapper.Json.Xunit
 {

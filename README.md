@@ -22,6 +22,16 @@ Install the package through NuGet
 ```
 nuget install <package_name>
 ```
+## Snapper v2
+I'm currently working version 2 of Snapper. It's a work in progress at the moment. If you have any thoughts/suggestions/concerns about the changes please get in touch by creating an issue.
+
+Current thoughts/progress on what will be in V2:
+- https://github.com/theramis/Snapper/issues/13
+- https://github.com/theramis/Snapper/issues/12
+- Deprecate `Snapper.Core`, `Snapper.Json`, `Snapper.Json.Xunit` and `Snapper.Json.Nunit` nuget packages (Please create an issue if this is a concern)
+- Introduce a new nuget package called `Snapper` which would provide the core functionality for all supported frameworks. (Xunit and Nunit initially) 
+- Introduce `Snapper.Xunit` and `Snapper.Nunit`as a replacement to the deprecated nuget packages. These packages would provide some extra features which are specific to the XUnit and NUnit frameworks.
+
 
 ## Using Snapper
 

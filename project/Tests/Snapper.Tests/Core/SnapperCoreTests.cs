@@ -3,34 +3,31 @@ using Moq;
 using Snapper.Core;
 using Xunit;
 
-namespace Snapper.Tests
+namespace Snapper.Tests.Core
 {
     public class SnapperCoreTests
     {
         private readonly object _obj = new {value = 1};
         private readonly SnapperCore _snapper;
-        private readonly Mock<ISnapStore> _store;
-        private readonly Mock<ISnapUpdateDecider> _updateDecider;
-        private readonly Mock<ISnapComparer> _comparer;
-        private readonly Mock<ISnapIdResolver> _idResolver;
+        private readonly Mock<ISnapshotStore> _store;
+        private readonly Mock<ISnapshotUpdateDecider> _updateDecider;
+        private readonly Mock<ISnapshotComparer> _comparer;
 
         public SnapperCoreTests()
         {
-            _store = new Mock<ISnapStore>();
-            _updateDecider = new Mock<ISnapUpdateDecider>();
-            _comparer = new Mock<ISnapComparer>();
-            _idResolver = new Mock<ISnapIdResolver>();
+            _store = new Mock<ISnapshotStore>();
+            _updateDecider = new Mock<ISnapshotUpdateDecider>();
+            _comparer = new Mock<ISnapshotComparer>();
 
             _snapper = new SnapperCore(_store.Object, _updateDecider.Object,
-                _comparer.Object, _idResolver.Object);
+                _comparer.Object);
         }
 
         [Fact]
         public void SnapshotDoesNotExist_ResultStatusIs_SnapshotDoesNotExist()
         {
-            _idResolver.Setup(a => a.ResolveSnapId(It.IsAny<string>())).Returns("id");
-            _store.Setup(a => a.GetSnap(It.IsAny<string>())).Returns(null);
-            _updateDecider.Setup(a => a.ShouldUpdateSnap()).Returns(false);
+            _store.Setup(a => a.GetSnapshot(It.IsAny<string>())).Returns(null);
+            _updateDecider.Setup(a => a.ShouldUpdateSnapshot()).Returns(false);
 
             var result = _snapper.Snap("name", _obj);
 
@@ -42,10 +39,9 @@ namespace Snapper.Tests
         [Fact]
         public void SnapshotMatches_ResultStatusIs_SnapshotsMatch()
         {
-            _idResolver.Setup(a => a.ResolveSnapId(It.IsAny<string>())).Returns("id");
-            _store.Setup(a => a.GetSnap(It.IsAny<string>())).Returns(_obj);
-            _updateDecider.Setup(a => a.ShouldUpdateSnap()).Returns(false);
-            _comparer.Setup(a => a.Compare(It.IsAny<object>(), It.IsAny<object>()))
+            _store.Setup(a => a.GetSnapshot(It.IsAny<string>())).Returns(_obj);
+            _updateDecider.Setup(a => a.ShouldUpdateSnapshot()).Returns(false);
+            _comparer.Setup(a => a.CompareSnapshots(It.IsAny<object>(), It.IsAny<object>()))
                 .Returns(true);
 
             var result = _snapper.Snap("name", _obj);
@@ -58,10 +54,9 @@ namespace Snapper.Tests
         [Fact]
         public void SnapshotDoesNotMatch_ResultStatusIs_SnapshotsDoNotMatch()
         {
-            _idResolver.Setup(a => a.ResolveSnapId(It.IsAny<string>())).Returns("id");
-            _store.Setup(a => a.GetSnap(It.IsAny<string>())).Returns(_obj);
-            _updateDecider.Setup(a => a.ShouldUpdateSnap()).Returns(false);
-            _comparer.Setup(a => a.Compare(It.IsAny<object>(), It.IsAny<object>()))
+            _store.Setup(a => a.GetSnapshot(It.IsAny<string>())).Returns(_obj);
+            _updateDecider.Setup(a => a.ShouldUpdateSnapshot()).Returns(false);
+            _comparer.Setup(a => a.CompareSnapshots(It.IsAny<object>(), It.IsAny<object>()))
                 .Returns(false);
 
             var newObj = new {value = 2};
@@ -75,16 +70,15 @@ namespace Snapper.Tests
         [Fact]
         public void SnapshotDoesNotMatch_ShouldUpdate_ResultStatusIs_SnapshotUpdated()
         {
-            _idResolver.Setup(a => a.ResolveSnapId(It.IsAny<string>())).Returns("id");
-            _store.Setup(a => a.GetSnap(It.IsAny<string>())).Returns(_obj);
-            _updateDecider.Setup(a => a.ShouldUpdateSnap()).Returns(true);
-            _comparer.Setup(a => a.Compare(It.IsAny<object>(), It.IsAny<object>()))
+            _store.Setup(a => a.GetSnapshot(It.IsAny<string>())).Returns(_obj);
+            _updateDecider.Setup(a => a.ShouldUpdateSnapshot()).Returns(true);
+            _comparer.Setup(a => a.CompareSnapshots(It.IsAny<object>(), It.IsAny<object>()))
                 .Returns(false);
 
             var newObj = new {value = 2};
             var result = _snapper.Snap("name",  newObj);
 
-            _store.Verify(a => a.StoreSnap(It.IsAny<string>(), It.IsAny<object>()), Times.Once);
+            _store.Verify(a => a.StoreSnapshot(It.IsAny<string>(), It.IsAny<object>()), Times.Once);
             result.Status.Should().BeEquivalentTo(SnapResultStatus.SnapshotUpdated);
             result.OldSnapshot.Should().BeEquivalentTo(_obj);
             result.NewSnapshot.Should().BeEquivalentTo(newObj);
@@ -93,15 +87,14 @@ namespace Snapper.Tests
         [Fact]
         public void SnapshotMatches_ShouldUpdate_ResultStatusIs_SnapshotsMatch()
         {
-            _idResolver.Setup(a => a.ResolveSnapId(It.IsAny<string>())).Returns("id");
-            _store.Setup(a => a.GetSnap(It.IsAny<string>())).Returns(_obj);
-            _updateDecider.Setup(a => a.ShouldUpdateSnap()).Returns(true);
-            _comparer.Setup(a => a.Compare(It.IsAny<object>(), It.IsAny<object>()))
+            _store.Setup(a => a.GetSnapshot(It.IsAny<string>())).Returns(_obj);
+            _updateDecider.Setup(a => a.ShouldUpdateSnapshot()).Returns(true);
+            _comparer.Setup(a => a.CompareSnapshots(It.IsAny<object>(), It.IsAny<object>()))
                 .Returns(true);
 
             var result = _snapper.Snap("name",  _obj);
 
-            _store.Verify(a => a.StoreSnap(It.IsAny<string>(), It.IsAny<object>()), Times.Never);
+            _store.Verify(a => a.StoreSnapshot(It.IsAny<string>(), It.IsAny<object>()), Times.Never);
             result.Status.Should().BeEquivalentTo(SnapResultStatus.SnapshotsMatch);
             result.OldSnapshot.Should().BeEquivalentTo(_obj);
             result.NewSnapshot.Should().BeEquivalentTo(_obj);
@@ -110,13 +103,12 @@ namespace Snapper.Tests
         [Fact]
         public void SnapshotDoesNotExist_ShouldUpdate_ResultStatusIs_SnapshotUpdated()
         {
-            _idResolver.Setup(a => a.ResolveSnapId(It.IsAny<string>())).Returns("id");
-            _store.Setup(a => a.GetSnap(It.IsAny<string>())).Returns(null);
-            _updateDecider.Setup(a => a.ShouldUpdateSnap()).Returns(true);
+            _store.Setup(a => a.GetSnapshot(It.IsAny<string>())).Returns(null);
+            _updateDecider.Setup(a => a.ShouldUpdateSnapshot()).Returns(true);
 
             var result = _snapper.Snap("name",  _obj);
 
-            _store.Verify(a => a.StoreSnap(It.IsAny<string>(), It.IsAny<object>()), Times.Once);
+            _store.Verify(a => a.StoreSnapshot(It.IsAny<string>(), It.IsAny<object>()), Times.Once);
             result.Status.Should().BeEquivalentTo(SnapResultStatus.SnapshotUpdated);
             result.OldSnapshot.Should().BeNull();
             result.NewSnapshot.Should().BeEquivalentTo(_obj);

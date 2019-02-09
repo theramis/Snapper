@@ -2,29 +2,26 @@
 {
     public class SnapperCore
     {
-        private readonly ISnapStore _snapStore;
-        private readonly ISnapUpdateDecider _snapUpdateDecider;
-        private readonly ISnapComparer _snapComparer;
-        private readonly ISnapIdResolver _snapIdResolver;
+        private readonly ISnapshotStore _snapshotStore;
+        private readonly ISnapshotUpdateDecider _snapshotUpdateDecider;
+        private readonly ISnapshotComparer _snapshotComparer;
 
-        public SnapperCore(ISnapStore snapStore, ISnapUpdateDecider snapUpdateDecider,
-            ISnapComparer snapComparer, ISnapIdResolver snapIdResolver)
+        public SnapperCore(ISnapshotStore snapshotStore, ISnapshotUpdateDecider snapshotUpdateDecider,
+            ISnapshotComparer snapshotComparer)
         {
-            _snapStore = snapStore;
-            _snapUpdateDecider = snapUpdateDecider;
-            _snapComparer = snapComparer;
-            _snapIdResolver = snapIdResolver;
+            _snapshotStore = snapshotStore;
+            _snapshotUpdateDecider = snapshotUpdateDecider;
+            _snapshotComparer = snapshotComparer;
         }
 
-        public SnapResult Snap(string snapName, object newSnapshot)
+        public SnapResult Snap(string snapshotId, object newSnapshot)
         {
-            var snapId = _snapIdResolver.ResolveSnapId(snapName);
-            var currentSnapshot = _snapStore.GetSnap(snapId);
-            var areSnapshotsEqual = _snapComparer.Compare(currentSnapshot, newSnapshot);
+            var currentSnapshot = _snapshotStore.GetSnapshot(snapshotId);
+            var areSnapshotsEqual = _snapshotComparer.CompareSnapshots(currentSnapshot, newSnapshot);
 
-            if (!areSnapshotsEqual && _snapUpdateDecider.ShouldUpdateSnap())
+            if (!areSnapshotsEqual && _snapshotUpdateDecider.ShouldUpdateSnapshot())
             {
-                _snapStore.StoreSnap(snapId, newSnapshot);
+                _snapshotStore.StoreSnapshot(snapshotId, newSnapshot);
                 return SnapResult.SnapshotUpdated(currentSnapshot, newSnapshot);
             }
 

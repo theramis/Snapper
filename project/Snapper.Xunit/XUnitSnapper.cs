@@ -1,6 +1,4 @@
-﻿using Snapper.Core;
-
-namespace Snapper.Json.Xunit
+﻿namespace Snapper.Xunit
 {
 //    public class XUnitSnapper : JsonSnapper
 //    {

@@ -6,12 +6,15 @@ using Newtonsoft.Json.Linq;
 
 namespace Snapper.Json
 {
-    internal class JsonDiff
+    internal static class JsonDiffGenerator
     {
-        internal static string GetDiffMessage(JToken old, JToken @new)
+        private const string RemovedLegendString = "- Snapshot";
+        private const string AddedLegendString = "+ Received";
+
+        public static string GetDiffMessage(JToken currentSnapshot, JToken newSnapshot)
         {
             var dmp = new diff_match_patch();
-            var a = dmp.diff_linesToChars(old.ToString(), @new.ToString());
+            var a = dmp.diff_linesToChars(currentSnapshot.ToString(), newSnapshot.ToString());
             var lineText1 = (string) a[0];
             var lineText2 = (string) a[1];
             var lineArray = (List<string>) a[2];
@@ -21,8 +24,9 @@ namespace Snapper.Json
 
             var builder = new StringBuilder("\n");
 
-            builder.AppendLine("- Snapshot");
-            builder.AppendLine("+ Receieved\n\n");
+            builder.AppendLine(RemovedLegendString);
+            builder.AppendLine(AddedLegendString);
+            builder.AppendLine("\n");
 
             for (var i = 0; i < diffs.Count; i++)
             {

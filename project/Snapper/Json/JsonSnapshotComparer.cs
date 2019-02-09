@@ -3,9 +3,9 @@ using Snapper.Core;
 
 namespace Snapper.Json
 {
-    public class JsonSnapComparer : ISnapComparer
+    public class JsonSnapshotComparer : ISnapshotComparer
     {
-        public bool Compare(object oldSnap, object newSnap)
+        public bool CompareSnapshots(object oldSnap, object newSnap)
         {
             var old = JToken.FromObject(oldSnap);
 

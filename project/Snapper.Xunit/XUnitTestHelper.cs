@@ -5,7 +5,7 @@ using System.Reflection;
 using System.Runtime.CompilerServices;
 using Xunit;
 
-namespace Snapper.Json.Xunit
+namespace Snapper.Xunit
 {
     internal static class XUnitTestHelper
     {

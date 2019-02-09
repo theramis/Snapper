@@ -2,7 +2,7 @@
 using Snapper.Core;
 using Xunit;
 
-namespace Snapper.Tests
+namespace Snapper.Tests.Core
 {
     public class EnvironmentVariableUpdateDeciderTests
     {
@@ -18,7 +18,7 @@ namespace Snapper.Tests
         [Fact]
         public void NoEnvironmentVariable_ShouldNotUpdate()
         {
-            Assert.False(_decider.ShouldUpdateSnap());
+            Assert.False(_decider.ShouldUpdateSnapshot());
         }
 
         [Theory]
@@ -29,7 +29,7 @@ namespace Snapper.Tests
         public void TrueEnvironmentVariableSet_ShouldUpdate(string value)
         {
             Environment.SetEnvironmentVariable(_envVar, value);
-            Assert.True(_decider.ShouldUpdateSnap());
+            Assert.True(_decider.ShouldUpdateSnapshot());
         }
 
         [Theory]
@@ -40,7 +40,7 @@ namespace Snapper.Tests
         public void FalseEnvironmentVariableSet_ShouldNotUpdate(string value)
         {
             Environment.SetEnvironmentVariable(_envVar, value);
-            Assert.False(_decider.ShouldUpdateSnap());
+            Assert.False(_decider.ShouldUpdateSnapshot());
         }
 
         [Theory]
@@ -50,7 +50,7 @@ namespace Snapper.Tests
         public void InvalidEnvironmentVariableSet_ShouldNotUpdate(string value)
         {
             Environment.SetEnvironmentVariable(_envVar, value);
-            Assert.False(_decider.ShouldUpdateSnap());
+            Assert.False(_decider.ShouldUpdateSnapshot());
         }
     }
 }

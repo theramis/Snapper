@@ -3,18 +3,18 @@ using Snapper.Core;
 
 namespace Snapper.Nunit
 {
-    internal class NUnitEnvironmentVariableUpdateDecider : ISnapUpdateDecider
+    internal class NUnitEnvironmentVariableUpdateDecider : ISnapshotUpdateDecider
     {
-        private readonly ISnapUpdateDecider _envUpdateDecider;
+        private readonly ISnapshotUpdateDecider _envUpdateDecider;
 
         public NUnitEnvironmentVariableUpdateDecider()
         {
             _envUpdateDecider = new EnvironmentVariableUpdateDecider();
         }
 
-        public bool ShouldUpdateSnap()
+        public bool ShouldUpdateSnapshot()
         {
-            if (_envUpdateDecider.ShouldUpdateSnap())
+            if (_envUpdateDecider.ShouldUpdateSnapshot())
                 return true;
 
             var (method, _) = NUnitTestHelper.GetCallingTestInfo();

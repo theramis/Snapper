@@ -4,12 +4,12 @@ using Snapper.Core;
 
 namespace Snapper.Json
 {
-    public class JsonSnapStore : ISnapStore
+    public class JsonSnapshotStore : ISnapshotStore
     {
-        public object GetSnap(string path)
+        public object GetSnapshot(string path)
             => File.Exists(path) ? JObject.Parse(File.ReadAllText(path)) : null;
 
-        public void StoreSnap(string path, object value)
+        public void StoreSnapshot(string path, object value)
         {
             var snap = JToken.FromObject(value);
             Directory.CreateDirectory(Path.GetDirectoryName(path));

@@ -2,16 +2,20 @@ using System;
 
 namespace Snapper.Core
 {
-    public sealed class EnvironmentVariableUpdateDecider : ISnapUpdateDecider
+    public class EnvironmentVariableUpdateDecider : ISnapshotUpdateDecider
     {
+        private const string UpdateSnapshotEnvironmentVariableName = "UpdateSnapshots";
         private readonly string _envVarName;
 
-        public EnvironmentVariableUpdateDecider(string envVarName = "UpdateSnapshots")
+        public EnvironmentVariableUpdateDecider()
+            : this(UpdateSnapshotEnvironmentVariableName)
         {
-            _envVarName = envVarName;
         }
 
-        public bool ShouldUpdateSnap()
+        public EnvironmentVariableUpdateDecider(string envVarName)
+            => _envVarName = envVarName;
+
+        public bool ShouldUpdateSnapshot()
         {
             var env = Environment.GetEnvironmentVariable(_envVarName);
             if (env == null)

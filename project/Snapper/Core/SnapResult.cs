@@ -25,12 +25,4 @@ namespace Snapper.Core
         public static SnapResult SnapshotUpdated(object oldSnapshot, object newSnapshot)
             => new SnapResult(SnapResultStatus.SnapshotUpdated, oldSnapshot, newSnapshot);
     }
-
-    public enum SnapResultStatus
-    {
-        SnapshotDoesNotExist,
-        SnapshotsMatch,
-        SnapshotsDoNotMatch,
-        SnapshotUpdated
-    }
 }

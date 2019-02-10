@@ -1,7 +1,7 @@
 namespace Snapper.Core
 {
-    public interface ISnapshotIdResolver
+    internal interface ISnapshotIdResolver
     {
-        string ResolveSnapshotId(string snapshotName);
+        SnapshotId ResolveSnapshotId(string snapshotName);
     }
 }

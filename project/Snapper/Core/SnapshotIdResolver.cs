@@ -1,23 +1,50 @@
 using System.IO;
+using System.Linq;
+using System.Reflection;
+using Snapper.Attributes;
 
 namespace Snapper.Core
 {
-    public class SnapshotIdResolver : ISnapshotIdResolver
+    internal class SnapshotIdResolver : ISnapshotIdResolver
     {
         private const string SnapshotsDirectory = "_snapshots";
 
-        public string ResolveSnapshotId(string snapshotName)
+        public SnapshotId ResolveSnapshotId(string snapshotName)
         {
             var (method, filePath) = TestFrameworkHelper.GetCallingTestMethod();
 
+            var storeSnapshotsPerClass = ShouldStoreSnapshotsPerClass(method);
+
             var directory = Path.GetDirectoryName(filePath);
-            var snapName = string.IsNullOrWhiteSpace(snapshotName) ? method.Name : snapshotName;
+            var className = method.DeclaringType?.Name;
 
-            // TODO add stuff to make snapshots per class
-            // determine whether it snapshots per class is enabled
-            // search for both assembly and class
+            if (storeSnapshotsPerClass)
+            {
+                var snapshotFilePath = Path.Combine(directory, SnapshotsDirectory, $"{className}.json");
+                var snapshotId = string.IsNullOrWhiteSpace(snapshotName) ? method.Name : snapshotName;
+                return new SnapshotId(snapshotFilePath, snapshotId);
+            }
+            else
+            {
+                var snapshotFileName = string.IsNullOrWhiteSpace(snapshotName)
+                                            ? $"{className}{'_'}{method.Name}"
+                                            : $"{className}{'_'}{snapshotName}";
 
-            return Path.Combine(directory, "_snapshots", $"{snapName}.json");
+                var snapshotFilePath = Path.Combine(directory, SnapshotsDirectory, $"{snapshotFileName}.json");
+                return new SnapshotId(snapshotFilePath);
+            }
         }
+
+        private static bool ShouldStoreSnapshotsPerClass(MemberInfo method)
+        {
+            var methodHasAttribute = HasStoreSnapshotsPerClassAttribute(method);
+            var classHasAttribute = HasStoreSnapshotsPerClassAttribute(method?.ReflectedType);
+            var assemblyHasAttribute = HasStoreSnapshotsPerClassAttribute(method?.ReflectedType?.Assembly);
+
+            return methodHasAttribute || classHasAttribute || assemblyHasAttribute;
+        }
+
+        private static bool HasStoreSnapshotsPerClassAttribute(ICustomAttributeProvider member)
+            => member?.GetCustomAttributes(typeof(StoreSnapshotsPerClassAttribute), true).Any() ?? false;
     }
 }

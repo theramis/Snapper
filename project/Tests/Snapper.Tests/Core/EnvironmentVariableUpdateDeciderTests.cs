@@ -7,12 +7,12 @@ namespace Snapper.Tests.Core
     public class EnvironmentVariableUpdateDeciderTests
     {
         private readonly string _envVar;
-        private readonly EnvironmentVariableUpdateDecider _decider;
+        private readonly SnapshotUpdateDecider _decider;
 
         public EnvironmentVariableUpdateDeciderTests()
         {
             _envVar = Guid.NewGuid().ToString();
-            _decider = new EnvironmentVariableUpdateDecider(_envVar);
+            _decider = new SnapshotUpdateDecider(_envVar);
         }
 
         [Fact]

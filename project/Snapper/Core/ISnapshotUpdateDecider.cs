@@ -1,6 +1,6 @@
 ﻿namespace Snapper.Core
 {
-    public interface ISnapshotUpdateDecider
+    internal interface ISnapshotUpdateDecider
     {
         bool ShouldUpdateSnapshot();
     }

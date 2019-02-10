@@ -1,6 +1,6 @@
 namespace Snapper.Core
 {
-    public class SnapResult
+    internal class SnapResult
     {
         public SnapResultStatus Status { get; }
         public object OldSnapshot { get; }

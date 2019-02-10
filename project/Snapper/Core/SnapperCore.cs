@@ -1,6 +1,6 @@
 ﻿namespace Snapper.Core
 {
-    public class SnapperCore
+    internal class SnapperCore
     {
         private readonly ISnapshotStore _snapshotStore;
         private readonly ISnapshotUpdateDecider _snapshotUpdateDecider;
@@ -14,7 +14,7 @@
             _snapshotComparer = snapshotComparer;
         }
 
-        public SnapResult Snap(string snapshotId, object newSnapshot)
+        public SnapResult Snap(SnapshotId snapshotId, object newSnapshot)
         {
             var currentSnapshot = _snapshotStore.GetSnapshot(snapshotId);
             var areSnapshotsEqual = currentSnapshot != null

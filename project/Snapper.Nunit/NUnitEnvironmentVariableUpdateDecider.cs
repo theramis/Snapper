@@ -9,7 +9,7 @@ namespace Snapper.Nunit
 
         public NUnitEnvironmentVariableUpdateDecider()
         {
-            _envUpdateDecider = new EnvironmentVariableUpdateDecider();
+            _envUpdateDecider = new SnapshotUpdateDecider();
         }
 
         public bool ShouldUpdateSnapshot()

@@ -3,7 +3,7 @@ using Snapper.Core;
 
 namespace Snapper.Json
 {
-    public class JsonSnapshotComparer : ISnapshotComparer
+    internal class JsonSnapshotComparer : ISnapshotComparer
     {
         public bool CompareSnapshots(object oldSnap, object newSnap)
         {

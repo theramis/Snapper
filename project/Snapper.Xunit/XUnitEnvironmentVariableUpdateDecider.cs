@@ -9,7 +9,7 @@ namespace Snapper.Xunit
 
         public XUnitEnvironmentVariableUpdateDecider()
         {
-            _envUpdateDecider = new EnvironmentVariableUpdateDecider();
+            _envUpdateDecider = new SnapshotUpdateDecider();
         }
 
         public bool ShouldUpdateSnapshot()

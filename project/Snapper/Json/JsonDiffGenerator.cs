@@ -11,10 +11,13 @@ namespace Snapper.Json
         private const string RemovedLegendString = "- Snapshot";
         private const string AddedLegendString = "+ Received";
 
-        public static string GetDiffMessage(JToken currentSnapshot, JToken newSnapshot)
+        public static string GetDiffMessage(object currentSnapshot, object newSnapshot)
         {
+            var currentSnapshotJObject = JObject.FromObject(currentSnapshot);
+            var newSnapshotJObject = JObject.FromObject(newSnapshot);
+
             var dmp = new diff_match_patch();
-            var a = dmp.diff_linesToChars(currentSnapshot.ToString(), newSnapshot.ToString());
+            var a = dmp.diff_linesToChars(currentSnapshotJObject.ToString(), newSnapshotJObject.ToString());
             var lineText1 = (string) a[0];
             var lineText2 = (string) a[1];
             var lineArray = (List<string>) a[2];

@@ -6,12 +6,17 @@ namespace Snapper
     internal class Snapper : SnapperCore
     {
         private readonly ISnapshotIdResolver _snapshotIdResolver;
+        private readonly ISnapshotSanitiser _snapshotSanitiser;
+        private readonly ISnapshotAsserter _snapshotAsserter;
 
         public Snapper(ISnapshotStore snapshotStore, ISnapshotUpdateDecider snapshotUpdateDecider,
-            ISnapshotComparer snapshotComparer, ISnapshotIdResolver snapshotIdResolver)
+            ISnapshotComparer snapshotComparer, ISnapshotIdResolver snapshotIdResolver,
+            ISnapshotSanitiser snapshotSanitiser, ISnapshotAsserter snapshotAsserter)
             : base(snapshotStore, snapshotUpdateDecider, snapshotComparer)
         {
             _snapshotIdResolver = snapshotIdResolver;
+            _snapshotSanitiser = snapshotSanitiser;
+            _snapshotAsserter = snapshotAsserter;
         }
 
         public void MatchSnapshot(object snapshot)
@@ -20,15 +25,11 @@ namespace Snapper
         public void MatchSnapshot(object snapshot, string snapshotName)
         {
             var snapId = _snapshotIdResolver.ResolveSnapshotId(null);
+            var sanitisedSnapshot = _snapshotSanitiser.SanitiseSnapshot(snapshot);
 
-            // TODO sanitise object
-            // e.g. not convertable to a json object try convert
+            var result = Snap(snapId, sanitisedSnapshot);
 
-            var result = Snap(snapId, snapshot);
-
-            // TODO call asserter
-            if (result.Status != SnapResultStatus.SnapshotsMatch || result.Status == SnapResultStatus.SnapshotUpdated)
-                throw new Exception("Break break break");
+            _snapshotAsserter.AssertSnapshot(result);
         }
     }
 }

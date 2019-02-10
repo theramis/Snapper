@@ -8,7 +8,7 @@ namespace Snapper.Core
 {
     internal static class TestFrameworkHelper
     {
-        private static IList<string> _supportedTestFrameworksAttributes = new List<string>
+        private static readonly IList<string> _supportedTestFrameworksAttributes = new List<string>
         {
             {"Xunit.FactAttribute"},
             {"Xunit.TheoryAttribute"},

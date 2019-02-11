@@ -1,3 +1,4 @@
+using System.Runtime.CompilerServices;
 using Snapper.Attributes;
 using Xunit;
 
@@ -7,6 +8,7 @@ namespace Snapper.Tests
     public class SnapperTests
     {
         [Fact]
+        [MethodImpl(MethodImplOptions.NoInlining)]
         public void Test()
         {
             var obj = new { value = 1 };
@@ -14,6 +16,7 @@ namespace Snapper.Tests
         }
 
         [Fact]
+        [MethodImpl(MethodImplOptions.NoInlining)]
         public void Test2()
         {
             var obj = new { value = 5 };

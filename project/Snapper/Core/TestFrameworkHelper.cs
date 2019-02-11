@@ -34,6 +34,10 @@ namespace Snapper.Core
                     return (asyncMethod, stackFrame.GetFileName());
             }
 
+            // TODO Throw an error if nothing found
+            // mention using [MethodImpl(MethodImplOptions.NoInlining)], or setting optimise code off
+            // mention adding the framework into code
+            // mention that it needs to be called from inside a test
             return (null, null);
         }
 

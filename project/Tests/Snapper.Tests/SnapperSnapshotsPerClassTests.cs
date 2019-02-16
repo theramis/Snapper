@@ -1,3 +1,4 @@
+using System;
 using System.IO;
 using System.Runtime.CompilerServices;
 using Snapper.Attributes;
@@ -39,7 +40,7 @@ namespace Snapper.Tests
             Assert.NotNull(exception);
             Assert.Equal("Snapper.Exceptions.SnapshotsDoNotMatchException", exception.GetType().FullName);
             Assert.Equal(string.Join(
-                '\n',
+                Environment.NewLine,
                 "",
                 "- Snapshot",
                 "+ Received",
@@ -49,7 +50,7 @@ namespace Snapper.Tests
                 "-    \"TestValue\": \"value\"",
                 "+    \"TestValue\": \"value\",",
                 "+    \"NewValue\": \"newvalue\"",
-                "}\n"
+                "}" + Environment.NewLine
                 ), exception.Message);
         }
 
@@ -92,7 +93,7 @@ namespace Snapper.Tests
             // Assert
             Assert.NotNull(exception);
             Assert.Equal("Snapper.Exceptions.SnapshotDoesNotExistException", exception.GetType().FullName);
-            Assert.Equal( "A snapshot does not exist.\n\n", exception.Message);
+            Assert.Equal( $"A snapshot does not exist.{Environment.NewLine}{Environment.NewLine}", exception.Message);
         }
 
         [Fact]
@@ -104,7 +105,7 @@ namespace Snapper.Tests
 
             var content = File.ReadAllText(snapshotFilePath);
             var snapshotToRemove = string.Join(
-                '\n',
+                Environment.NewLine,
                 "  \"SnapshotsDoesNotExist_UpdateSnapshotsAttributeIsSet_SnapshotIsCreated\": {",
                 "    \"TestValue\": \"doesNotExist\"",
                 "  }");

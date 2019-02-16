@@ -1,3 +1,4 @@
+using System;
 using System.IO;
 using System.Runtime.CompilerServices;
 using Snapper.Attributes;
@@ -61,7 +62,7 @@ namespace Snapper.Tests
             Assert.NotNull(exception);
             Assert.Equal("Snapper.Exceptions.SnapshotsDoNotMatchException", exception.GetType().FullName);
             Assert.Equal(string.Join(
-                '\n',
+                Environment.NewLine,
                 "",
                 "- Snapshot",
                 "+ Received",
@@ -71,7 +72,7 @@ namespace Snapper.Tests
                 "-    \"TestValue\": \"value\"",
                 "+    \"TestValue\": \"value\",",
                 "+    \"NewValue\": \"newvalue\"",
-                "}\n"
+                "}" + Environment.NewLine
                 ), exception.Message);
         }
 
@@ -83,7 +84,7 @@ namespace Snapper.Tests
             var snapshotFilePath = GetSnapshotFilePath<SnapperSnapshotsPerMethodTests>(
                     nameof(SnapshotsDoNotMatch_UpdateSnapshotsAttributeIsSet_SnapshotIsUpdated));
             var snapshotContent = string.Join(
-                '\n',
+                Environment.NewLine,
                 "{",
                 "  \"TestValue\": \"value\"",
                 "}");
@@ -100,7 +101,7 @@ namespace Snapper.Tests
 
             // Assert
             var expectedSnapshotContent = string.Join(
-                '\n',
+                Environment.NewLine,
                 "{",
                 "  \"TestValue\": \"value\",",
                 "  \"NewValue\": \"newvalue\"",
@@ -123,7 +124,7 @@ namespace Snapper.Tests
             // Assert
             Assert.NotNull(exception);
             Assert.Equal("Snapper.Exceptions.SnapshotDoesNotExistException", exception.GetType().FullName);
-            Assert.Equal( "A snapshot does not exist.\n\n", exception.Message);
+            Assert.Equal( $"A snapshot does not exist.{Environment.NewLine}{Environment.NewLine}", exception.Message);
         }
 
         [Fact]
@@ -149,7 +150,7 @@ namespace Snapper.Tests
             Assert.True(File.Exists(snapshotFilePath));
 
             var expectedSnapshotContent = string.Join(
-                '\n',
+                Environment.NewLine,
                 "{",
                 "  \"TestValue\": \"value\"",
                 "}");

@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Text;
@@ -26,11 +27,11 @@ namespace Snapper.Json
             dmp.diff_charsToLines(diffs, lineArray);
             dmp.diff_cleanupEfficiency(diffs);
 
-            var builder = new StringBuilder("\n");
+            var builder = new StringBuilder(Environment.NewLine);
 
             builder.AppendLine(RemovedLegendString);
             builder.AppendLine(AddedLegendString);
-            builder.AppendLine("\n");
+            builder.AppendLine(Environment.NewLine);
 
             for (var i = 0; i < diffs.Count; i++)
             {

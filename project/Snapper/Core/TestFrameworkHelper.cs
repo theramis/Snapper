@@ -6,6 +6,7 @@ using System.Runtime.CompilerServices;
 
 namespace Snapper.Core
 {
+    // TODO write tests for this class
     internal static class TestFrameworkHelper
     {
         private static readonly IList<string> _supportedTestFrameworksAttributes = new List<string>

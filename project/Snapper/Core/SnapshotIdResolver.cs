@@ -5,6 +5,7 @@ using Snapper.Attributes;
 
 namespace Snapper.Core
 {
+    // TODO write tests for this class
     internal class SnapshotIdResolver : ISnapshotIdResolver
     {
         private const string SnapshotsDirectory = "_snapshots";

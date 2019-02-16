@@ -4,6 +4,7 @@ using Snapper.Core;
 
 namespace Snapper.Json
 {
+    // TODO write tests for this class
     internal class JsonSnapshotStore : ISnapshotStore
     {
         public object GetSnapshot(SnapshotId snapshotId)
@@ -18,7 +19,7 @@ namespace Snapper.Json
 
             return fullSnapshot.TryGetValue(snapshotId.PartialId, out var partialSnapshot)
                 ? partialSnapshot
-                : fullSnapshot;
+                : null;
         }
 
         public void StoreSnapshot(SnapshotId snapshotId, object value)

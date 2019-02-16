@@ -3,7 +3,7 @@ using Moq;
 using Snapper.Core;
 using Xunit;
 
-namespace Snapper.Tests.Core
+namespace Snapper.Internals.Tests.Core
 {
     public class SnapperCoreTests
     {
@@ -24,19 +24,6 @@ namespace Snapper.Tests.Core
         }
 
         [Fact]
-        public void SnapshotDoesNotExist_ResultStatusIs_SnapshotDoesNotExist()
-        {
-            _store.Setup(a => a.GetSnapshot(It.IsAny<SnapshotId>())).Returns(null);
-            _updateDecider.Setup(a => a.ShouldUpdateSnapshot()).Returns(false);
-
-            var result = _snapper.Snap(new SnapshotId("name"), _obj);
-
-            result.Status.Should().BeEquivalentTo(SnapResultStatus.SnapshotDoesNotExist);
-            result.OldSnapshot.Should().BeNull();
-            result.NewSnapshot.Should().BeEquivalentTo(_obj);
-        }
-
-        [Fact]
         public void SnapshotMatches_ResultStatusIs_SnapshotsMatch()
         {
             _store.Setup(a => a.GetSnapshot(It.IsAny<SnapshotId>())).Returns(_obj);
@@ -46,6 +33,22 @@ namespace Snapper.Tests.Core
 
             var result = _snapper.Snap(new SnapshotId("name"), _obj);
 
+            result.Status.Should().BeEquivalentTo(SnapResultStatus.SnapshotsMatch);
+            result.OldSnapshot.Should().BeEquivalentTo(_obj);
+            result.NewSnapshot.Should().BeEquivalentTo(_obj);
+        }
+
+        [Fact]
+        public void SnapshotMatches_ShouldUpdate_ResultStatusIs_SnapshotsMatch()
+        {
+            _store.Setup(a => a.GetSnapshot(It.IsAny<SnapshotId>())).Returns(_obj);
+            _updateDecider.Setup(a => a.ShouldUpdateSnapshot()).Returns(true);
+            _comparer.Setup(a => a.CompareSnapshots(It.IsAny<object>(), It.IsAny<object>()))
+                .Returns(true);
+
+            var result = _snapper.Snap(new SnapshotId("name"), _obj);
+
+            _store.Verify(a => a.StoreSnapshot(It.IsAny<SnapshotId>(), It.IsAny<object>()), Times.Never);
             result.Status.Should().BeEquivalentTo(SnapResultStatus.SnapshotsMatch);
             result.OldSnapshot.Should().BeEquivalentTo(_obj);
             result.NewSnapshot.Should().BeEquivalentTo(_obj);
@@ -85,22 +88,6 @@ namespace Snapper.Tests.Core
         }
 
         [Fact]
-        public void SnapshotMatches_ShouldUpdate_ResultStatusIs_SnapshotsMatch()
-        {
-            _store.Setup(a => a.GetSnapshot(It.IsAny<SnapshotId>())).Returns(_obj);
-            _updateDecider.Setup(a => a.ShouldUpdateSnapshot()).Returns(true);
-            _comparer.Setup(a => a.CompareSnapshots(It.IsAny<object>(), It.IsAny<object>()))
-                .Returns(true);
-
-            var result = _snapper.Snap(new SnapshotId("name"), _obj);
-
-            _store.Verify(a => a.StoreSnapshot(It.IsAny<SnapshotId>(), It.IsAny<object>()), Times.Never);
-            result.Status.Should().BeEquivalentTo(SnapResultStatus.SnapshotsMatch);
-            result.OldSnapshot.Should().BeEquivalentTo(_obj);
-            result.NewSnapshot.Should().BeEquivalentTo(_obj);
-        }
-
-        [Fact]
         public void SnapshotDoesNotExist_ShouldUpdate_ResultStatusIs_SnapshotUpdated()
         {
             _store.Setup(a => a.GetSnapshot(It.IsAny<SnapshotId>())).Returns(null);
@@ -110,6 +97,19 @@ namespace Snapper.Tests.Core
 
             _store.Verify(a => a.StoreSnapshot(It.IsAny<SnapshotId>(), It.IsAny<object>()), Times.Once);
             result.Status.Should().BeEquivalentTo(SnapResultStatus.SnapshotUpdated);
+            result.OldSnapshot.Should().BeNull();
+            result.NewSnapshot.Should().BeEquivalentTo(_obj);
+        }
+
+        [Fact]
+        public void SnapshotDoesNotExist_ResultStatusIs_SnapshotDoesNotExist()
+        {
+            _store.Setup(a => a.GetSnapshot(It.IsAny<SnapshotId>())).Returns(null);
+            _updateDecider.Setup(a => a.ShouldUpdateSnapshot()).Returns(false);
+
+            var result = _snapper.Snap(new SnapshotId("name"), _obj);
+
+            result.Status.Should().BeEquivalentTo(SnapResultStatus.SnapshotDoesNotExist);
             result.OldSnapshot.Should().BeNull();
             result.NewSnapshot.Should().BeEquivalentTo(_obj);
         }

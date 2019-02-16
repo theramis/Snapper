@@ -2,7 +2,7 @@
 using Snapper.Core;
 using Xunit;
 
-namespace Snapper.Tests.Core
+namespace Snapper.Internals.Tests.Core
 {
     public class EnvironmentVariableUpdateDeciderTests
     {

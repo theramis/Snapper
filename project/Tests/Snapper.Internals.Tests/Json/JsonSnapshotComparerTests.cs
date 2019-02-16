@@ -2,7 +2,7 @@
 using Snapper.Json;
 using Xunit;
 
-namespace Snapper.Tests
+namespace Snapper.Internals.Tests.Json
 {
     public class JsonSnapshotComparerTests
     {
@@ -41,11 +41,11 @@ namespace Snapper.Tests
         {
             var obj1 = new
             {
+                v = 1,
                 complex = new
                 {
                     a = 1
-                },
-                v = 1
+                }
             };
 
             var obj2 = new
@@ -72,11 +72,11 @@ namespace Snapper.Tests
         {
             var obj1 = new
             {
+                v = 1,
                 complex = new
                 {
                     a = 1
-                },
-                v = 1
+                }
             };
 
             var obj2 = new

@@ -1,0 +1,11 @@
+{
+  "SnapshotsMatch": {
+    "TestValue": "value"
+  },
+  "SnapshotsDoNotMatch_UpdateSnapshotsAttributeIsSet_SnapshotIsUpdated": {
+    "TestValue": "isUpdated"
+  },
+  "SnapshotsDoNotMatch_SnapshotsDoNotMatchException_IsThrown": {
+    "TestValue": "value"
+  }
+}

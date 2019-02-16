@@ -5,6 +5,7 @@ using Snapper.Attributes;
 
 namespace Snapper.Core
 {
+    // TODO write tests for this class
     internal class SnapshotUpdateDecider : ISnapshotUpdateDecider
     {
         private const string UpdateSnapshotEnvironmentVariableName = "UpdateSnapshots";

@@ -6,7 +6,7 @@ namespace Snapper.Core
         public object OldSnapshot { get; }
         public object NewSnapshot { get; }
 
-        public SnapResult(SnapResultStatus status, object oldSnapshot, object newSnapshot)
+        private SnapResult(SnapResultStatus status, object oldSnapshot, object newSnapshot)
         {
             Status = status;
             OldSnapshot = oldSnapshot;

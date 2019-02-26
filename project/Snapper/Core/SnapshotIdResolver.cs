@@ -2,6 +2,7 @@ using System.IO;
 using System.Linq;
 using System.Reflection;
 using Snapper.Attributes;
+using Snapper.Core.TestFrameworks;
 
 namespace Snapper.Core
 {

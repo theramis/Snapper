@@ -3,18 +3,24 @@ using System.Diagnostics;
 using System.Linq;
 using System.Reflection;
 using System.Runtime.CompilerServices;
+using Snapper.Exceptions;
 
-namespace Snapper.Core
+namespace Snapper.Core.TestFrameworks
 {
     // TODO write tests for this class
     internal static class TestFrameworkHelper
     {
-        private static readonly IList<string> _supportedTestFrameworksAttributes = new List<string>
+        private static readonly IList<string> SupportedTestFrameworksTheoryAttributes = new List<string>
+        {
+            {"Xunit.TheoryAttribute"},
+            {"NUnit.Framework.TheoryAttribute"}
+        };
+
+        private static readonly IList<string> SupportedTestFrameworksAttributes = new List<string>
+            (SupportedTestFrameworksTheoryAttributes)
         {
             {"Xunit.FactAttribute"},
-            {"Xunit.TheoryAttribute"},
             {"NUnit.Framework.TestAttribute"},
-            {"NUnit.Framework.TheoryAttribute"}
         };
 
         public static (MethodBase method, string filePath) GetCallingTestMethod()
@@ -35,11 +41,7 @@ namespace Snapper.Core
                     return (asyncMethod, stackFrame.GetFileName());
             }
 
-            // TODO Throw an error if nothing found
-            // mention using [MethodImpl(MethodImplOptions.NoInlining)], or setting optimise code off
-            // mention adding the framework into code
-            // mention that it needs to be called from inside a test
-            return (null, null);
+            throw new SupportedTestMethodNotFoundException();
         }
 
         private static bool IsSnapperMethod(MemberInfo method)
@@ -54,7 +56,18 @@ namespace Snapper.Core
             var attribute = method?.CustomAttributes.FirstOrDefault(a =>
             {
                 var attributeName = a.AttributeType.FullName;
-                return _supportedTestFrameworksAttributes.Contains(attributeName);
+                return SupportedTestFrameworksAttributes.Contains(attributeName);
+            });
+
+            return attribute != null;
+        }
+
+        private static bool IsTheoryTestMethod(MemberInfo method)
+        {
+            var attribute = method?.CustomAttributes.FirstOrDefault(a =>
+            {
+                var attributeName = a.AttributeType.FullName;
+                return SupportedTestFrameworksTheoryAttributes.Contains(attributeName);
             });
 
             return attribute != null;

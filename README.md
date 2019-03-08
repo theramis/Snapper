@@ -84,6 +84,22 @@ Assert.That(objectToSnapshot, Is.EqualToSnapshot(snapshotName));
 To update snapshots set the Environment Variable `UpdateSnapshots` to `true` and run the tests.
 You can also add the `[UpdateSnapshots]` attribute to your test method/class and run it. (Remember to remove it before you commit your code)
 
+## FAQS
+
+### Why am I getting an `InvalidOperation` exception saying Snapper is not being used inside a test method when using XUnitSnapper/NUnitSnapper only when in a Release build? 
+Snapper uses the [StackTrace](https://docs.microsoft.com/en-us/dotnet/api/system.diagnostics.stacktrace?view=netstandard-2.0) to determine which test method it was called from. In a Release build the compiler optimises the code which can cause some issues with how Snapper determines the test method. The compiler in this case is inlining the method which makes the method invisible to the StackTrace class. See [link](https://stackoverflow.com/questions/3924995/what-is-method-inlining) for a better explanation. 
+
+There are currently two solution for this issue. 
+1. Set the following attribute on the test method `[MethodImpl(MethodImplOptions.NoInlining)]` as seen [here](https://github.com/theramis/Snapper/blob/516598b41426fcfd0968db170dcd805e30604cbb/project/Tests/Snapper.Tests/SnapperSnapshotsPerClassTests.cs#L13).
+2. Disable optimisation of code for your release builds of your test project. You can do this by adding this into your projects csproj file. 
+```
+<PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
+    <Optimize>false</Optimize>
+</PropertyGroup>
+```
+
+For more information see this issue: https://github.com/theramis/Snapper/issues/16
+
 ## Todo
 - ~~Write tests~~
 - ~~Extend XUnit Assert e.g. `Assert.Snap(obj)` rather than `XUnitSnapper.Snap(obj)`~~

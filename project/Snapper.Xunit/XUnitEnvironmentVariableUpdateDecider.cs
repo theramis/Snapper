@@ -1,5 +1,6 @@
 ﻿using System.Linq;
 using Snapper.Core;
+using Snapper.Core.TestMethodResolver;
 
 namespace Snapper.Xunit
 {
@@ -9,7 +10,7 @@ namespace Snapper.Xunit
 
         public XUnitEnvironmentVariableUpdateDecider()
         {
-            _envUpdateDecider = new SnapshotUpdateDecider();
+            _envUpdateDecider = new SnapshotUpdateDecider(new TestMethodResolver());
         }
 
         public bool ShouldUpdateSnapshot()

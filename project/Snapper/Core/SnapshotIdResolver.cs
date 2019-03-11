@@ -2,34 +2,41 @@ using System.IO;
 using System.Linq;
 using System.Reflection;
 using Snapper.Attributes;
-using Snapper.Core.TestFrameworks;
+using Snapper.Core.TestMethodResolver;
 
 namespace Snapper.Core
 {
     // TODO write tests for this class
     internal class SnapshotIdResolver : ISnapshotIdResolver
     {
+        private readonly ITestMethodResolver _testMethodResolver;
         private const string SnapshotsDirectory = "_snapshots";
+
+        public SnapshotIdResolver(ITestMethodResolver testMethodResolver)
+        {
+            _testMethodResolver = testMethodResolver;
+        }
 
         public SnapshotId ResolveSnapshotId(string snapshotName)
         {
-            var (method, filePath) = TestFrameworkHelper.GetCallingTestMethod();
+            var testMethod = _testMethodResolver.ResolveTestMethod();
+            var testBaseMethod = testMethod.BaseMethod;
 
-            var storeSnapshotsPerClass = ShouldStoreSnapshotsPerClass(method);
+            var storeSnapshotsPerClass = ShouldStoreSnapshotsPerClass(testBaseMethod);
 
-            var directory = Path.GetDirectoryName(filePath);
-            var className = method.DeclaringType?.Name;
+            var directory = Path.GetDirectoryName(testMethod.FileName);
+            var className = testBaseMethod.DeclaringType?.Name;
 
             if (storeSnapshotsPerClass)
             {
                 var snapshotFilePath = Path.Combine(directory, SnapshotsDirectory, $"{className}.json");
-                var snapshotId = string.IsNullOrWhiteSpace(snapshotName) ? method.Name : snapshotName;
+                var snapshotId = string.IsNullOrWhiteSpace(snapshotName) ? testMethod.InstanceName : snapshotName;
                 return new SnapshotId(snapshotFilePath, snapshotId);
             }
             else
             {
                 var snapshotFileName = string.IsNullOrWhiteSpace(snapshotName)
-                                            ? $"{className}{'_'}{method.Name}"
+                                            ? $"{className}{'_'}{testMethod.InstanceName}"
                                             : $"{className}{'_'}{snapshotName}";
 
                 var snapshotFilePath = Path.Combine(directory, SnapshotsDirectory, $"{snapshotFileName}.json");

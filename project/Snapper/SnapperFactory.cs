@@ -1,5 +1,6 @@
 using System;
 using Snapper.Core;
+using Snapper.Core.TestMethodResolver;
 using Snapper.Json;
 
 namespace Snapper
@@ -12,8 +13,11 @@ namespace Snapper
             new Lazy<Snapper>(CreateJsonSnapper);
 
         private static Snapper CreateJsonSnapper()
-            => new Snapper(new JsonSnapshotStore(), new SnapshotUpdateDecider(),
-                new JsonSnapshotComparer(), new SnapshotIdResolver(), new JsonSnapshotSanitiser(),
+        {
+            var testMethodResolver = new TestMethodResolver();
+            return new Snapper(new JsonSnapshotStore(), new SnapshotUpdateDecider(testMethodResolver),
+                new JsonSnapshotComparer(), new SnapshotIdResolver(testMethodResolver), new JsonSnapshotSanitiser(),
                 new SnapshotAsserter());
+        }
     }
 }

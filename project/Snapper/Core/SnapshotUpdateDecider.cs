@@ -2,23 +2,23 @@ using System;
 using System.Linq;
 using System.Reflection;
 using Snapper.Attributes;
-using Snapper.Core.TestFrameworks;
+using Snapper.Core.TestMethodResolver;
 
 namespace Snapper.Core
 {
     // TODO write tests for this class
     internal class SnapshotUpdateDecider : ISnapshotUpdateDecider
     {
+        private readonly ITestMethodResolver _testMethodResolver;
         private const string UpdateSnapshotEnvironmentVariableName = "UpdateSnapshots";
         private readonly string _envVarName;
 
-        public SnapshotUpdateDecider()
-            : this(UpdateSnapshotEnvironmentVariableName)
+        public SnapshotUpdateDecider(ITestMethodResolver testMethodResolver,
+            string envVarName = UpdateSnapshotEnvironmentVariableName)
         {
+            _testMethodResolver = testMethodResolver;
+            _envVarName = envVarName;
         }
-
-        public SnapshotUpdateDecider(string envVarName)
-            => _envVarName = envVarName;
 
         public bool ShouldUpdateSnapshot()
             => ShouldUpdateSnapshotBasedOnEnvironmentVariable()
@@ -32,9 +32,9 @@ namespace Snapper.Core
             return bool.TryParse(env, out var value) && value;
         }
 
-        private static bool ShouldUpdateSnapshotBasedOnAttribute()
+        private bool ShouldUpdateSnapshotBasedOnAttribute()
         {
-            var (method, _) = TestFrameworkHelper.GetCallingTestMethod();
+            var method = _testMethodResolver.ResolveTestMethod().BaseMethod;
 
             var methodHasAttribute = HasUpdateSnapshotsAttribute(method);
             var classHasAttribute = HasUpdateSnapshotsAttribute(method?.ReflectedType);

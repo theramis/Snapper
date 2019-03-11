@@ -1,5 +1,6 @@
 ﻿using System;
 using Snapper.Core;
+using Snapper.Core.TestMethodResolver;
 using Xunit;
 
 namespace Snapper.Internals.Tests.Core
@@ -12,7 +13,7 @@ namespace Snapper.Internals.Tests.Core
         public EnvironmentVariableUpdateDeciderTests()
         {
             _envVar = Guid.NewGuid().ToString();
-            _decider = new SnapshotUpdateDecider(_envVar);
+            _decider = new SnapshotUpdateDecider(new TestMethodResolver(), _envVar);
         }
 
         [Fact]

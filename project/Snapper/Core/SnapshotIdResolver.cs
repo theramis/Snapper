@@ -7,7 +7,7 @@ using Snapper.Core.TestMethodResolver;
 namespace Snapper.Core
 {
     // TODO write tests for this class
-    internal class SnapshotIdResolver : ISnapshotIdResolver
+    internal class SnapshotIdResolver
     {
         private readonly ITestMethodResolver _testMethodResolver;
         private const string SnapshotsDirectory = "_snapshots";

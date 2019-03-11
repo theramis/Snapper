@@ -1,17 +1,18 @@
 using System;
 using Snapper.Core;
+using Snapper.Json;
 
 namespace Snapper
 {
     internal class Snapper : SnapperCore
     {
-        private readonly ISnapshotIdResolver _snapshotIdResolver;
-        private readonly ISnapshotSanitiser _snapshotSanitiser;
-        private readonly ISnapshotAsserter _snapshotAsserter;
+        private readonly SnapshotIdResolver _snapshotIdResolver;
+        private readonly JsonSnapshotSanitiser _snapshotSanitiser;
+        private readonly SnapshotAsserter _snapshotAsserter;
 
         public Snapper(ISnapshotStore snapshotStore, ISnapshotUpdateDecider snapshotUpdateDecider,
-            ISnapshotComparer snapshotComparer, ISnapshotIdResolver snapshotIdResolver,
-            ISnapshotSanitiser snapshotSanitiser, ISnapshotAsserter snapshotAsserter)
+            ISnapshotComparer snapshotComparer, SnapshotIdResolver snapshotIdResolver,
+            JsonSnapshotSanitiser snapshotSanitiser, SnapshotAsserter snapshotAsserter)
             : base(snapshotStore, snapshotUpdateDecider, snapshotComparer)
         {
             _snapshotIdResolver = snapshotIdResolver;
@@ -29,7 +30,7 @@ namespace Snapper
 
             var result = Snap(snapId, sanitisedSnapshot);
 
-            _snapshotAsserter.AssertSnapshot(result);
+            SnapshotAsserter.AssertSnapshot(result);
         }
     }
 }

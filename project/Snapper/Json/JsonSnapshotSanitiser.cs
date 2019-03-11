@@ -5,7 +5,7 @@ using Snapper.Core;
 namespace Snapper.Json
 {
     // TODO write tests for this class
-    internal class JsonSnapshotSanitiser : ISnapshotSanitiser
+    internal class JsonSnapshotSanitiser
     {
         public object SanitiseSnapshot(object snapshot)
         {

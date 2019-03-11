@@ -2,9 +2,9 @@ using Snapper.Exceptions;
 
 namespace Snapper.Core
 {
-    internal class SnapshotAsserter : ISnapshotAsserter
+    internal class SnapshotAsserter
     {
-        public void AssertSnapshot(SnapResult snapResult)
+        public static void AssertSnapshot(SnapResult snapResult)
         {
             switch (snapResult.Status)
             {

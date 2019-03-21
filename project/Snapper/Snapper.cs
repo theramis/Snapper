@@ -1,4 +1,3 @@
-using System;
 using Snapper.Core;
 using Snapper.Json;
 
@@ -23,14 +22,14 @@ namespace Snapper
         public void MatchSnapshot(object snapshot)
             => MatchSnapshot(snapshot, null);
 
-        public void MatchSnapshot(object snapshot, string snapshotName)
+        public void MatchSnapshot(object snapshot, string partialSnapshotName)
         {
-            var snapId = _snapshotIdResolver.ResolveSnapshotId(null);
+            var snapId = _snapshotIdResolver.ResolveSnapshotId(partialSnapshotName);
             var sanitisedSnapshot = _snapshotSanitiser.SanitiseSnapshot(snapshot);
 
             var result = Snap(snapId, sanitisedSnapshot);
 
-            SnapshotAsserter.AssertSnapshot(result);
+            _snapshotAsserter.AssertSnapshot(result);
         }
     }
 }

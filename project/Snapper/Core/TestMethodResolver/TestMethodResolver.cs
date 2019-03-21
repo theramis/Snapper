@@ -21,7 +21,7 @@ namespace Snapper.Core.TestMethodResolver
 
         public ITestMethod ResolveTestMethod()
         {
-            var stackTrace = new StackTrace(3, true);
+            var stackTrace = new StackTrace(1, true);
             foreach (var stackFrame in stackTrace.GetFrames() ?? new StackFrame[0])
             {
                 var method = stackFrame.GetMethod();

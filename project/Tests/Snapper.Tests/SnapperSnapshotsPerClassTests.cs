@@ -128,6 +128,23 @@ namespace Snapper.Tests
             File.WriteAllText(snapshotFilePath, newContent);
         }
 
+        // TODO move to another file
+        [Theory]
+        [InlineData(1)]
+        [InlineData(2)]
+        [InlineData(3)]
+        public void TheorySnapshotsMatch(int data)
+        {
+            // Arrange
+            var snapshot = new
+            {
+                TestValue = data
+            };
+
+            // Act/Assert
+            snapshot.TheoryTestShouldMatchSnapshot(data.ToString());
+        }
+
         private static string GetSnapshotFilePath<T>([CallerFilePath] string callerFilePath = "")
         {
             var testFileDirectory = Path.GetDirectoryName(callerFilePath);

@@ -6,7 +6,7 @@ namespace Snapper.Core.TestMethodResolver.TestMethods
     {
         bool IsTestMethod();
 
-        string InstanceName { get; }
+        string MethodName { get; }
 
         string FileName { get; }
 

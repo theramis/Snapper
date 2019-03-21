@@ -17,7 +17,7 @@ namespace Snapper.Core
             _testMethodResolver = testMethodResolver;
         }
 
-        public SnapshotId ResolveSnapshotId(string snapshotName)
+        public SnapshotId ResolveSnapshotId(string partialSnapshotName)
         {
             var testMethod = _testMethodResolver.ResolveTestMethod();
             var testBaseMethod = testMethod.BaseMethod;
@@ -30,17 +30,13 @@ namespace Snapper.Core
             if (storeSnapshotsPerClass)
             {
                 var snapshotFilePath = Path.Combine(directory, SnapshotsDirectory, $"{className}.json");
-                var snapshotId = string.IsNullOrWhiteSpace(snapshotName) ? testMethod.InstanceName : snapshotName;
-                return new SnapshotId(snapshotFilePath, snapshotId);
+                return new SnapshotId(snapshotFilePath, testMethod.MethodName, partialSnapshotName);
             }
             else
             {
-                var snapshotFileName = string.IsNullOrWhiteSpace(snapshotName)
-                                            ? $"{className}{'_'}{testMethod.InstanceName}"
-                                            : $"{className}{'_'}{snapshotName}";
-
+                var snapshotFileName = $"{className}{'_'}{testMethod.MethodName}";
                 var snapshotFilePath = Path.Combine(directory, SnapshotsDirectory, $"{snapshotFileName}.json");
-                return new SnapshotId(snapshotFilePath);
+                return new SnapshotId(snapshotFilePath, partialSnapshotName);
             }
         }
 

@@ -4,7 +4,7 @@ namespace Snapper.Core
 {
     internal class SnapshotAsserter
     {
-        public static void AssertSnapshot(SnapResult snapResult)
+        public void AssertSnapshot(SnapResult snapResult)
         {
             switch (snapResult.Status)
             {

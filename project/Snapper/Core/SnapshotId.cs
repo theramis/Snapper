@@ -3,13 +3,15 @@ namespace Snapper.Core
     internal class SnapshotId
     {
         public string FilePath { get; }
-        public string PartialId { get; }
+
+        public string PrimaryId { get; }
+
         public string SecondaryId { get; }
 
-        public SnapshotId(string filePath, string partialId = null, string secondaryId = null)
+        public SnapshotId(string filePath, string primaryId = null, string secondaryId = null)
         {
             FilePath = filePath;
-            PartialId = partialId;
+            PrimaryId = primaryId;
             SecondaryId = secondaryId;
         }
     }

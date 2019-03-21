@@ -1,4 +1,5 @@
 ﻿using System.IO;
+using System.Linq;
 using Newtonsoft.Json.Linq;
 using Snapper.Core;
 
@@ -14,40 +15,55 @@ namespace Snapper.Json
 
             var fullSnapshot = JObject.Parse(File.ReadAllText(snapshotId.FilePath));
 
-            if (string.IsNullOrWhiteSpace(snapshotId.PartialId))
+            if (snapshotId.PrimaryId == null && snapshotId.SecondaryId == null)
                 return fullSnapshot;
 
-            return fullSnapshot.TryGetValue(snapshotId.PartialId, out var partialSnapshot)
-                ? partialSnapshot
-                : null;
+            if (snapshotId.PrimaryId != null &&
+                fullSnapshot.TryGetValue(snapshotId.PrimaryId, out var partialSnapshot))
+            {
+                if (snapshotId.SecondaryId != null &&
+                    partialSnapshot is JObject partialSnapshotJObject &&
+                    partialSnapshotJObject.TryGetValue(snapshotId.SecondaryId, out partialSnapshot))
+                {
+                    return partialSnapshot;
+                }
+
+                return partialSnapshot;
+            }
+            return null;
         }
 
         public void StoreSnapshot(SnapshotId snapshotId, object value)
         {
             Directory.CreateDirectory(Path.GetDirectoryName(snapshotId.FilePath));
 
-            var newSnapshot = JToken.FromObject(value);
+            var newSnapshot = JObject.FromObject(value);
 
             JToken newSnapshotToWrite;
 
-            if (snapshotId.PartialId == null)
+            if (snapshotId.PrimaryId == null && snapshotId.SecondaryId == null)
             {
                 newSnapshotToWrite = newSnapshot;
             }
             else
             {
                 var rawSnapshotContent = GetRawSnapshotContent(snapshotId.FilePath);
-                if (rawSnapshotContent == null)
+                newSnapshotToWrite = rawSnapshotContent == null
+                    ? new JObject()
+                    : JObject.Parse(rawSnapshotContent);
+
+
+                if (snapshotId.PrimaryId != null && snapshotId.SecondaryId == null)
                 {
-                    newSnapshotToWrite = new JObject
-                    {
-                        [snapshotId.PartialId] = newSnapshot
-                    };
+                    newSnapshotToWrite[snapshotId.PrimaryId] = newSnapshot;
                 }
-                else
+                else if (snapshotId.PrimaryId != null && snapshotId.SecondaryId != null)
                 {
-                    newSnapshotToWrite = JObject.Parse(rawSnapshotContent);
-                    newSnapshotToWrite[snapshotId.PartialId] = newSnapshot;
+                    var firstLevel = newSnapshotToWrite[snapshotId.PrimaryId];
+                    if (firstLevel == null)
+                        newSnapshotToWrite[snapshotId.PrimaryId] = new JObject();
+
+                    newSnapshotToWrite[snapshotId.PrimaryId][snapshotId.SecondaryId] = newSnapshot;
                 }
             }
 

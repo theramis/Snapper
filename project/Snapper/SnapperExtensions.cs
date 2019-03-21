@@ -8,12 +8,14 @@ namespace Snapper
             snapper.MatchSnapshot(snapshot);
         }
 
-        // TODO figure out if this should be something supported
-        public static void ShouldMatchSnapshot(this object snapshot, string snapshotName)
+        // TODO figure out a better name
+        public static void TheoryTestShouldMatchSnapshot(this object snapshot, string uniqueInstanceName)
         {
             var snapper = SnapperFactory.GetJsonSnapper();
-            snapper.MatchSnapshot(snapshot, snapshotName);
+            snapper.MatchSnapshot(snapshot, uniqueInstanceName);
         }
+
+        // TODO implement inline snapshot matching
 
         // TODO figure out if XUnitSnapper should exist
     }

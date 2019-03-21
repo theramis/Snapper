@@ -24,7 +24,8 @@ namespace Snapper.Core.TestMethodResolver.TestMethods
             return attribute != null;
         }
 
-        public string InstanceName => BaseMethod.Name;
+        public string MethodName => BaseMethod.Name;
+
         public string FileName { get; }
 
         public MemberInfo BaseMethod { get; }

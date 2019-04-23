@@ -6,7 +6,7 @@ namespace Snapper.Exceptions
 {
     internal class SnapshotDoesNotExistException : Exception
     {
-        // TODO: Update to mention attribute and env var
+        // TODO: Update to mention update snap attribute and env var
         private static string ExceptionMessage =>
             $"A snapshot does not exist.{Environment.NewLine}{Environment.NewLine}";
 

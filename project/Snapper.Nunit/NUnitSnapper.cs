@@ -1,46 +1,31 @@
-﻿namespace Snapper.Nunit
+﻿using Snapper.Core;
+using Snapper.Json;
+
+namespace Snapper.Nunit
 {
-//    internal class NUnitSnapper : JsonSnapper
-//    {
-//        private static NUnitSnapper Create()
-//            => new NUnitSnapper(new NUnitAsserter(), new JsonSnapStore(), new NUnitPathResolver(),
-//                new NUnitEnvironmentVariableUpdateDecider(), new JsonSnapComparer());
-//
-//        private NUnitSnapper(IAssert asserter, ISnapStore store, IPathResolver resolver,
-//            ISnapUpdateDecider snapUpdateDecider, ISnapComparer comparer)
-//            : base(asserter, store, resolver, snapUpdateDecider, comparer)
-//        {
-//        }
-//
-//        private void SnapObject(object value)
-//            => Snap(string.Empty, value);
-//
-//        public static SnapResults MatchSnapshot(object value)
-//        {
-//            try
-//            {
-//                Create().SnapObject(value);
-//            }
-//            catch (NUnitAsserterException e)
-//            {
-//                return e.Results;
-//            }
-//
-//            return null;
-//        }
-//
-//        public static SnapResults MatchSnapshot(string snapshotName, object value)
-//        {
-//            try
-//            {
-//                Create().Snap(snapshotName, value);
-//            }
-//            catch (NUnitAsserterException e)
-//            {
-//                return e.Results;
-//            }
-//
-//            return null;
-//        }
-//    }
+    internal class NUnitSnapper : SnapperCore
+    {
+        private readonly SnapshotIdResolver _snapshotIdResolver;
+        private readonly JsonSnapshotSanitiser _snapshotSanitiser;
+
+        public NUnitSnapper(ISnapshotStore snapshotStore, ISnapshotUpdateDecider snapshotUpdateDecider,
+            ISnapshotComparer snapshotComparer, SnapshotIdResolver snapshotIdResolver,
+            JsonSnapshotSanitiser snapshotSanitiser)
+            : base(snapshotStore, snapshotUpdateDecider, snapshotComparer)
+        {
+            _snapshotIdResolver = snapshotIdResolver;
+            _snapshotSanitiser = snapshotSanitiser;
+        }
+
+        public SnapResult MatchSnapshot(object snapshot)
+            => MatchSnapshot(snapshot, null);
+
+        public SnapResult MatchSnapshot(object snapshot, string partialSnapshotName)
+        {
+            var snapId = _snapshotIdResolver.ResolveSnapshotId(partialSnapshotName);
+            var sanitisedSnapshot = _snapshotSanitiser.SanitiseSnapshot(snapshot);
+
+            return Snap(snapId, sanitisedSnapshot);
+        }
+    }
 }

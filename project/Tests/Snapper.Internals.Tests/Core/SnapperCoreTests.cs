@@ -5,10 +5,25 @@ using Xunit;
 
 namespace Snapper.Internals.Tests.Core
 {
+    internal class SnapperCoreProxy : SnapperCore
+    {
+        public SnapperCoreProxy(ISnapshotStore snapshotStore,
+            ISnapshotUpdateDecider snapshotUpdateDecider,
+            ISnapshotComparer snapshotComparer)
+            : base(snapshotStore, snapshotUpdateDecider, snapshotComparer)
+        {
+        }
+
+        public new SnapResult Snap(SnapshotId snapshotId, object newSnapshot)
+        {
+            return base.Snap(snapshotId, newSnapshot);
+        }
+    }
+
     public class SnapperCoreTests
     {
         private readonly object _obj = new {value = 1};
-        private readonly SnapperCore _snapper;
+        private readonly SnapperCoreProxy _snapper;
         private readonly Mock<ISnapshotStore> _store;
         private readonly Mock<ISnapshotUpdateDecider> _updateDecider;
         private readonly Mock<ISnapshotComparer> _comparer;
@@ -19,7 +34,7 @@ namespace Snapper.Internals.Tests.Core
             _updateDecider = new Mock<ISnapshotUpdateDecider>();
             _comparer = new Mock<ISnapshotComparer>();
 
-            _snapper = new SnapperCore(_store.Object, _updateDecider.Object,
+            _snapper = new SnapperCoreProxy(_store.Object, _updateDecider.Object,
                 _comparer.Object);
         }
 

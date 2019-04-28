@@ -15,6 +15,10 @@ namespace Snapper
             snapper.MatchSnapshot(snapshot, uniqueInstanceName);
         }
 
-        // TODO implement inline snapshot matching
+        public static void ShouldMatchInlineSnapshot(this object snapshot, object expectedSnapshot)
+        {
+            var snapper = SnapperFactory.GetJsonInlineSnapper(expectedSnapshot);
+            snapper.MatchSnapshot(snapshot);
+        }
     }
 }

@@ -37,8 +37,8 @@ namespace Snapper.Core
             var method = _testMethodResolver.ResolveTestMethod().BaseMethod;
 
             var methodHasAttribute = HasUpdateSnapshotsAttribute(method);
-            var classHasAttribute = HasUpdateSnapshotsAttribute(method?.ReflectedType);
-            var assemblyHasAttribute = HasUpdateSnapshotsAttribute(method?.ReflectedType?.Assembly);
+            var classHasAttribute = HasUpdateSnapshotsAttribute(method?.DeclaringType);
+            var assemblyHasAttribute = HasUpdateSnapshotsAttribute(method?.DeclaringType?.Assembly);
 
             return methodHasAttribute || classHasAttribute || assemblyHasAttribute;
         }

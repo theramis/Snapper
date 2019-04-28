@@ -41,7 +41,7 @@ namespace Snapper.Core.TestMethodResolver
 
         private static bool IsSnapperMethod(MemberInfo method)
         {
-            var methodAssembly = method?.ReflectedType?.Assembly.FullName;
+            var methodAssembly = method?.DeclaringType?.Assembly.FullName;
             var snapperAssembly = Assembly.GetAssembly(typeof(TestMethodResolver)).FullName;
             return methodAssembly == snapperAssembly;
         }

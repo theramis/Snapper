@@ -43,8 +43,8 @@ namespace Snapper.Core
         private static bool ShouldStoreSnapshotsPerClass(MemberInfo method)
         {
             var methodHasAttribute = HasStoreSnapshotsPerClassAttribute(method);
-            var classHasAttribute = HasStoreSnapshotsPerClassAttribute(method?.ReflectedType);
-            var assemblyHasAttribute = HasStoreSnapshotsPerClassAttribute(method?.ReflectedType?.Assembly);
+            var classHasAttribute = HasStoreSnapshotsPerClassAttribute(method?.DeclaringType);
+            var assemblyHasAttribute = HasStoreSnapshotsPerClassAttribute(method?.DeclaringType?.Assembly);
 
             return methodHasAttribute || classHasAttribute || assemblyHasAttribute;
         }

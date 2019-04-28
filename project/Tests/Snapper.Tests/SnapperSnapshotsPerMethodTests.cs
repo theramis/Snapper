@@ -64,6 +64,7 @@ namespace Snapper.Tests
             Assert.Equal(string.Join(
                 Environment.NewLine,
                 "",
+                "Snapshots do not match",
                 "- Snapshot",
                 "+ Received",
                 "",
@@ -124,7 +125,10 @@ namespace Snapper.Tests
             // Assert
             Assert.NotNull(exception);
             Assert.Equal("Snapper.Exceptions.SnapshotDoesNotExistException", exception.GetType().FullName);
-            Assert.Equal( $"A snapshot does not exist.{Environment.NewLine}{Environment.NewLine}", exception.Message);
+            Assert.Equal( $"A snapshot does not exist.{Environment.NewLine}{Environment.NewLine}" +
+                          "Apply the [UpdateSnapshots] attribute on the " +
+                          "test method or class and then run the test again to " +
+                          $"create a snapshot.{Environment.NewLine}", exception.Message);
         }
 
         [Fact]

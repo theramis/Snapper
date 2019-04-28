@@ -16,7 +16,5 @@ namespace Snapper
         }
 
         // TODO implement inline snapshot matching
-
-        // TODO figure out if XUnitSnapper should exist
     }
 }

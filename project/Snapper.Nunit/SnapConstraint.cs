@@ -1,8 +1,6 @@
 using System;
 using NUnit.Framework.Constraints;
 using Snapper.Core;
-using Snapper.Exceptions;
-using Snapper.Json;
 
 namespace Snapper.Nunit
 {
@@ -50,11 +48,12 @@ namespace Snapper.Nunit
 
     internal class NUnitConstraintResult : ConstraintResult
     {
-        private readonly Exception _snapException;
+        private readonly SnapResult _snapResult;
 
         public NUnitConstraintResult(IConstraint constraint, object actualValue, SnapResult snapResult)
             : base(constraint, actualValue)
         {
+            _snapResult = snapResult;
             if (snapResult.Status == SnapResultStatus.SnapshotsMatch ||
                 snapResult.Status == SnapResultStatus.SnapshotUpdated)
             {
@@ -63,20 +62,6 @@ namespace Snapper.Nunit
             else
             {
                 Status = ConstraintStatus.Failure;
-
-                switch (snapResult.Status)
-                {
-                    case SnapResultStatus.SnapshotDoesNotExist:
-                        _snapException = new SnapshotDoesNotExistException(snapResult);
-                        break;
-                    case SnapResultStatus.SnapshotsDoNotMatch:
-                        _snapException = new SnapshotsDoNotMatchException(snapResult);
-                        break;
-                    case SnapResultStatus.SnapshotUpdated:
-                    case SnapResultStatus.SnapshotsMatch:
-                    default:
-                        return;
-                }
             }
         }
 
@@ -94,7 +79,7 @@ namespace Snapper.Nunit
 
         public override void WriteMessageTo(MessageWriter writer)
         {
-            writer.WriteValue(_snapException.Message);
+            writer.WriteValue(Messages.GetSnapResultMessage(_snapResult));
         }
     }
 }

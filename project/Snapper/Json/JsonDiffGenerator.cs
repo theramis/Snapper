@@ -28,7 +28,7 @@ namespace Snapper.Json
             dmp.diff_cleanupEfficiency(diffs);
 
             var builder = new StringBuilder(Environment.NewLine);
-
+            builder.AppendLine("Snapshots do not match");
             builder.AppendLine(RemovedLegendString);
             builder.AppendLine(AddedLegendString);
             builder.AppendLine(Environment.NewLine);

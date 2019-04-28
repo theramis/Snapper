@@ -6,11 +6,6 @@ namespace Snapper.Nunit.Tests
 {
     public class NUnitSnapperTests
     {
-        [SetUp]
-        public void Setup()
-        {
-        }
-
         [Test]
         [MethodImpl(MethodImplOptions.NoInlining)]
         public void TestIfStoredSnapshotIsMatching()

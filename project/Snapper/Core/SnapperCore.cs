@@ -6,7 +6,7 @@
         private readonly ISnapshotUpdateDecider _snapshotUpdateDecider;
         private readonly ISnapshotComparer _snapshotComparer;
 
-        public SnapperCore(ISnapshotStore snapshotStore, ISnapshotUpdateDecider snapshotUpdateDecider,
+        protected SnapperCore(ISnapshotStore snapshotStore, ISnapshotUpdateDecider snapshotUpdateDecider,
             ISnapshotComparer snapshotComparer)
         {
             _snapshotStore = snapshotStore;

@@ -90,3 +90,4 @@ You can also add the `[UpdateSnapshots]` attribute to your test method/class and
 - Write tests for json diff message maker
 - Update nuget package descriptions for xunit and nunit to say they have extra features
 - Figure out all of the .netstandards to target and lowest nuget package versions
+- Make tests fail if update var is on in CI

@@ -31,9 +31,12 @@ namespace Snapper.Core
 
         // TODO add supported test frameworks in docs and add link to troubleshooting
         // mention inlining
-        public static string TestMethodNotFoundMessage
-            => "A supported test method was not found. " +
+        public const string TestMethodNotFoundMessage
+            = "A supported test method was not found. " +
                "Make sure you are using Snapper inside a supported test framework. " +
                "See <link> for troubleshooting tips.";
+
+        public const string InvalidJsonInlineSnapshotMessage
+            = "The inline snapshot provided contains invalid JSON. See inner exception for details.";
     }
 }

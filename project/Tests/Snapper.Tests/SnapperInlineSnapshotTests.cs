@@ -14,9 +14,24 @@ namespace Snapper.Tests
                 TestValue = "value"
             };
 
-            snapshot.ShouldMatchInlineSnapshot( new {
+            snapshot.ShouldMatchInlineSnapshot(new {
                 TestValue = "value"
             });
+        }
+
+        [Fact]
+        [MethodImpl(MethodImplOptions.NoInlining)]
+        public void SnapshotsMatch_PassInStringObject()
+        {
+            var snapshot = new
+            {
+                TestValue = "value"
+            };
+
+            snapshot.ShouldMatchInlineSnapshot(@"
+            {
+                'TestValue' : 'value'
+            }");
         }
 
         [Fact]

@@ -24,7 +24,7 @@ namespace Snapper
             var testMethodResolver = new TestMethodResolver();
             var jsonSnapshotSanitiser = new JsonSnapshotSanitiser();
             return new Snapper(new JsonSnapshotInMemoryStore(jsonSnapshotSanitiser, expectedSnapshot),
-                new SnapshotUpdateDecider(testMethodResolver), new JsonSnapshotComparer(),
+                new AlwaysFalseSnapshotUpdateDecider(), new JsonSnapshotComparer(),
                 new SnapshotIdResolver(testMethodResolver), jsonSnapshotSanitiser,
                 new SnapshotAsserter());
         }

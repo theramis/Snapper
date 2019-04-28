@@ -8,9 +8,9 @@ namespace Snapper.Json
     {
         public bool CompareSnapshots(object oldSnap, object newSnap)
         {
-            var old = JToken.FromObject(oldSnap);
+            var old = JObject.FromObject(oldSnap);
 
-            var @new = JToken.FromObject(newSnap);
+            var @new = JObject.FromObject(newSnap);
             @new = JObject.Parse(@new.ToString());
             return JToken.DeepEquals(old, @new);
         }

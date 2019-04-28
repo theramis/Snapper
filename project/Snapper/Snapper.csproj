@@ -10,14 +10,14 @@
 See Project Site for more details</Description>
     <PackageProjectUrl>https://github.com/theramis/Snapper</PackageProjectUrl>
     <PackageLicenseUrl>https://github.com/theramis/Snapper/blob/master/LICENSE</PackageLicenseUrl>
-    <PackageTags>testing, test, snapshot, jest</PackageTags>
+    <PackageTags>testing, test, snapshot, jest, json, xunit, nunit</PackageTags>
     <LangVersion>latest</LangVersion>
     <IsPackable>true</IsPackable>
     <IsTestProject>false</IsTestProject>
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Newtonsoft.Json" Version="10.0.3" />
+    <PackageReference Include="Newtonsoft.Json" Version="9.0.1" />
   </ItemGroup>
 
 </Project>

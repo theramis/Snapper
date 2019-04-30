@@ -6,7 +6,6 @@ using Snapper.Core.TestMethodResolver;
 
 namespace Snapper.Core
 {
-    // TODO write tests for this class
     internal class SnapshotUpdateDecider : ISnapshotUpdateDecider
     {
         private readonly ITestMethodResolver _testMethodResolver;

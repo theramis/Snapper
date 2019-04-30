@@ -6,7 +6,6 @@ using Snapper.Core.TestMethodResolver;
 
 namespace Snapper.Core
 {
-    // TODO write tests for this class
     internal class SnapshotIdResolver
     {
         private readonly ITestMethodResolver _testMethodResolver;
@@ -22,10 +21,10 @@ namespace Snapper.Core
             var testMethod = _testMethodResolver.ResolveTestMethod();
             var testBaseMethod = testMethod.BaseMethod;
 
-            var storeSnapshotsPerClass = ShouldStoreSnapshotsPerClass(testBaseMethod);
-
             var directory = Path.GetDirectoryName(testMethod.FileName);
             var className = testBaseMethod.DeclaringType?.Name;
+
+            var storeSnapshotsPerClass = ShouldStoreSnapshotsPerClass(testBaseMethod);
 
             if (storeSnapshotsPerClass)
             {
@@ -42,11 +41,10 @@ namespace Snapper.Core
 
         private static bool ShouldStoreSnapshotsPerClass(MemberInfo method)
         {
-            var methodHasAttribute = HasStoreSnapshotsPerClassAttribute(method);
             var classHasAttribute = HasStoreSnapshotsPerClassAttribute(method?.DeclaringType);
             var assemblyHasAttribute = HasStoreSnapshotsPerClassAttribute(method?.DeclaringType?.Assembly);
 
-            return methodHasAttribute || classHasAttribute || assemblyHasAttribute;
+            return classHasAttribute || assemblyHasAttribute;
         }
 
         private static bool HasStoreSnapshotsPerClassAttribute(ICustomAttributeProvider member)

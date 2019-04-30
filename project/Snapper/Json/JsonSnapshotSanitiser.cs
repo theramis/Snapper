@@ -1,7 +1,5 @@
 using System;
-using System.Linq.Expressions;
 using Newtonsoft.Json.Linq;
-using Snapper.Core;
 using Snapper.Exceptions;
 
 namespace Snapper.Json

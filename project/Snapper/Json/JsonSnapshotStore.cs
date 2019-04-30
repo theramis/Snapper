@@ -1,5 +1,4 @@
 ﻿using System.IO;
-using System.Linq;
 using Newtonsoft.Json.Linq;
 using Snapper.Core;
 

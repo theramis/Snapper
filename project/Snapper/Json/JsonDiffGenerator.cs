@@ -7,7 +7,6 @@ using Newtonsoft.Json.Linq;
 
 namespace Snapper.Json
 {
-    // TODO write tests for this class
     internal static class JsonDiffGenerator
     {
         private const string RemovedLegendString = "- Snapshot";

@@ -1,4 +1,5 @@
-﻿using Snapper.Core;
+﻿using FluentAssertions;
+using Snapper.Core;
 using Snapper.Json;
 using Xunit;
 
@@ -17,7 +18,7 @@ namespace Snapper.Internals.Tests.Json
         public void Compare_SameObject()
         {
             var obj = new { v = 1 };
-            Assert.True(_comparer.CompareSnapshots(obj, obj));
+            _comparer.CompareSnapshots(obj, obj).Should().BeTrue();
         }
 
         [Fact]
@@ -25,7 +26,7 @@ namespace Snapper.Internals.Tests.Json
         {
             var obj1 = new { v = 1 };
             var obj2 = new { v = 1 };
-            Assert.True(_comparer.CompareSnapshots(obj1, obj2));
+            _comparer.CompareSnapshots(obj1, obj2).Should().BeTrue();
         }
 
         [Fact]
@@ -33,7 +34,7 @@ namespace Snapper.Internals.Tests.Json
         {
             var obj1 = new { v = 1, vv = 2 };
             var obj2 = new { vv = 2, v = 1 };
-            Assert.True(_comparer.CompareSnapshots(obj1, obj2));
+            _comparer.CompareSnapshots(obj1, obj2).Should().BeTrue();
         }
 
         [Fact]
@@ -56,7 +57,7 @@ namespace Snapper.Internals.Tests.Json
                     a = 1
                 }
             };
-            Assert.True(_comparer.CompareSnapshots(obj1, obj2));
+            _comparer.CompareSnapshots(obj1, obj2).Should().BeTrue();
         }
 
         [Fact]
@@ -64,7 +65,7 @@ namespace Snapper.Internals.Tests.Json
         {
             var obj1 = new { v = 1 };
             var obj2 = new { v = 2 };
-            Assert.False(_comparer.CompareSnapshots(obj1, obj2));
+            _comparer.CompareSnapshots(obj1, obj2).Should().BeFalse();
         }
 
         [Fact]
@@ -87,7 +88,7 @@ namespace Snapper.Internals.Tests.Json
                     a = 2
                 }
             };
-            Assert.False(_comparer.CompareSnapshots(obj1, obj2));
+            _comparer.CompareSnapshots(obj1, obj2).Should().BeFalse();
         }
 
         [Fact]
@@ -102,7 +103,7 @@ namespace Snapper.Internals.Tests.Json
             {
                 v = 1
             };
-            Assert.False(_comparer.CompareSnapshots(obj1, obj2));
+            _comparer.CompareSnapshots(obj1, obj2).Should().BeFalse();
         }
     }
 }

@@ -101,20 +101,12 @@ There are currently two solution for this issue.
 For more information see this issue: https://github.com/theramis/Snapper/issues/16
 
 ## Todo
-- ~~Write tests~~
-- ~~Extend XUnit Assert e.g. `Assert.Snap(obj)` rather than `XUnitSnapper.Snap(obj)`~~
-- Write wiki docs
-- ~~Update appveyor to build on every commit and publish nuget on tag~~
 - Create sample project
-- ~~Publish to Nuget~~
-- ~~Add tags to Nuget~~
 - Add logo to Nuget
-- ~~Downgrade project to lowest .net standard possible~~
-- ~~Downgrade nuget dependencies to lowest possible~~
-- Create PR and Issue templates
 - Write tests for testing json store. Use goldmaster testing
-- Write tests for json diff message maker
 - Update nuget package descriptions for xunit and nunit to say they have extra features
 - Figure out all of the .netstandards to target and lowest nuget package versions
 - ~~Make tests fail if update var is on in CI~~
 - mention feature of using a string which is json
+- move readme stuff to docs
+- update readme to point to docs

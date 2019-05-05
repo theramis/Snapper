@@ -1,5 +1,10 @@
+---
+title: Changelog
+nav_order: 99
+---
+
 # Changelog
-All notable changes to the Snapper project will be documented in this file.
+All notable changes to the Snapper project.
 
 ## [1.3.1] - 2019-01-19
 ### Changed

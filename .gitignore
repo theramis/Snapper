@@ -6,3 +6,9 @@ obj/
 
 .idea
 .DS_Store
+
+docs/vendor
+docs/_site
+docs/Gemfile
+docs/Gemfile.lock
+docs/.bundle

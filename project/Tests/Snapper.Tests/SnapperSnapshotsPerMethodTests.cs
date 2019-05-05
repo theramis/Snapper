@@ -23,7 +23,7 @@ namespace Snapper.Tests
         }
 
         [Fact]
-        [UpdateSnapshots]
+        [UpdateSnapshots(false)]
         public void SnapshotsMatch_UpdateSnapshotsAttributeIsSet_SnapshotIsUntouched()
         {
             // Arrange
@@ -78,7 +78,7 @@ namespace Snapper.Tests
         }
 
         [Fact]
-        [UpdateSnapshots]
+        [UpdateSnapshots(false)]
         public void SnapshotsDoNotMatch_UpdateSnapshotsAttributeIsSet_SnapshotIsUpdated()
         {
             // Arrange
@@ -132,7 +132,7 @@ namespace Snapper.Tests
         }
 
         [Fact]
-        [UpdateSnapshots]
+        [UpdateSnapshots(false)]
         public void SnapshotsDoesNotExist_UpdateSnapshotsAttributeIsSet_SnapshotIsCreated()
         {
             // Arrange

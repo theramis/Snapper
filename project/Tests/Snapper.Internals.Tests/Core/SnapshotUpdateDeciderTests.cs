@@ -57,14 +57,14 @@ namespace Snapper.Internals.Tests.Core
         }
 
         [Fact]
-        [UpdateSnapshots]
+        [UpdateSnapshots(false)]
         public void UpdateAttribute_NoEnvironmentVariable_ShouldUpdate()
         {
             _decider.ShouldUpdateSnapshot().Should().BeTrue();
         }
 
         [Fact]
-        [UpdateSnapshots]
+        [UpdateSnapshots(false)]
         public void UpdateAttribute_TrueEnvironmentVariableSet_ShouldUpdate()
         {
             Environment.SetEnvironmentVariable(_envVar, "true", EnvironmentVariableTarget.Process);
@@ -72,7 +72,7 @@ namespace Snapper.Internals.Tests.Core
         }
 
         [Fact]
-        [UpdateSnapshots]
+        [UpdateSnapshots(false)]
         public void UpdateAttribute_FalseEnvironmentVariableSet_ShouldUpdate()
         {
             Environment.SetEnvironmentVariable(_envVar, "False", EnvironmentVariableTarget.Process);
@@ -90,14 +90,14 @@ namespace Snapper.Internals.Tests.Core
         }
 
         [Fact]
-        [UpdateSnapshots]
+        [UpdateSnapshots(false)]
         public void FirstMethod_ShouldUpdate()
         {
             _decider.ShouldUpdateSnapshot().Should().BeTrue();
         }
 
         [Fact]
-        [UpdateSnapshots]
+        [UpdateSnapshots(false)]
         public void SecondMethod_ShouldUpdate()
         {
             _decider.ShouldUpdateSnapshot().Should().BeTrue();

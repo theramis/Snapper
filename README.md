@@ -29,7 +29,7 @@ Current thoughts/progress on what will be in V2:
 - https://github.com/theramis/Snapper/issues/13
 - https://github.com/theramis/Snapper/issues/12
 - Deprecate `Snapper.Core`, `Snapper.Json`, `Snapper.Json.Xunit` and `Snapper.Json.Nunit` nuget packages (Please create an issue if this is a concern)
-- Introduce a new nuget package called `Snapper` which would provide the core functionality for all supported frameworks. (Xunit and Nunit initially) 
+- Introduce a new nuget package called `Snapper` which would provide the core functionality for all supported frameworks. (Xunit and Nunit initially)
 - Introduce `Snapper.Xunit` and `Snapper.Nunit`as a replacement to the deprecated nuget packages. These packages would provide some extra features which are specific to the XUnit and NUnit frameworks.
 
 
@@ -86,12 +86,12 @@ You can also add the `[UpdateSnapshots]` attribute to your test method/class and
 
 ## FAQS
 
-### Why am I getting an `InvalidOperation` exception saying Snapper is not being used inside a test method when using XUnitSnapper/NUnitSnapper only when in a Release build? 
-Snapper uses the [StackTrace](https://docs.microsoft.com/en-us/dotnet/api/system.diagnostics.stacktrace?view=netstandard-2.0) to determine which test method it was called from. In a Release build the compiler optimises the code which can cause some issues with how Snapper determines the test method. The compiler in this case is inlining the method which makes the method invisible to the StackTrace class. See [link](https://stackoverflow.com/questions/3924995/what-is-method-inlining) for a better explanation. 
+### Why am I getting an `InvalidOperation` exception saying Snapper is not being used inside a test method when using XUnitSnapper/NUnitSnapper only when in a Release build?
+Snapper uses the [StackTrace](https://docs.microsoft.com/en-us/dotnet/api/system.diagnostics.stacktrace?view=netstandard-2.0) to determine which test method it was called from. In a Release build the compiler optimises the code which can cause some issues with how Snapper determines the test method. The compiler in this case is inlining the method which makes the method invisible to the StackTrace class. See [link](https://stackoverflow.com/questions/3924995/what-is-method-inlining) for a better explanation.
 
-There are currently two solution for this issue. 
+There are currently two solution for this issue.
 1. Set the following attribute on the test method `[MethodImpl(MethodImplOptions.NoInlining)]` as seen [here](https://github.com/theramis/Snapper/blob/516598b41426fcfd0968db170dcd805e30604cbb/project/Tests/Snapper.Tests/SnapperSnapshotsPerClassTests.cs#L13).
-2. Disable optimisation of code for your release builds of your test project. You can do this by adding this into your projects csproj file. 
+2. Disable optimisation of code for your release builds of your test project. You can do this by adding this into your projects csproj file.
 ```
 <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
     <Optimize>false</Optimize>
@@ -117,3 +117,4 @@ For more information see this issue: https://github.com/theramis/Snapper/issues/
 - Update nuget package descriptions for xunit and nunit to say they have extra features
 - Figure out all of the .netstandards to target and lowest nuget package versions
 - Make tests fail if update var is on in CI
+- mention feature of using a string which is json

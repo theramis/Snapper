@@ -132,7 +132,6 @@ namespace Snapper.Tests
             File.WriteAllText(snapshotFilePath, newContent);
         }
 
-        // TODO move to another file
         [Theory]
         [InlineData(1)]
         [InlineData(2)]

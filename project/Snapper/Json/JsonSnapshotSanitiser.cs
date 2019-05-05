@@ -4,7 +4,6 @@ using Snapper.Exceptions;
 
 namespace Snapper.Json
 {
-    // TODO write tests for this class
     internal class JsonSnapshotSanitiser
     {
         public object SanitiseSnapshot(object snapshot)
@@ -21,7 +20,7 @@ namespace Snapper.Json
                         }
                         catch (Exception e)
                         {
-                            throw new InvalidJsonInlineSnapshotException(e);
+                            throw new MalformedJsonSnapshotException(e);
                         }
                     }
                 }

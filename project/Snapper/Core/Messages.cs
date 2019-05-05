@@ -37,7 +37,7 @@ namespace Snapper.Core
                "Make sure you are using Snapper inside a supported test framework. " +
                "See <link> for troubleshooting tips.";
 
-        public const string InvalidJsonInlineSnapshotMessage
-            = "The inline snapshot provided contains invalid JSON. See inner exception for details.";
+        public const string MalformedJsonSnapshotMessage
+            = "The snapshot provided contains malformed JSON. See inner exception for details.";
     }
 }

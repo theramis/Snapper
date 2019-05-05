@@ -49,16 +49,16 @@ namespace Snapper.Core
 
             var customAttributeProviders = new List<ICustomAttributeProvider>
             {
-                method,
-                method?.DeclaringType,
-                method?.DeclaringType?.Assembly
+                method, // check method
+                method?.DeclaringType, // check class
+                method?.DeclaringType?.Assembly // check assembly
             };
 
             foreach (var customAttributeProvider in customAttributeProviders)
             {
                 if (TryGetUpdateSnapshotsAttribute(customAttributeProvider, out var att))
                 {
-                    return !att.IgnoreIfCi || !IsCiEnv();
+                    return !(att.IgnoreIfCi && IsCiEnv());
                 }
             }
 

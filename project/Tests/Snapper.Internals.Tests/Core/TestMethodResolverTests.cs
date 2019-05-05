@@ -1,3 +1,4 @@
+using System.Diagnostics.CodeAnalysis;
 using System.IO;
 using FluentAssertions;
 using Snapper.Core.TestMethodResolver;
@@ -32,6 +33,7 @@ namespace Snapper.Internals.Tests.Core
 
         [Theory]
         [InlineData("Data")]
+        [SuppressMessage("ReSharper", "xUnit1026")]
         public void XUnitTheoryTestMethod(string value)
         {
             var testMethod = _testMethodResolver.ResolveTestMethod();

@@ -1,0 +1,8 @@
+title: Snapper Docs
+description: Bringing Jest-esque Snapshot testing to C#
+
+remote_theme: pmarsceill/just-the-docs
+
+aux_links:
+  "Snapper on Github":
+    - "//github.com/theramis/Snapper"

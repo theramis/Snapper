@@ -145,7 +145,7 @@ namespace Snapper.Tests
             };
 
             // Act/Assert
-            snapshot.TheoryTestShouldMatchSnapshot(data.ToString());
+            snapshot.ShouldMatchSnapshot(data.ToString());
         }
 
         private static string GetSnapshotFilePath<T>([CallerFilePath] string callerFilePath = "")

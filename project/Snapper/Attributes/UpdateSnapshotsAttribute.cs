@@ -10,5 +10,15 @@ namespace Snapper.Attributes
     [AttributeUsage(AttributeTargets.Method | AttributeTargets.Class | AttributeTargets.Assembly)]
     public class UpdateSnapshotsAttribute : Attribute
     {
+        public readonly bool IgnoreIfCi;
+
+        /// <inheritdoc />
+        /// <summary>
+        /// </summary>
+        /// <param name="ignoreIfCi">When set to true the snapshot is not updated when a CI environment is detected.</param>
+        public UpdateSnapshotsAttribute(bool ignoreIfCi = true)
+        {
+            IgnoreIfCi = ignoreIfCi;
+        }
     }
 }

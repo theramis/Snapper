@@ -8,7 +8,11 @@ Snapper is a [NuGet library](https://www.nuget.org/packages/Snapper.Core) which 
 It is very heavily based on Jest Snapshot Testing.
 
 ### Current Status
-[![AppVeyor](https://img.shields.io/appveyor/ci/gruntjs/grunt.svg?style=for-the-badge)](https://ci.appveyor.com/project/theramis/snapper)
-[![GitHub release](https://img.shields.io/github/release/theramis/snapper.svg?style=for-the-badge)](https://github.com/theramis/Snapper)
-[![NuGet](https://img.shields.io/nuget/v/Snapper.Core.svg?style=for-the-badge)](https://www.nuget.org/packages/Snapper.Core)
+
+Type   | Snapper | Snapper.Nunit
+------ | ------- | -------------
+NuGet  | [![Nuget (with prereleases)](https://img.shields.io/nuget/vpre/Snapper.svg?style=flat-square)](https://www.nuget.org/packages/Snapper) | [![Nuget (with prereleases)](https://img.shields.io/nuget/vpre/Snapper.svg?style=flat-square)](https://www.nuget.org/packages/Snapper.Nunit)
+Build  | [![AppVeyor](https://img.shields.io/appveyor/ci/theramis/snapper.svg?style=flat-square)](https://ci.appveyor.com/project/theramis/snapper) | [![AppVeyor](https://img.shields.io/appveyor/ci/theramis/snapper.svg?style=flat-square)](https://ci.appveyor.com/project/theramis/snapper)
+Github | [![GitHub release](https://img.shields.io/github/release/theramis/snapper.svg?style=flat-square)](https://github.com/theramis/Snapper) | [![GitHub release](https://img.shields.io/github/release/theramis/snapper.svg?style=flat-square)](https://github.com/theramis/Snapper)
+
 

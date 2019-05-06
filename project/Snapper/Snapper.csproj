@@ -8,7 +8,7 @@
     <Description>Bringing Jest-esque Snapshot testing to C#.
 
 See Project Site for more details</Description>
-    <PackageProjectUrl>https://github.com/theramis/Snapper</PackageProjectUrl>
+    <PackageProjectUrl>https://theramis.github.io/Snapper/</PackageProjectUrl>
     <PackageLicenseUrl>https://github.com/theramis/Snapper/blob/master/LICENSE</PackageLicenseUrl>
     <PackageTags>testing, test, snapshot, jest, json, xunit, nunit</PackageTags>
     <LangVersion>latest</LangVersion>

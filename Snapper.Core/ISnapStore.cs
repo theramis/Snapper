@@ -1,4 +1,4 @@
-﻿#if NETSTANDARD2_0
+﻿#if !NETSTANDARD1_3
 using System;
 using System.IO;
 using System.Runtime.Serialization.Formatters.Binary;
@@ -13,7 +13,7 @@ namespace Snapper.Core
         void StoreSnap(string path, object value);
     }
 
-    #if NETSTANDARD2_0
+    #if !NETSTANDARD1_3
     public class ByteSnapStore : ISnapStore
     {
         private readonly IFileSystem _fileSystem;

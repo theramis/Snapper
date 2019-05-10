@@ -7,9 +7,9 @@ namespace Snapper.Json.Xunit
     {
         public string ResolvePath(string snapshotName)
         {
-            var (method, filePath) = XUnitTestHelper.GetCallingTestInfo();
-            var directory = Path.GetDirectoryName(filePath);
-            var snapName = string.IsNullOrWhiteSpace(snapshotName) ? method.Name : snapshotName;
+            var info = XUnitTestHelper.GetCallingTestInfo();
+            var directory = Path.GetDirectoryName(info.FileName);
+            var snapName = string.IsNullOrWhiteSpace(snapshotName) ? info.Method.Name : snapshotName;
 
             return Path.Combine(directory, "_snapshots", $"{snapName}.json");
         }

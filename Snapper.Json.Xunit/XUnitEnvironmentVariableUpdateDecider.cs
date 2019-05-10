@@ -17,11 +17,11 @@ namespace Snapper.Json.Xunit
             if (_envUpdateDecider.ShouldUpdateSnap())
                 return true;
 
-            var (method, _) = XUnitTestHelper.GetCallingTestInfo();
+            var info = XUnitTestHelper.GetCallingTestInfo();
 
-            var methodHasAttribute = method?.GetCustomAttributes(typeof(UpdateSnapshots), true).Any() ?? false;
+            var methodHasAttribute = info.Method?.GetCustomAttributes(typeof(UpdateSnapshots), true).Any() ?? false;
             var classHasAttribute =
-                method?.ReflectedType?.GetCustomAttributes(typeof(UpdateSnapshots), true).Any() ?? false;
+                info.Method?.ReflectedType?.GetCustomAttributes(typeof(UpdateSnapshots), true).Any() ?? false;
 
             return methodHasAttribute || classHasAttribute;
         }

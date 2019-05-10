@@ -7,11 +7,11 @@ namespace Snapper.Json.Nunit
     {
         public string ResolvePath(string snapshotName)
         {
-            var (method, filePath) = NUnitTestHelper.GetCallingTestInfo();
-            var directory = Path.GetDirectoryName(filePath);
-            var className = method.DeclaringType?.Name;
+            var info = NUnitTestHelper.GetCallingTestInfo();
+            var directory = Path.GetDirectoryName(info.FileName);
+            var className = info.Method.DeclaringType?.Name;
             var snapName = string.IsNullOrWhiteSpace(snapshotName)
-                ? $"{className}{'_'}{method.Name}"
+                ? $"{className}{'_'}{info.Method.Name}"
                 : $"{className}{'_'}{snapshotName}";
 
             return Path.Combine(directory, "_snapshots", $"{snapName}.json");

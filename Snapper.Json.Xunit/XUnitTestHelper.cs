@@ -7,9 +7,15 @@ using Xunit;
 
 namespace Snapper.Json.Xunit
 {
+    internal class CalingTestInfo
+    {
+        public MethodBase Method { get; set; }
+        public string FileName { get; set; }
+    }
+
     internal static class XUnitTestHelper
     {
-        public static (MethodBase method, string filePath) GetCallingTestInfo()
+        public static CalingTestInfo GetCallingTestInfo()
         {
             var stackTrace = new StackTrace(2, true);
             foreach (var stackFrame in stackTrace.GetFrames() ?? new StackFrame[0])
@@ -17,11 +23,11 @@ namespace Snapper.Json.Xunit
                 var method = stackFrame.GetMethod();
 
                 if (IsXUnitTestMethod(method))
-                    return (method, stackFrame.GetFileName());
+                    return new CalingTestInfo { Method = method, FileName = stackFrame.GetFileName() };
 
                 var asyncMethod = GetMethodBaseOfAsyncMethod(method);
                 if (IsXUnitTestMethod(asyncMethod))
-                    return (asyncMethod, stackFrame.GetFileName());
+                    return new CalingTestInfo { Method = asyncMethod, FileName = stackFrame.GetFileName() };
             }
 
             throw new InvalidOperationException("Snapshots can only be created from classes decorated with the [Fact] or [Theory] attribute");

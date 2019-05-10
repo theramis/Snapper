@@ -7,9 +7,15 @@ using NUnit.Framework;
 
 namespace Snapper.Json.Nunit
 {
+    internal class CalingTestInfo
+    {
+        public MethodBase Method { get; set; }
+        public string FileName { get; set; }
+    }
+
     internal static class NUnitTestHelper
     {
-        public static (MethodBase, string) GetCallingTestInfo()
+        public static CalingTestInfo GetCallingTestInfo()
         {
             var stackTrace = new StackTrace(2, true);
             foreach (var stackFrame in stackTrace.GetFrames() ?? new StackFrame[0])
@@ -17,11 +23,11 @@ namespace Snapper.Json.Nunit
                 var method = stackFrame.GetMethod();
 
                 if (IsNUnitTestMethod(method))
-                    return (method, stackFrame.GetFileName());
+                    return new CalingTestInfo { Method = method, FileName = stackFrame.GetFileName() };
 
                 var asyncMethod = GetMethodBaseOfAsyncMethod(method);
                 if (IsNUnitTestMethod(asyncMethod))
-                    return (asyncMethod, stackFrame.GetFileName());
+                    return new CalingTestInfo { Method = asyncMethod, FileName = stackFrame.GetFileName() }; ;
             }
 
             throw new InvalidOperationException(

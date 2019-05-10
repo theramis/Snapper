@@ -1,4 +1,4 @@
-# Snapper
+# Snapper V2
 **Bringing Jest-esque Snapshot testing to C#**
 
 Type   | Snapper | Snapper.Nunit
@@ -12,9 +12,25 @@ It is very heavily based on Jest Snapshot Testing.
 
 See [https://theramis.github.io/Snapper/](https://theramis.github.io/Snapper/) for more documentation.
 
+
+## Snapper V1 is deprecated
+After a lot of thought I've decided to deprecate Snapper V1.
+Snapper V1 was my first attempt at an OSS library and some of the decisions I made very early on made it very difficult to add new features.
+Snapper V2 is my second attempt at making the library easier to use and update.
+
+Snapper V1 consisted of the following NuGet packages all of which are deprecated:
+- Snapper.Core
+- Snapper.Json
+- Snapper.Json.Xunit
+- Snapper.Json.Nunit
+
+There is a migration guide available [here](https://theramis.github.io/Snapper/migration.html)
+The changes in V2 are documented in the [Changelog](https://theramis.github.io/Snapper/changelog.html)
+
 ## Todo
-- Create sample project
 - Add logo to Nuget
 - Write tests for testing json store.
-- Update nuget package descriptions for xunit and nunit to say they have extra features
 - Figure out all of the .netstandards to target and lowest nuget package versions
+- Update V1 package descriptions to mention deprecated
+- Use appveyor logger on all test projects
+- Add sourcelink to nuget packages once this issue is fixed https://github.com/appveyor/ci/issues/2753

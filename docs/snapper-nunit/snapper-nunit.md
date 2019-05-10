@@ -7,7 +7,7 @@ nav_order: 4
 
 # Basics
 
-The Snapper.Nunit NuGet package extends the NUnit constraint to provide a deeper integration with the NUnit test framework.
+The `Snapper.Nunit` NuGet package extends the NUnit constraint to provide a deeper integration with the NUnit test framework.
 
 The following code snippet shows the constaints which have been added by Snapper.
 ```csharp

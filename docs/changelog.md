@@ -6,6 +6,28 @@ nav_order: 99
 # Changelog
 All notable changes to the Snapper project.
 
+## 2.0.0-beta - 2019-05-11
+
+### Deprecated NuGet Packages
+The following Nuget packages are deprecated. Bugs will still be fixed but no new features will be implemented in them.
+- `Snapper.Core`
+- `Snapper.Json`
+- `Snapper.Json.Xunit`
+- `Snapper.Json.Nunit`
+
+### New NuGet Packages
+- Introduced `Snapper` as the main nuget package. It provides all the functionality of `Snapper.Json` + `Snapper.Json.Xunit` as well as basic support for `NUnit`.
+- Introduced `Snapper.Nunit` to provide extra `NUnit` specific features to Snapper. This package extends `NUnit's` constraints to match the functionality provided by deprecated package `Snapper.Json.Nunit`.
+
+### Behaviour changes compared to V1
+- Matching a snapshot previously created a json file based on the method name of the test. In V2 the json file is based on this format `{className}_{methodName}.json`.
+- Matching a snapshot and passing in a snapshot name has been removed. A similar method has been introduced for having child snapshots. Useful for theory type tests.
+
+### New Features
+- **Child snapshots!** Child snapshots are a nice new way of creating snapshots for theory tests.
+- **Inline snapshots!** Sometimes snapshots are small and it's not worth making a json file. Inline snapshots allow you to provide an object/string/json string which it can use as the snapshot.
+- You can now use any object for snapshots. Previously an object that could not be converted into a JToken caused an exception. Now Snapper sanitises these objects so that they can be used in snapshots.
+
 ## [1.3.1] - 2019-01-19
 ### Changed
 - Downgraded `NUnit` dependency in `Snapper.Json.Nunit` to `3.6.0`

@@ -27,7 +27,9 @@ public class MyTestClass {
 }
 ```
 
-For `Theory` tests you should use the `ShouldMatchSnapshot(uniqueInstanceName)` extension method to match objects to a snapshot.
+## Child Snapshots
+
+For `Theory` tests you should use the `ShouldMatchChildSnapshot(childSnapshotName)` extension method to match objects to a child snapshot.
 ```csharp
 public class MyTestClass {
 
@@ -41,12 +43,31 @@ public class MyTestClass {
         };
 
         // Since the snapshot for each test instance will be different
-        // you need a pass in a unique instance name into the method.
-        // Using the data passed into the method is generally.the way to go.
-        obj.ShouldMatchSnapshot(value);
+        // you need a pass in a child snapshot name into the method.
+        // Using the data passed into the test method is generally a nice
+        // child snapshot name
+        obj.ShouldMatchChildSnapshot($"child_{value}");
     }
 }
 ```
+The idea of child snapshots is new in Snapper V2. A child snapshot allows you to have 1 snapshot file for 1 test but multiple child snapshots. This is super valuable for theory tests as its 1 test with different values.
+
+The snapshot for the above test would look like this.
+```
+{
+    "child_1": {
+        "Key": 1
+    },
+    "child_2": {
+        "Key": 1
+    },
+    "child_3": {
+        "Key": 1
+    }
+}
+```
+
+## Inline Snapshots
 
 Sometimes the object you want to snapshot is not huge and nice to be able to have the snapshot inline. You can use the `ShouldMatchInlineSnapshot()` extension method to match objects to an inline snapshot.
 ```csharp
@@ -65,5 +86,5 @@ public class MyTestClass {
 
 For more examples see [here](https://github.com/theramis/Snapper/tree/master/project/Tests/Snapper.Tests).
 
-For best practices in writing snapshot tests see [here](https://jestjs.io/docs/en/snapshot-testing#best-practices) for reccomendations from the jest team.
+For best practices in writing snapshot tests see [here](https://jestjs.io/docs/en/snapshot-testing#best-practices) for recommendations from the jest team.
 

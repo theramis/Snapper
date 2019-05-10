@@ -25,7 +25,7 @@ namespace Snapper.Nunit.Tests
             {
                 {"TestProperty2", "TestValue2"}
             };
-            Assert.That(actual, Is.EqualToSnapshot("NamedSnapshot"));
+            Assert.That(actual, Is.EqualToChildSnapshot("ChildSnapshot"));
         }
     }
 }

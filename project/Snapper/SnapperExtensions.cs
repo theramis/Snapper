@@ -13,15 +13,15 @@ namespace Snapper
         }
 
         /// <summary>
-        ///     Compares the provided object with the stored snapshot.
-        ///     Takes in a unique instance name for use in theory tests.
+        ///     Compares the provided object with the stored child snapshot.
+        ///     Takes in a unique child name, best used in theory tests.
         /// </summary>
-        /// <param name="snapshot">The object to compare with the stored snapshot</param>
-        /// <param name="uniqueInstanceName">Used to determine which snapshot the test is referring to.</param>
-        public static void ShouldMatchSnapshot(this object snapshot, string uniqueInstanceName)
+        /// <param name="snapshot">The object to compare with the stored child snapshot</param>
+        /// <param name="childSnapshotName">The name of the child snapshot name. Must be unique per test.</param>
+        public static void ShouldMatchChildSnapshot(this object snapshot, string childSnapshotName)
         {
             var snapper = SnapperFactory.GetJsonSnapper();
-            snapper.MatchSnapshot(snapshot, uniqueInstanceName);
+            snapper.MatchSnapshot(snapshot, childSnapshotName);
         }
 
         /// <summary>

@@ -16,7 +16,12 @@ namespace Snapper.Nunit
 
     public class Is : NUnit.Framework.Is
     {
-        public static EqualToSnapshotConstraint EqualToSnapshot(string snapshotName = null)
+        public static EqualToSnapshotConstraint EqualToSnapshot()
+        {
+            return new EqualToSnapshotConstraint();
+        }
+
+        public static EqualToSnapshotConstraint EqualToChildSnapshot(string snapshotName)
         {
             return new EqualToSnapshotConstraint(snapshotName);
         }
@@ -42,7 +47,7 @@ namespace Snapper.Nunit
             var snapper = NUnitSnapperFactory.GetNUnitSnapper();
             return _snapshotName == null
                    ? snapper.MatchSnapshot(actual)
-                   : snapper.MatchSnapshot(actual, _snapshotName);
+                   : snapper.MatchChildSnapshot(actual, _snapshotName);
         }
     }
 

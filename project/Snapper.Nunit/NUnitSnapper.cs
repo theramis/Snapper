@@ -18,11 +18,11 @@ namespace Snapper.Nunit
         }
 
         public SnapResult MatchSnapshot(object snapshot)
-            => MatchSnapshot(snapshot, null);
+            => MatchChildSnapshot(snapshot, null);
 
-        public SnapResult MatchSnapshot(object snapshot, string partialSnapshotName)
+        public SnapResult MatchChildSnapshot(object snapshot, string childSnapshotName)
         {
-            var snapId = _snapshotIdResolver.ResolveSnapshotId(partialSnapshotName);
+            var snapId = _snapshotIdResolver.ResolveSnapshotId(childSnapshotName);
             var sanitisedSnapshot = _snapshotSanitiser.SanitiseSnapshot(snapshot);
 
             return Snap(snapId, sanitisedSnapshot);

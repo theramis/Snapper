@@ -24,18 +24,19 @@ dotnet_csproj:
   informational_version: $(nugetVersion)
 
 before_build:
+  - cd project
   - nuget restore
 
 build:
   parallel: true
-  project: Snapper.sln
+  project: project/Snapper.sln
   publish_nuget: true
 
 test: off
 
 test_script:
   - ps: dotnet test --no-build
-  - ps: dotnet test Snapper.Json.Nunit.Tests/Snapper.Json.Nunit.Tests.csproj --logger:Appveyor --no-build
+  - ps: dotnet test Tests/Snapper.Nunit.Tests/Snapper.Nunit.Tests.csproj --logger:Appveyor --no-build
 
 deploy:
   - provider: NuGet
@@ -54,3 +55,4 @@ skip_commits:
   - LICENSE
   - README.md
   - CHANGELOG.md
+  - docs/

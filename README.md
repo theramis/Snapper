@@ -30,7 +30,6 @@ The changes in V2 are documented in the [Changelog](https://theramis.github.io/S
 ## Todo
 - Add logo to Nuget
 - Write tests for testing json store.
-- Figure out all of the .netstandards to target and lowest nuget package versions
 - Update V1 package descriptions to mention deprecated
 - Use appveyor logger on all test projects
 - Add sourcelink to nuget packages once this issue is fixed https://github.com/appveyor/ci/issues/2753

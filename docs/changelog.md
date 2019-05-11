@@ -28,6 +28,12 @@ The following Nuget packages are deprecated. Bugs will still be fixed but no new
 - **Inline snapshots!** Sometimes snapshots are small and it's not worth making a json file. Inline snapshots allow you to provide an object/string/json string which it can use as the snapshot.
 - You can now use any object for snapshots. Previously an object that could not be converted into a JToken caused an exception. Now Snapper sanitises these objects so that they can be used in snapshots.
 
+## [1.4.0] - 2019-05-11
+### Added
+- Added support for `.NET 45`
+
+This will also be the final V1 version of Snapper.
+
 ## [1.3.1] - 2019-01-19
 ### Changed
 - Downgraded `NUnit` dependency in `Snapper.Json.Nunit` to `3.6.0`
@@ -62,6 +68,7 @@ The first stable release!
 - **Snapper.Json**: Extends Snapper.Core to provide storing snapshots in Json format
 - **Snapper.Json.Xunit**: Extends Snapper.Json and integrates with the XUnit testing framework.
 
+[1.4.0]: https://github.com/theramis/Snapper/compare/1.3.1...1.4.0
 [1.3.1]: https://github.com/theramis/Snapper/compare/1.3.0...1.3.1
 [1.3.0]: https://github.com/theramis/Snapper/compare/1.2.0...1.3.0
 [1.2.0]: https://github.com/theramis/Snapper/compare/1.1.1...1.2.0

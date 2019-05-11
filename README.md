@@ -25,6 +25,7 @@ Snapper V1 consisted of the following NuGet packages all of which are deprecated
 - Snapper.Json.Nunit
 
 There is a migration guide available [here](https://theramis.github.io/Snapper/migration.html)
+
 The changes in V2 are documented in the [Changelog](https://theramis.github.io/Snapper/changelog.html)
 
 ## Todo

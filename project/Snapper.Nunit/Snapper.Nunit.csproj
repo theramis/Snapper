@@ -9,11 +9,12 @@
 
 See Project Site for more details</Description>
     <PackageProjectUrl>https://theramis.github.io/Snapper/</PackageProjectUrl>
-    <PackageLicenseUrl>https://github.com/theramis/Snapper/blob/master/LICENSE</PackageLicenseUrl>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <PackageTags>testing, test, snapshot, jest, nunit</PackageTags>
     <LangVersion>latest</LangVersion>
     <IsPackable>true</IsPackable>
     <IsTestProject>false</IsTestProject>
+    <PublishRepositoryUrl>true</PublishRepositoryUrl>
   </PropertyGroup>
 
     <ItemGroup>

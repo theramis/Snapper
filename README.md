@@ -33,4 +33,3 @@ The changes in V2 are documented in the [Changelog](https://theramis.github.io/S
 - Write tests for testing json store.
 - Update V1 package descriptions to mention deprecated
 - Use appveyor logger on all test projects
-- Add sourcelink to nuget packages once this issue is fixed https://github.com/appveyor/ci/issues/2753

@@ -31,6 +31,8 @@ build:
   parallel: true
   project: project/Snapper.sln
   publish_nuget: true
+  publish_nuget_symbols: true
+  use_snupkg_format: true
 
 test: off
 
@@ -43,7 +45,11 @@ deploy:
     api_key:
       secure: oXT0QCxjs1xdzIwv4hbyr6EUCeen7PNVzrghmozBSKBNOOq4h8acf3xAEIlA1eEz
     skip_symbols: true
-    artifact: /.*\.nupkg/
+    artifacts:
+      - path: /.*\.nupkg/
+        name: NuGet Packages
+      - path: /.*\.snupkg/
+        name: NuGet Symbol Packages
     on:
       appveyor_repo_tag: true
 

@@ -19,6 +19,9 @@ See Project Site for more details</Description>
 
     <ItemGroup>
       <ProjectReference Include="..\Snapper\Snapper.csproj" />
+      <PackageReference Include="MinVer" Version="1.1.0" >
+        <PrivateAssets>all</PrivateAssets>
+      </PackageReference>
       <PackageReference Include="NUnit" Version="3.6.0" />
     </ItemGroup>
 

@@ -18,6 +18,9 @@ See Project Site for more details</Description>
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="MinVer" Version="1.1.0" >
+      <PrivateAssets>all</PrivateAssets>
+    </PackageReference>
     <PackageReference Include="Newtonsoft.Json" Version="9.0.1" />
   </ItemGroup>
 

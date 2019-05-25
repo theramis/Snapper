@@ -48,4 +48,5 @@ skip_commits:
   - LICENSE
   - README.md
   - CHANGELOG.md
+  - SECURITY.md
   - docs/

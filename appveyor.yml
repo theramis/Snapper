@@ -1,6 +1,5 @@
 version: 0.0.{build}
 
-shallow_clone: true
 skip_branch_with_pr: true
 
 max_jobs: 1
@@ -11,17 +10,9 @@ image: Visual Studio 2017
 init:
   - git config --global core.autocrlf input
 
-install:
-  - ps: $version = (cat version.txt); Set-AppveyorBuildVariable 'nugetVersion' $version
-
 dotnet_csproj:
   patch: true
   file: '**\*.csproj'
-  version: $(nugetVersion)
-  package_version: $(nugetVersion)
-  assembly_version: $(nugetVersion)
-  file_version: $(nugetVersion)
-  informational_version: $(nugetVersion)
 
 before_build:
   - cd project
@@ -44,12 +35,8 @@ deploy:
   - provider: NuGet
     api_key:
       secure: oXT0QCxjs1xdzIwv4hbyr6EUCeen7PNVzrghmozBSKBNOOq4h8acf3xAEIlA1eEz
-    skip_symbols: true
-    artifacts:
-      - path: /.*\.nupkg/
-        name: NuGet Packages
-      - path: /.*\.snupkg/
-        name: NuGet Symbol Packages
+    skip_symbols: false
+    artifact: /.*\.nupkg/
     on:
       appveyor_repo_tag: true
 

@@ -15,7 +15,7 @@ insert_final_newline = true
 charset = utf-8-bom
 
 # Xml project files
-[*.{csproj,vbproj,vcxproj,vcxproj.filters,proj,projitems,shproj}]
+[*.{csproj,vbproj,vcxproj,vcxproj.filters,proj,projitems,shproj,props}]
 indent_size = 2
 
 # Xml config files

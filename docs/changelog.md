@@ -6,6 +6,15 @@ nav_order: 99
 # Changelog
 All notable changes to the Snapper project.
 
+## [2.0.0-beta3] - 2019-05-26
+### Added
+- Updated `Snapper` and `Snapper.Nunit` to upload symbols to nuget symbols server
+
+## [2.0.0-beta2] - 2019-05-26
+### Added
+- Updated `Snapper` and `Snapper.Nunit` to be strong named
+- Updated `Snapper` and `Snapper.Nunit` to have sourcelink enabled
+
 ## [2.0.0-beta] - 2019-05-11
 
 ### Deprecated NuGet Packages
@@ -68,6 +77,8 @@ The first stable release!
 - **Snapper.Json**: Extends Snapper.Core to provide storing snapshots in Json format
 - **Snapper.Json.Xunit**: Extends Snapper.Json and integrates with the XUnit testing framework.
 
+[2.0.0-beta3]: https://github.com/theramis/Snapper/compare/2.0.0-beta2...2.0.0-beta3
+[2.0.0-beta2]: https://github.com/theramis/Snapper/compare/2.0.0-beta...2.0.0-beta2
 [2.0.0-beta]: https://github.com/theramis/Snapper/compare/1.4.0...2.0.0-beta
 [1.4.0]: https://github.com/theramis/Snapper/compare/1.3.1...1.4.0
 [1.3.1]: https://github.com/theramis/Snapper/compare/1.3.0...1.3.1

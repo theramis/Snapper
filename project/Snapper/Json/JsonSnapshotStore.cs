@@ -51,7 +51,6 @@ namespace Snapper.Json
                     ? new JObject()
                     : JObject.Parse(rawSnapshotContent);
 
-
                 if (snapshotId.PrimaryId != null && snapshotId.SecondaryId == null)
                 {
                     newSnapshotToWrite[snapshotId.PrimaryId] = newSnapshot;

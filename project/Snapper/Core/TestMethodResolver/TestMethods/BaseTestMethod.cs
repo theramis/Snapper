@@ -1,3 +1,4 @@
+using System;
 using System.Linq;
 using System.Reflection;
 
@@ -15,13 +16,23 @@ namespace Snapper.Core.TestMethodResolver.TestMethods
 
         public bool IsTestMethod()
         {
-            var attribute = BaseMethod?.CustomAttributes.FirstOrDefault(a =>
+            try
             {
-                var attributeName = a.AttributeType.FullName;
-                return attributeName == AttributeName;
-            });
+                var attribute = BaseMethod?.CustomAttributes.FirstOrDefault(a =>
+                {
+                    var attributeName = a.AttributeType.FullName;
+                    return attributeName == AttributeName;
+                });
 
-            return attribute != null;
+                return attribute != null;
+            }
+            catch (NotImplementedException)
+            {
+                // MemberInfo.CustomAttributes in some cases can throw a NotImplementedException.
+                // In this case we assume that the method is not a test method.
+                // See issue: https://github.com/theramis/Snapper/issues/27
+                return false;
+            }
         }
 
         public string MethodName => BaseMethod.Name;

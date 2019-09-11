@@ -6,6 +6,11 @@ nav_order: 99
 # Changelog
 All notable changes to the Snapper project.
 
+## [2.0.1] - 2019-09-11
+
+### Bug Fix
+- [Issue #27](https://github.com/theramis/Snapper/issues/27) Handled `System.NotImplementedException` when trying to determine which the calling test method.
+
 ## [2.0.0] - 2019-08-14
 
 ### Deprecated NuGet Packages
@@ -99,6 +104,7 @@ The first stable release!
 - **Snapper.Json**: Extends Snapper.Core to provide storing snapshots in Json format
 - **Snapper.Json.Xunit**: Extends Snapper.Json and integrates with the XUnit testing framework.
 
+[2.0.0]: https://github.com/theramis/Snapper/compare/2.0.0...2.0.1
 [2.0.0]: https://github.com/theramis/Snapper/compare/1.4.0...2.0.0
 [2.0.0-beta3]: https://github.com/theramis/Snapper/compare/2.0.0-beta2...2.0.0-beta3
 [2.0.0-beta2]: https://github.com/theramis/Snapper/compare/2.0.0-beta...2.0.0-beta2

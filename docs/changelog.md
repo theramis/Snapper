@@ -108,8 +108,8 @@ The first stable release!
 - **Snapper.Json**: Extends Snapper.Core to provide storing snapshots in Json format
 - **Snapper.Json.Xunit**: Extends Snapper.Json and integrates with the XUnit testing framework.
 
-[2.0.0]: https://github.com/theramis/Snapper/compare/2.0.1...2.1.0
-[2.0.0]: https://github.com/theramis/Snapper/compare/2.0.0...2.0.1
+[2.1.0]: https://github.com/theramis/Snapper/compare/2.0.1...2.1.0
+[2.0.1]: https://github.com/theramis/Snapper/compare/2.0.0...2.0.1
 [2.0.0]: https://github.com/theramis/Snapper/compare/1.4.0...2.0.0
 [2.0.0-beta3]: https://github.com/theramis/Snapper/compare/2.0.0-beta2...2.0.0-beta3
 [2.0.0-beta2]: https://github.com/theramis/Snapper/compare/2.0.0-beta...2.0.0-beta2

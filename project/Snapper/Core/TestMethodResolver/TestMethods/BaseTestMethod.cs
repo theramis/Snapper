@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Linq;
 using System.Reflection;
 
@@ -20,8 +20,16 @@ namespace Snapper.Core.TestMethodResolver.TestMethods
             {
                 var attribute = BaseMethod?.CustomAttributes.FirstOrDefault(a =>
                 {
-                    var attributeName = a.AttributeType.FullName;
-                    return attributeName == AttributeName;
+                    var type = a.AttributeType;
+                    do
+                    {
+                        if (type.FullName == AttributeName)
+                            return true;
+
+                        type = type.BaseType;
+                    } while (type != null);
+
+                    return false;
                 });
 
                 return attribute != null;

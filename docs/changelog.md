@@ -6,6 +6,10 @@ nav_order: 99
 # Changelog
 All notable changes to the Snapper project.
 
+## [2.1.0] - 2019-10-12
+### Added
+- Added the ability detect test methods when a test framework attribute is one of the parents of the attribute applied.
+
 ## [2.0.1] - 2019-09-11
 
 ### Bug Fix
@@ -104,6 +108,7 @@ The first stable release!
 - **Snapper.Json**: Extends Snapper.Core to provide storing snapshots in Json format
 - **Snapper.Json.Xunit**: Extends Snapper.Json and integrates with the XUnit testing framework.
 
+[2.0.0]: https://github.com/theramis/Snapper/compare/2.0.1...2.1.0
 [2.0.0]: https://github.com/theramis/Snapper/compare/2.0.0...2.0.1
 [2.0.0]: https://github.com/theramis/Snapper/compare/1.4.0...2.0.0
 [2.0.0-beta3]: https://github.com/theramis/Snapper/compare/2.0.0-beta2...2.0.0-beta3

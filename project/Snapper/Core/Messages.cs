@@ -33,7 +33,7 @@ namespace Snapper.Core
         public const string TestMethodNotFoundMessage
             = "A supported test method was not found. " +
                "Make sure you are using Snapper inside a supported test framework. " +
-               "See https://theramis.github.io/Snapper/faqs.html for more info.";
+               "See https://theramis.github.io/Snapper/FAQS.html for more info.";
 
         public const string MalformedJsonSnapshotMessage
             = "The snapshot provided contains malformed JSON. See inner exception for details.";

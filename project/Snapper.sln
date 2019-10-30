@@ -1,27 +1,27 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Version 16
-VisualStudioVersion = 16.0.29424.173
+# Visual Studio 15
+VisualStudioVersion = 15.0.27130.2027
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{634162BB-9132-43E2-8741-DEE5F2F202A1}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Snapper", "Snapper\Snapper.csproj", "{DBA88173-825A-444A-9407-E850AECAEAF7}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Snapper", "Snapper\Snapper.csproj", "{DBA88173-825A-444A-9407-E850AECAEAF7}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Snapper.Nunit", "Snapper.Nunit\Snapper.Nunit.csproj", "{5C3C6BC9-9DBD-458E-8CEF-37D888EB4D06}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Snapper.Nunit", "Snapper.Nunit\Snapper.Nunit.csproj", "{5C3C6BC9-9DBD-458E-8CEF-37D888EB4D06}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Snapper.Tests", "Tests\Snapper.Tests\Snapper.Tests.csproj", "{6869334B-0C1C-4CA2-8823-C09DE1EF4540}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Snapper.Tests", "Tests\Snapper.Tests\Snapper.Tests.csproj", "{6869334B-0C1C-4CA2-8823-C09DE1EF4540}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Snapper.Nunit.Tests", "Tests\Snapper.Nunit.Tests\Snapper.Nunit.Tests.csproj", "{1E140E12-9738-402A-984C-B59AD0382E6E}"
-EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Snapper.Internals.Tests", "Tests\Snapper.Internals.Tests\Snapper.Internals.Tests.csproj", "{B92D380C-B704-4BB8-A9AF-AE2B907ABB92}"
-EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{6E0B032F-3003-4369-B579-783150516801}"
-	ProjectSection(SolutionItems) = preProject
-		Directory.Build.props = Directory.Build.props
-		Snapper.snk = Snapper.snk
-	EndProjectSection
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Snapper.Nunit.Tests", "Tests\Snapper.Nunit.Tests\Snapper.Nunit.Tests.csproj", "{1E140E12-9738-402A-984C-B59AD0382E6E}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Snapper.MSTest.Tests", "Snapper.MSTest.Tests\Snapper.MSTest.Tests.csproj", "{291D131A-0157-41C6-B72D-CF21CF9056F8}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Snapper.Internals.Tests", "Tests\Snapper.Internals.Tests\Snapper.Internals.Tests.csproj", "{B92D380C-B704-4BB8-A9AF-AE2B907ABB92}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{6E0B032F-3003-4369-B579-783150516801}"
+ProjectSection(SolutionItems) = preProject
+	Snapper.snk = Snapper.snk
+	Directory.Build.props = Directory.Build.props
+EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -49,10 +49,6 @@ Global
 		{B92D380C-B704-4BB8-A9AF-AE2B907ABB92}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B92D380C-B704-4BB8-A9AF-AE2B907ABB92}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B92D380C-B704-4BB8-A9AF-AE2B907ABB92}.Release|Any CPU.Build.0 = Release|Any CPU
-		{291D131A-0157-41C6-B72D-CF21CF9056F8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{291D131A-0157-41C6-B72D-CF21CF9056F8}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{291D131A-0157-41C6-B72D-CF21CF9056F8}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{291D131A-0157-41C6-B72D-CF21CF9056F8}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -61,7 +57,6 @@ Global
 		{6869334B-0C1C-4CA2-8823-C09DE1EF4540} = {634162BB-9132-43E2-8741-DEE5F2F202A1}
 		{1E140E12-9738-402A-984C-B59AD0382E6E} = {634162BB-9132-43E2-8741-DEE5F2F202A1}
 		{B92D380C-B704-4BB8-A9AF-AE2B907ABB92} = {634162BB-9132-43E2-8741-DEE5F2F202A1}
-		{291D131A-0157-41C6-B72D-CF21CF9056F8} = {634162BB-9132-43E2-8741-DEE5F2F202A1}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {24DD48CC-B026-4BFC-BED2-9554A34FB24C}

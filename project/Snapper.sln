@@ -13,7 +13,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Snapper.Tests", "Tests\Snap
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Snapper.Nunit.Tests", "Tests\Snapper.Nunit.Tests\Snapper.Nunit.Tests.csproj", "{1E140E12-9738-402A-984C-B59AD0382E6E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Snapper.MSTest.Tests", "Snapper.MSTest.Tests\Snapper.MSTest.Tests.csproj", "{291D131A-0157-41C6-B72D-CF21CF9056F8}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Snapper.MSTest.Tests", "Tests\Snapper.MSTest.Tests\Snapper.MSTest.Tests.csproj", "{291D131A-0157-41C6-B72D-CF21CF9056F8}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Snapper.Internals.Tests", "Tests\Snapper.Internals.Tests\Snapper.Internals.Tests.csproj", "{B92D380C-B704-4BB8-A9AF-AE2B907ABB92}"
 EndProject

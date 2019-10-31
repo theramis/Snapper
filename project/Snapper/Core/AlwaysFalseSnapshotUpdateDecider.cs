@@ -1,6 +1,6 @@
 namespace Snapper.Core
 {
-    public class AlwaysFalseSnapshotUpdateDecider : ISnapshotUpdateDecider
+    internal class AlwaysFalseSnapshotUpdateDecider : ISnapshotUpdateDecider
     {
         public bool ShouldUpdateSnapshot() => false;
     }

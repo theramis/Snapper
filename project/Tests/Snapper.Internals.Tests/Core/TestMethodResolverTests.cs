@@ -16,7 +16,7 @@ namespace Snapper.Internals.Tests.Core
         }
 
         [Fact]
-        public void XUnitFactTestMethod()
+        public void ResolvedTestMethod_HasCorrectData()
         {
             var testMethod = _testMethodResolver.ResolveTestMethod();
 
@@ -24,29 +24,11 @@ namespace Snapper.Internals.Tests.Core
                 $"{nameof(TestMethodResolverTests)}.cs");
 
             testMethod.FileName.Should().EndWith(fileName);
-            testMethod.MethodName.Should().Be(nameof(XUnitFactTestMethod));
+            testMethod.MethodName.Should().Be(nameof(ResolvedTestMethod_HasCorrectData));
 
             testMethod.BaseMethod.ReflectedType?.FullName.Should()
                 .Be($"Snapper.Internals.Tests.Core.{nameof(TestMethodResolverTests)}");
-            testMethod.BaseMethod.Name.Should().Be(nameof(XUnitFactTestMethod));
-        }
-
-        [Theory]
-        [InlineData("Data")]
-        [SuppressMessage("ReSharper", "xUnit1026")]
-        public void XUnitTheoryTestMethod(string value)
-        {
-            var testMethod = _testMethodResolver.ResolveTestMethod();
-
-            var fileName = Path.Combine("Snapper.Internals.Tests", "Core",
-                $"{nameof(TestMethodResolverTests)}.cs");
-
-            testMethod.FileName.Should().EndWith(fileName);
-            testMethod.MethodName.Should().Be(nameof(XUnitTheoryTestMethod));
-
-            testMethod.BaseMethod.ReflectedType?.FullName.Should()
-                .Be($"Snapper.Internals.Tests.Core.{nameof(TestMethodResolverTests)}");
-            testMethod.BaseMethod.Name.Should().Be(nameof(XUnitTheoryTestMethod));
+            testMethod.BaseMethod.Name.Should().Be(nameof(ResolvedTestMethod_HasCorrectData));
         }
     }
 }

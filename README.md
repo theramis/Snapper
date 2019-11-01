@@ -45,6 +45,7 @@ Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/d
 <table>
   <tr>
     <td align="center"><a href="https://github.com/fgather"><img src="https://avatars3.githubusercontent.com/u/614354?v=4" width="100px;" alt="Florian Gather"/><br /><sub><b>Florian Gather</b></sub></a><br /><a href="https://github.com/theramis/Snapper/commits?author=fgather" title="Code">💻</a></td>
+    <td align="center"><a href="https://www.linkedin.com/in/tomasbruckner/"><img src="https://avatars2.githubusercontent.com/u/7334618?v=4" width="100px;" alt="Tomas Bruckner"/><br /><sub><b>Tomas Bruckner</b></sub></a><br /><a href="https://github.com/theramis/Snapper/commits?author=tomasbruckner" title="Code">💻</a></td>
   </tr>
 </table>
 

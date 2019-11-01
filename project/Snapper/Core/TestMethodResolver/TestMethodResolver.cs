@@ -1,4 +1,4 @@
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Reflection;
@@ -17,6 +17,8 @@ namespace Snapper.Core.TestMethodResolver
                 new XunitTheoryMethod(method, fileName),
                 new NunitTestMethod(method, fileName),
                 new NunitTheoryMethod(method, fileName),
+                new MSTestTestMethod(method, fileName),
+                new MSTestDataTestMethod(method, fileName),
             };
 
         public ITestMethod ResolveTestMethod()

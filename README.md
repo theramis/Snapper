@@ -1,4 +1,5 @@
 # Snapper V2
+[![All Contributors](https://img.shields.io/badge/all_contributors-1-orange.svg?style=flat-square)](#contributors)
 **Bringing Jest-esque Snapshot testing to C#**
 
 Type   | Snapper | Snapper.Nunit
@@ -33,3 +34,19 @@ The changes in V2 are documented in the [Changelog](https://theramis.github.io/S
 - Write tests for testing json store.
 - Update V1 package descriptions to mention deprecated
 - Use appveyor logger on all test projects
+
+## Contributors ✨
+
+Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/docs/en/emoji-key)):
+
+<!-- ALL-CONTRIBUTORS-LIST:START - Do not remove or modify this section -->
+<!-- prettier-ignore -->
+<table>
+  <tr>
+    <td align="center"><a href="https://github.com/fgather"><img src="https://avatars3.githubusercontent.com/u/614354?v=4" width="100px;" alt="Florian Gather"/><br /><sub><b>Florian Gather</b></sub></a><br /><a href="https://github.com/theramis/Snapper/commits?author=fgather" title="Code">💻</a></td>
+  </tr>
+</table>
+
+<!-- ALL-CONTRIBUTORS-LIST:END -->
+
+This project follows the [all-contributors](https://github.com/all-contributors/all-contributors) specification. Contributions of any kind welcome!

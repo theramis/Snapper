@@ -45,6 +45,7 @@ Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/d
 <table>
   <tr>
     <td align="center"><a href="https://github.com/fgather"><img src="https://avatars3.githubusercontent.com/u/614354?v=4" width="100px;" alt="Florian Gather"/><br /><sub><b>Florian Gather</b></sub></a><br /><a href="https://github.com/theramis/Snapper/commits?author=fgather" title="Code">💻</a></td>
+    <td align="center"><a href="https://visualon.de"><img src="https://avatars1.githubusercontent.com/u/1798109?v=4" width="100px;" alt="Michael Kriese"/><br /><sub><b>Michael Kriese</b></sub></a><br /><a href="https://github.com/theramis/Snapper/commits?author=ViceIce" title="Code">💻</a></td>
   </tr>
 </table>
 

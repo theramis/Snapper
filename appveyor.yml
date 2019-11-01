@@ -43,6 +43,7 @@ deploy:
 
 skip_commits:
   files:
+  - .all-contributorsrc
   - .editorconfig
   - .gitattributes
   - .gitignore

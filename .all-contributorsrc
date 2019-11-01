@@ -41,6 +41,15 @@
       "contributions": [
         "code"
       ]
+    },
+    {
+      "login": "PatrickLehnerXI",
+      "name": "Patrick Lehner",
+      "avatar_url": "https://avatars1.githubusercontent.com/u/19566691?v=4",
+      "profile": "https://github.com/PatrickLehnerXI",
+      "contributions": [
+        "bug"
+      ]
     }
   ],
   "contributorsPerLine": 7,

@@ -9,6 +9,8 @@ All notable changes to the Snapper project.
 ## [2.2.0] - 2019-11-01
 ### Added
 - [PR #31](https://github.com/theramis/Snapper/pull/31) `Snapper` now supports the MSTest framework. Thanks to [@tskimmett](https://github.com/tskimmett) for the contribution.
+
+### Bug Fix
 - [PR #29](https://github.com/theramis/Snapper/pull/29) Fixed a broken link to the FAQS page. Thanks to [@tomasbruckner](https://github.com/tomasbruckner) for the fix.
 
 ## [2.1.0] - 2019-10-12

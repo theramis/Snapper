@@ -31,6 +31,15 @@
       "contributions": [
         "code"
       ]
+    },
+    {
+      "login": "tskimmett",
+      "name": "Taylor Kimmett",
+      "avatar_url": "https://avatars0.githubusercontent.com/u/4603206?v=4",
+      "profile": "http://cognitoforms.com",
+      "contributions": [
+        "code"
+      ]
     }
   ],
   "contributorsPerLine": 7,

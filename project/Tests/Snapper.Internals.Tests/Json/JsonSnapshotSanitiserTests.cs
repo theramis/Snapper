@@ -101,7 +101,6 @@ namespace Snapper.Internals.Tests.Json
                 .Be($"{{{Environment.NewLine}" +
                     "  \"Key\": \"2010-12-31T00:00:00+00:00\"" +
                     $"{Environment.NewLine}}}");
-
         }
     }
 }

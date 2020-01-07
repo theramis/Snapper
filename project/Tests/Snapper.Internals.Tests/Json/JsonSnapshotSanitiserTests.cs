@@ -1,4 +1,6 @@
+﻿using System;
 using FluentAssertions;
+using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using Snapper.Exceptions;
 using Snapper.Json;
@@ -80,6 +82,26 @@ namespace Snapper.Internals.Tests.Json
             exception.GetType().FullName.Should().Be(typeof(MalformedJsonSnapshotException).FullName);
             exception.Message.Should()
                 .Be("The snapshot provided contains malformed JSON. See inner exception for details.");
+        }
+
+        [Fact]
+        public void DateTimeOffsetStringTestWithSerializationSettings()
+        {
+            SnapperSettings.SnapshotDeserializationSettings = () => new JsonSerializerSettings()
+            {
+                DateTimeZoneHandling = DateTimeZoneHandling.Utc,
+                DateParseHandling = DateParseHandling.DateTimeOffset,
+            };
+
+            var sanitisedObject = _sanitiser.SanitiseSnapshot("{" +
+                                        "\"Key\" : \"2010-12-31T00:00:00+00:00\"" +
+                                        "}").ToString();
+
+            sanitisedObject.Should()
+                .Be($"{{{Environment.NewLine}" +
+                    "  \"Key\": \"2010-12-31T00:00:00+00:00\"" +
+                    $"{Environment.NewLine}}}");
+
         }
     }
 }

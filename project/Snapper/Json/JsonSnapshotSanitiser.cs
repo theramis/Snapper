@@ -1,4 +1,5 @@
-using System;
+﻿using System;
+using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using Snapper.Exceptions;
 
@@ -16,7 +17,7 @@ namespace Snapper.Json
                     {
                         try
                         {
-                            return JObject.Parse(stringSnapshot);
+                            return JsonConvert.DeserializeObject(stringSnapshot, SnapperSettings.SnapshotDeserializationSettings());
                         }
                         catch (Exception e)
                         {

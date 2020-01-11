@@ -1,5 +1,4 @@
 using System;
-using Newtonsoft.Json.Linq;
 using Snapper.Exceptions;
 
 namespace Snapper.Json
@@ -16,7 +15,7 @@ namespace Snapper.Json
                     {
                         try
                         {
-                            return JObject.Parse(stringSnapshot);
+                            return JObjectHelper.ParseFromString(stringSnapshot);
                         }
                         catch (Exception e)
                         {
@@ -25,7 +24,7 @@ namespace Snapper.Json
                     }
                 }
 
-                JObject.FromObject(snapshot);
+                JObjectHelper.FromObject(snapshot);
                 return snapshot;
             }
             catch (ArgumentException)

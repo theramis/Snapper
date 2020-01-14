@@ -51,11 +51,21 @@
       "contributions": [
         "bug"
       ]
+    },
+    {
+      "login": "plitwinski",
+      "name": "Piotr Litwinski",
+      "avatar_url": "https://avatars3.githubusercontent.com/u/25408297?v=4",
+      "profile": "https://github.com/plitwinski",
+      "contributions": [
+        "bug"
+      ]
     }
   ],
   "contributorsPerLine": 7,
   "projectName": "Snapper",
   "projectOwner": "theramis",
   "repoType": "github",
-  "repoHost": "https://github.com"
+  "repoHost": "https://github.com",
+  "skipCi": true
 }

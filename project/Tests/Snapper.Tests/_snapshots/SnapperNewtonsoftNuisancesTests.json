@@ -1,5 +1,8 @@
 {
-  "DateTimeIsParsedAsStringBySnapper_FileSnapshot": {
+  "DateTimeIsParsedAsStringBySnapper_UsingStringSnapshot_FileSnapshot": {
     "Key": "2010-12-31T00:00:00+00:00"
+  },
+  "DateTimeIsParsedAsStringBySnapper_UsingObjectSnapshot_FileSnapshot": {
+    "Key": "2010-12-31T00:00:00Z"
   }
 }

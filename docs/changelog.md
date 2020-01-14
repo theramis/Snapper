@@ -6,6 +6,10 @@ nav_order: 99
 # Changelog
 All notable changes to the Snapper project.
 
+## [2.2.1] - 2020-01-14
+### Bug Fix
+- [Issue #44](https://github.com/theramis/Snapper/issues/44) [PR #45](https://github.com/theramis/Snapper/pull/45) Fixed parsing of datetime strings so that they are treated as string by NewtonSoft. Thanks to [@plitwinski](https://github.com/plitwinski) for surfacing the issue.
+
 ## [2.2.0] - 2019-11-01
 ### Added
 - [PR #31](https://github.com/theramis/Snapper/pull/31) `Snapper` now supports the MSTest framework. Thanks to [@tskimmett](https://github.com/tskimmett) for the contribution.
@@ -115,6 +119,7 @@ The first stable release!
 - **Snapper.Json**: Extends Snapper.Core to provide storing snapshots in Json format
 - **Snapper.Json.Xunit**: Extends Snapper.Json and integrates with the XUnit testing framework.
 
+[2.2.1]: https://github.com/theramis/Snapper/compare/2.2.0...2.2.1
 [2.2.0]: https://github.com/theramis/Snapper/compare/2.1.0...2.2.0
 [2.1.0]: https://github.com/theramis/Snapper/compare/2.0.1...2.1.0
 [2.0.1]: https://github.com/theramis/Snapper/compare/2.0.0...2.0.1

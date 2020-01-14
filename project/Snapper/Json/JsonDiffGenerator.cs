@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.IO;
 using System.Text;
 using DiffMatchPatch;
-using Newtonsoft.Json.Linq;
 
 namespace Snapper.Json
 {
@@ -14,8 +13,8 @@ namespace Snapper.Json
 
         public static string GetDiffMessage(object currentSnapshot, object newSnapshot)
         {
-            var currentSnapshotJObject = JObject.FromObject(currentSnapshot);
-            var newSnapshotJObject = JObject.FromObject(newSnapshot);
+            var currentSnapshotJObject = JObjectHelper.FromObject(currentSnapshot);
+            var newSnapshotJObject = JObjectHelper.FromObject(newSnapshot);
 
             var dmp = new diff_match_patch();
             var a = dmp.diff_linesToChars(currentSnapshotJObject.ToString(), newSnapshotJObject.ToString());

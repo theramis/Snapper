@@ -41,17 +41,21 @@ The changes in V2 are documented in the [Changelog](https://theramis.github.io/S
 Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/docs/en/emoji-key)):
 
 <!-- ALL-CONTRIBUTORS-LIST:START - Do not remove or modify this section -->
-<!-- prettier-ignore -->
+<!-- prettier-ignore-start -->
+<!-- markdownlint-disable -->
 <table>
   <tr>
-    <td align="center"><a href="https://github.com/fgather"><img src="https://avatars3.githubusercontent.com/u/614354?v=4" width="100px;" alt="Florian Gather"/><br /><sub><b>Florian Gather</b></sub></a><br /><a href="https://github.com/theramis/Snapper/commits?author=fgather" title="Code">💻</a> <a href="#ideas-fgather" title="Ideas, Planning, & Feedback">🤔</a></td>
-    <td align="center"><a href="https://www.linkedin.com/in/tomasbruckner/"><img src="https://avatars2.githubusercontent.com/u/7334618?v=4" width="100px;" alt="Tomas Bruckner"/><br /><sub><b>Tomas Bruckner</b></sub></a><br /><a href="https://github.com/theramis/Snapper/commits?author=tomasbruckner" title="Code">💻</a></td>
-    <td align="center"><a href="https://visualon.de"><img src="https://avatars1.githubusercontent.com/u/1798109?v=4" width="100px;" alt="Michael Kriese"/><br /><sub><b>Michael Kriese</b></sub></a><br /><a href="https://github.com/theramis/Snapper/commits?author=ViceIce" title="Code">💻</a> <a href="#ideas-ViceIce" title="Ideas, Planning, & Feedback">🤔</a></td>
-    <td align="center"><a href="http://cognitoforms.com"><img src="https://avatars0.githubusercontent.com/u/4603206?v=4" width="100px;" alt="Taylor Kimmett"/><br /><sub><b>Taylor Kimmett</b></sub></a><br /><a href="https://github.com/theramis/Snapper/commits?author=tskimmett" title="Code">💻</a></td>
-    <td align="center"><a href="https://github.com/PatrickLehnerXI"><img src="https://avatars1.githubusercontent.com/u/19566691?v=4" width="100px;" alt="Patrick Lehner"/><br /><sub><b>Patrick Lehner</b></sub></a><br /><a href="https://github.com/theramis/Snapper/issues?q=author%3APatrickLehnerXI" title="Bug reports">🐛</a></td>
+    <td align="center"><a href="https://github.com/fgather"><img src="https://avatars3.githubusercontent.com/u/614354?v=4" width="100px;" alt=""/><br /><sub><b>Florian Gather</b></sub></a><br /><a href="https://github.com/theramis/Snapper/commits?author=fgather" title="Code">💻</a> <a href="#ideas-fgather" title="Ideas, Planning, & Feedback">🤔</a></td>
+    <td align="center"><a href="https://www.linkedin.com/in/tomasbruckner/"><img src="https://avatars2.githubusercontent.com/u/7334618?v=4" width="100px;" alt=""/><br /><sub><b>Tomas Bruckner</b></sub></a><br /><a href="https://github.com/theramis/Snapper/commits?author=tomasbruckner" title="Code">💻</a></td>
+    <td align="center"><a href="https://visualon.de"><img src="https://avatars1.githubusercontent.com/u/1798109?v=4" width="100px;" alt=""/><br /><sub><b>Michael Kriese</b></sub></a><br /><a href="https://github.com/theramis/Snapper/commits?author=ViceIce" title="Code">💻</a> <a href="#ideas-ViceIce" title="Ideas, Planning, & Feedback">🤔</a></td>
+    <td align="center"><a href="http://cognitoforms.com"><img src="https://avatars0.githubusercontent.com/u/4603206?v=4" width="100px;" alt=""/><br /><sub><b>Taylor Kimmett</b></sub></a><br /><a href="https://github.com/theramis/Snapper/commits?author=tskimmett" title="Code">💻</a></td>
+    <td align="center"><a href="https://github.com/PatrickLehnerXI"><img src="https://avatars1.githubusercontent.com/u/19566691?v=4" width="100px;" alt=""/><br /><sub><b>Patrick Lehner</b></sub></a><br /><a href="https://github.com/theramis/Snapper/issues?q=author%3APatrickLehnerXI" title="Bug reports">🐛</a></td>
+    <td align="center"><a href="https://github.com/plitwinski"><img src="https://avatars3.githubusercontent.com/u/25408297?v=4" width="100px;" alt=""/><br /><sub><b>Piotr Litwinski</b></sub></a><br /><a href="https://github.com/theramis/Snapper/issues?q=author%3Aplitwinski" title="Bug reports">🐛</a></td>
   </tr>
 </table>
 
+<!-- markdownlint-enable -->
+<!-- prettier-ignore-end -->
 <!-- ALL-CONTRIBUTORS-LIST:END -->
 
 This project follows the [all-contributors](https://github.com/all-contributors/all-contributors) specification. Contributions of any kind welcome!

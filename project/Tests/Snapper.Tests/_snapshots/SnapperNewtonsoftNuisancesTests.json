@@ -4,5 +4,25 @@
   },
   "DateTimeIsParsedAsStringBySnapper_UsingObjectSnapshot_FileSnapshot": {
     "Key": "2010-12-31T00:00:00Z"
+  },
+  "MetadataPropertiesAreReadAsStringsBySnapper_UsingStringSnapshot_FileSnapshot": {
+    "id": {
+      "$id": "metadata",
+      "key": "value"
+    },
+    "type": {
+      "$type": "metadata",
+      "key": "value"
+    }
+  },
+  "MetadataPropertiesAreReadAsStringsBySnapper_UsingObjectSnapshot_FileSnapshot": {
+    "type": {
+      "$type": "metadata",
+      "key": "value"
+    },
+    "id": {
+      "$id": "metadata",
+      "key": "value"
+    }
   }
 }

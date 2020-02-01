@@ -1,5 +1,6 @@
-using System;
+﻿using System;
 using System.Runtime.CompilerServices;
+using Newtonsoft.Json.Linq;
 using Snapper.Attributes;
 using Xunit;
 
@@ -63,6 +64,68 @@ namespace Snapper.Tests
             snapshot.ShouldMatchInlineSnapshot("{" +
                                                "\"Key\" : \"2010-12-31T00:00:00Z\"" +
                                                "}");
+        }
+
+        [Theory]
+        [InlineData("id")]
+        [InlineData("type")]
+        [MethodImpl(MethodImplOptions.NoInlining)]
+        public void MetadataPropertiesAreReadAsStringsBySnapper_UsingStringSnapshot_FileSnapshot(string metadataProp)
+        {
+            var snapshot = $@"{{
+                ""${metadataProp}"": ""metadata"",
+                ""key"": ""value""
+            }}";
+
+            snapshot.ShouldMatchChildSnapshot(metadataProp);
+        }
+
+        [Theory]
+        [InlineData("id")]
+        [InlineData("type")]
+        [MethodImpl(MethodImplOptions.NoInlining)]
+        public void MetadataPropertiesAreReadAsStringsBySnapper_UsingObjectSnapshot_FileSnapshot(string metadataProp)
+        {
+            var snapshot = JObject.Parse($@"{{
+                ""${metadataProp}"": ""metadata"",
+                ""key"": ""value""
+            }}");
+
+            snapshot.ShouldMatchChildSnapshot(metadataProp);
+        }
+
+        [Theory]
+        [InlineData("id")]
+        [InlineData("type")]
+        [MethodImpl(MethodImplOptions.NoInlining)]
+        public void MetadataPropertiesAreReadAsStringsBySnapper_UsingStringSnapshot_InlineSnapshot(string metadataProp)
+        {
+            var snapshot = $@"{{
+                ""${metadataProp}"": ""metadata"",
+                ""key"": ""value""
+            }}";
+
+            snapshot.ShouldMatchInlineSnapshot($@"{{
+                ""${metadataProp}"": ""metadata"",
+                ""key"": ""value""
+            }}");
+        }
+
+        [Theory]
+        [InlineData("id")]
+        [InlineData("type")]
+        [MethodImpl(MethodImplOptions.NoInlining)]
+        public void MetadataPropertiesAreReadAsStringsBySnapper_UsingObjectSnapshot_InlineSnapshot(string metadataProp)
+        {
+            var snapshot = JObject.Parse($@"{{
+                ""${metadataProp}"": ""metadata"",
+                ""key"": ""value""
+            }}");
+
+            snapshot.ShouldMatchInlineSnapshot($@"{{
+                ""${metadataProp}"": ""metadata"",
+                ""key"": ""value""
+            }}");
         }
     }
 }

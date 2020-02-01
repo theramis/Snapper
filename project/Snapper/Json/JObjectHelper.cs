@@ -1,4 +1,4 @@
-using System.IO;
+﻿using System.IO;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 
@@ -8,7 +8,8 @@ namespace Snapper.Json
     {
         private static readonly JsonSerializerSettings JsonSettings = new JsonSerializerSettings
         {
-            DateParseHandling = DateParseHandling.None
+            DateParseHandling = DateParseHandling.None,
+            MetadataPropertyHandling = MetadataPropertyHandling.Ignore
         };
 
         public static JObject ParseFromString(string jsonString)

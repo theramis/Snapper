@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
@@ -66,7 +66,19 @@ namespace Snapper.Core
         }
 
         private bool IsCiEnv()
-            => _ciEnvironmentVariables.Any(ciEnvironmentVariable => Environment.GetEnvironmentVariable(ciEnvironmentVariable) != null);
+        {
+            foreach (var envVarTarget in new[] { EnvironmentVariableTarget.Process, EnvironmentVariableTarget.Machine, EnvironmentVariableTarget.User})
+            {
+                var found = _ciEnvironmentVariables.Any(ciEnvironmentVariable =>
+                        Environment.GetEnvironmentVariable(ciEnvironmentVariable, envVarTarget) != null);
+                if (found)
+                {
+                    return true;
+                }
+            }
+
+            return false;
+        }
 
         private static bool TryGetUpdateSnapshotsAttribute(ICustomAttributeProvider member, out UpdateSnapshotsAttribute attribute)
         {

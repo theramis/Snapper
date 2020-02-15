@@ -36,7 +36,7 @@ namespace Snapper.Json
         {
             Directory.CreateDirectory(Path.GetDirectoryName(snapshotId.FilePath));
 
-            var newSnapshot = JObject.FromObject(value);
+            var newSnapshot = JObjectHelper.FromObject(value);
 
             JToken newSnapshotToWrite;
 

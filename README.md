@@ -7,7 +7,7 @@ NuGet  | [![Nuget (with prereleases)](https://img.shields.io/nuget/vpre/Snapper.
 Build  | [![AppVeyor](https://img.shields.io/appveyor/ci/theramis/snapper.svg?style=flat-square)](https://ci.appveyor.com/project/theramis/snapper) | [![AppVeyor](https://img.shields.io/appveyor/ci/theramis/snapper.svg?style=flat-square)](https://ci.appveyor.com/project/theramis/snapper)
 Github | [![GitHub release](https://img.shields.io/github/release/theramis/snapper.svg?style=flat-square)](https://github.com/theramis/Snapper) | [![GitHub release](https://img.shields.io/github/release/theramis/snapper.svg?style=flat-square)](https://github.com/theramis/Snapper)
 
-[![All Contributors](https://img.shields.io/badge/all_contributors-1-orange.svg?style=flat-square)](#contributors-)
+[![All Contributors](https://img.shields.io/badge/all_contributors-5-orange.svg?style=flat-square)](#contributors-)
 
 Snapper is a [NuGet library](https://www.nuget.org/packages/Snapper) which captures snapshots of objects to simplify testing.
 It is very heavily based on Jest Snapshot Testing.

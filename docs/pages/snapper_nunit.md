@@ -1,11 +1,4 @@
----
-title: Snapper.Nunit
-nav_order: 4
----
-
 # Snapper.Nunit
-
-# Basics
 
 The `Snapper.Nunit` NuGet package extends the Nunit constraint to provide a deeper integration with the NUnit test framework.
 

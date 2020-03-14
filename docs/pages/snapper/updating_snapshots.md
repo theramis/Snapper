@@ -1,8 +1,3 @@
----
-title: Updating Snapshots
-nav_order: 2
-parent: Snapper
----
 # Updating Snapshots
 
 Creating/Updating snapshots manually can be a time consuming and difficult task. Snapper makes this task easy.

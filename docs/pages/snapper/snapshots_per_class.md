@@ -1,9 +1,3 @@
----
-title: Storing Snapshots per class
-nav_order: 3
-parent: Snapper
----
-
 # Snapshots per class
 
 By default Snapper stores a snapshot for each test method into a different file. This is sometimes not ideal when snapshots for a method are small or as you can end up with a large number of snapshot files.

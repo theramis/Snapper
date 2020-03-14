@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Snapper</title>
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+  <meta name="description" content="Bringing Jest-esque Snapshot testing to C#.">
+  <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+  <link rel="stylesheet" href="//unpkg.com/docsify/lib/themes/vue.css">
+  <link rel="stylesheet" href="//unpkg.com/prism-themes@1.3.0/themes/prism-material-light.css">
+</head>
+<body>
+  <div data-app id="app">Please wait...</div>
+  <script>
+    window.$docsify = {
+      name: 'Snapper',
+      repo: 'theramis/Snapper',
+      loadSidebar: true,
+      coverpage: false,
+      onlyCover: true,
+      auto2top: true,
+      subMaxLevel: 1,
+      maxLevel: 2,
+      homepage: 'https://raw.githubusercontent.com/theramis/Snapper/master/README.md',
+      alias: {
+        '.*?/CHANGELOG.md': 'https://raw.githubusercontent.com/theramis/Snapper/master/CHANGELOG',
+      },
+      search: {
+        paths: 'auto',
+        placeholder: 'Search',
+        noData: 'No Results.'
+      }
+    }
+  </script>
+  <script src="//unpkg.com/docsify/lib/docsify.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/docsify-copy-code"></script>
+  <script src="//cdn.jsdelivr.net/npm/docsify-pagination/dist/docsify-pagination.min.js"></script>
+  <script src="//unpkg.com/docsify-edit-on-github/index.js"></script>
+  <script src="//unpkg.com/prismjs/components/prism-csharp.min.js"></script>
+  <script src="//unpkg.com/prismjs/components/prism-bash.min.js"></script>
+  <script src="//unpkg.com/prismjs/components/prism-json.min.js"></script>
+</body>
+</html>

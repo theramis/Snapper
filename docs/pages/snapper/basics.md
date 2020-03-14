@@ -1,9 +1,3 @@
----
-title: Basics
-nav_order: 1
-parent: Snapper
----
-
 # Basics
 
 Snapper allows you to create snapshots of objects in a jest-esque fashion. It allows you to do gold master testing easily in C#.

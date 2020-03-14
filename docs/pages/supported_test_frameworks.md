@@ -1,8 +1,3 @@
----
-title: Supported Test Frameworks
-nav_order: 2
----
-
 # Supported Test Frameworks
 
 Snapper currently supports the following testing frameworks.

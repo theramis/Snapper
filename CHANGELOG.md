@@ -1,8 +1,3 @@
----
-title: Changelog
-nav_order: 99
----
-
 # Changelog
 All notable changes to the Snapper project.
 

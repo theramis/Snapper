@@ -1,8 +1,3 @@
----
-title: FAQS
-nav_order: 5
----
-
 # Frequently asked questions
 
 ### Why am I getting a `SupportedTestMethodNotFoundException`?

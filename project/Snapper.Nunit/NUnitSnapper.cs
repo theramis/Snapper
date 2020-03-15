@@ -22,10 +22,14 @@ namespace Snapper.Nunit
 
         public SnapResult MatchChildSnapshot(object snapshot, string childSnapshotName)
         {
-            var snapId = _snapshotIdResolver.ResolveSnapshotId(childSnapshotName);
-            var sanitisedSnapshot = _snapshotSanitiser.SanitiseSnapshot(snapshot);
+            var snapshotId = _snapshotIdResolver.ResolveSnapshotId(childSnapshotName);
+            return MatchSnapshot(snapshot, snapshotId);
+        }
 
-            return Snap(snapId, sanitisedSnapshot);
+        public SnapResult MatchSnapshot(object snapshot, SnapshotId snapshotId)
+        {
+            var sanitisedSnapshot = _snapshotSanitiser.SanitiseSnapshot(snapshot);
+            return Snap(snapshotId, sanitisedSnapshot);
         }
     }
 }

@@ -1,3 +1,5 @@
+using Snapper.Core;
+
 namespace Snapper
 {
     public static class SnapperExtensions
@@ -10,6 +12,23 @@ namespace Snapper
         {
             var snapper = SnapperFactory.GetJsonSnapper();
             snapper.MatchSnapshot(snapshot);
+        }
+
+        /// <summary>
+        ///     **EXPERIMENTAL**
+        ///     <para>This method may be removed or changed in future versions.</para>
+        ///     <para></para>
+        ///     <para>
+        ///     Compares the provided object with the stored snapshot.
+        ///     It takes a <c>SnapshotId</c> for finer control of how and where the snapshot is stored.
+        ///     </para>
+        /// </summary>
+        /// <param name="snapshot">The object to compare with the stored snapshot</param>
+        /// <param name="snapshotId">Describes how and where the snapshot is stored</param>
+        public static void ShouldMatchSnapshot(this object snapshot, SnapshotId snapshotId)
+        {
+            var snapper = SnapperFactory.GetJsonSnapper();
+            snapper.MatchSnapshot(snapshot, snapshotId);
         }
 
         /// <summary>

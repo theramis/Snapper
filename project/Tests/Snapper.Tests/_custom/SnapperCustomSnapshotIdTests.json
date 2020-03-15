@@ -1,0 +1,13 @@
+{
+  "TheorySnapshotsMatchWithPerClass": {
+    "2": {
+      "TestValue": 2
+    },
+    "1": {
+      "TestValue": 1
+    },
+    "3": {
+      "TestValue": 3
+    }
+  }
+}

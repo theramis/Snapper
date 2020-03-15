@@ -3,7 +3,7 @@
 ### Why am I getting a `SupportedTestMethodNotFoundException`?
 ```
 Snapper.Exceptions.SupportedTestMethodNotFoundException : A supported test method was not found.
-Make sure you are using Snapper inside a supported test framework. See https://theramis.github.io/Snapper/faqs.html for more info.
+Make sure you are using Snapper inside a supported test framework. See https://theramis.github.io/Snapper/#/pages/faqs for more info.
 ```
 If you got an exception when running tests with Snapper similiar to the one above there are two reasons why this could be happening.
 
@@ -22,3 +22,6 @@ There are currently two solution for this issue.
 ```
 
 For more information see this issue: [theramis/snapper#16](https://github.com/theramis/Snapper/issues/16)
+
+If none of the solutions above work its possible you have encountered a usecase where Snapper is unable to determine the test. There has been one use reported use case like this before. See https://github.com/theramis/Snapper/issues/30. 
+In this case the recommended solution is to use [Advanced Snapshot file control](/pages/snapper/advanced_snapshot_control?id=advanced-snapshot-file-control) to create snapshots.

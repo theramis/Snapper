@@ -28,3 +28,11 @@ There are currently three solutions for this issue.
 ```
 
 For more information see this issue: [theramis/snapper#16](https://github.com/theramis/Snapper/issues/16)
+
+### Why am I getting a `UnableToDetermineTestFilePathException`?
+```
+Snapper.Exceptions.UnableToDetermineTestFilePathException : Unable to determine the file path of the test method. 
+Make sure optimisation of the test project is disabled. See https://theramis.github.io/Snapper/#/pages/faqs for more info.
+```
+
+This can happen when the PDB files are not generated for the test project. Try setting the `<Optimize>false</Optimize>` or `<DebugType>full</DebugType>` settings in your projects csproj file. See above for more details on how to set these.

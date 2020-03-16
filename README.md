@@ -9,7 +9,6 @@
 [![Build Status](https://img.shields.io/appveyor/ci/theramis/snapper.svg?style=flat-square)](https://ci.appveyor.com/project/theramis/snapper)
 [![Nuget (with prereleases)](https://img.shields.io/nuget/vpre/Snapper.svg?style=flat-square)](https://www.nuget.org/packages/Snapper)
 [![license](https://img.shields.io/github/license/theramis/Snapper?style=flat-square)](https://github.com/theramis/Snapper/blob/master/LICENSE)
-[![All Contributors](https://img.shields.io/badge/all_contributors-5-orange.svg?style=flat-square)](#contributors)
 
 Snapper is a [NuGet library](https://www.nuget.org/packages/Snapper) which makes snapshot testing very easy in C#. Snapshot testing can simplify testing and is super useful when paired with Golden Master testing or contract testing APIs.
 It is very heavily based on [Jest Snapshot Testing framework](https://jestjs.io/docs/en/snapshot-testing).

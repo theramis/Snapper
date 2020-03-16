@@ -1,6 +1,15 @@
 # Changelog
 All notable changes to the Snapper project.
 
+## [2.2.4] - 2020-03-16
+### Added
+- [PR #60](https://github.com/theramis/Snapper/pull/60) **Experimental Feature**: Advanced snapshot file control! Get more control over how and where the snapshot file is created. See [here](https://theramis.github.io/Snapper/#/pages/snapper/advanced_snapshot_control) for more details. 
+Fixes the following issues: [#30](https://github.com/theramis/Snapper/issues/30) [#48](https://github.com/theramis/Snapper/issues/48) [#24](https://github.com/theramis/Snapper/issues/24).
+- [PR #58](https://github.com/theramis/Snapper/pull/58) `Snapper` can now detect the Azure DevOps CI Environment. Thanks to [@WarrenFerrell](https://github.com/WarrenFerrell) for the contribution.
+
+### Bug Fix
+- [Issue #24](https://github.com/theramis/Snapper/issues/24) [PR #62](https://github.com/theramis/Snapper/pull/62) Catch more exceptions when resolving test method.
+
 ## [2.2.3] - 2020-02-15
 ### Bug Fix
 - [Issue #53](https://github.com/theramis/Snapper/issues/53) [PR #55](https://github.com/theramis/Snapper/pull/55) Use JObjectHelper when storing snapshots. Thanks to [@ViceIce](https://github.com/ViceIce) for surfacing the issue.
@@ -123,6 +132,7 @@ The first stable release!
 - **Snapper.Json**: Extends Snapper.Core to provide storing snapshots in Json format
 - **Snapper.Json.Xunit**: Extends Snapper.Json and integrates with the XUnit testing framework.
 
+[2.2.4]: https://github.com/theramis/Snapper/compare/2.2.3...2.2.4
 [2.2.3]: https://github.com/theramis/Snapper/compare/2.2.2...2.2.3
 [2.2.2]: https://github.com/theramis/Snapper/compare/2.2.1...2.2.2
 [2.2.1]: https://github.com/theramis/Snapper/compare/2.2.0...2.2.1

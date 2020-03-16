@@ -9,5 +9,10 @@ namespace Snapper.Exceptions
             : base(Messages.TestMethodNotFoundMessage)
         {
         }
+
+        public SupportedTestMethodNotFoundException(Exception baseException)
+            : base(Messages.TestMethodNotFoundMessage, baseException)
+        {
+        }
     }
 }

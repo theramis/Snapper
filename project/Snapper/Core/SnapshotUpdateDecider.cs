@@ -21,6 +21,7 @@ namespace Snapper.Core
             "CI", // Travis CI, CircleCI, Cirrus CI, Gitlab CI, Appveyor, CodeShip, dsari
             "CONTINUOUS_INTEGRATION", // Travis CI, Cirrus CI
             "BUILD_NUMBER", // Jenkins, TeamCity
+            "BUILD_BUILDNUMBER", // Azure DevOps
             "RUN_ID" // TaskCluster, dsari
         };
 

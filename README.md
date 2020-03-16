@@ -9,7 +9,6 @@
 [![Build Status](https://img.shields.io/appveyor/ci/theramis/snapper.svg?style=flat-square)](https://ci.appveyor.com/project/theramis/snapper)
 [![Nuget (with prereleases)](https://img.shields.io/nuget/vpre/Snapper.svg?style=flat-square)](https://www.nuget.org/packages/Snapper)
 [![license](https://img.shields.io/github/license/theramis/Snapper?style=flat-square)](https://github.com/theramis/Snapper/blob/master/LICENSE)
-[![All Contributors](https://img.shields.io/badge/all_contributors-5-orange.svg?style=flat-square)](#contributors)
 
 Snapper is a [NuGet library](https://www.nuget.org/packages/Snapper) which makes snapshot testing very easy in C#. Snapshot testing can simplify testing and is super useful when paired with Golden Master testing or contract testing APIs.
 It is very heavily based on [Jest Snapshot Testing framework](https://jestjs.io/docs/en/snapshot-testing).
@@ -106,6 +105,7 @@ Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/d
     <td align="center"><a href="http://cognitoforms.com"><img src="https://avatars0.githubusercontent.com/u/4603206?v=4" width="100px;" alt=""/><br /><sub><b>Taylor Kimmett</b></sub></a><br /><a href="https://github.com/theramis/Snapper/commits?author=tskimmett" title="Code">💻</a></td>
     <td align="center"><a href="https://github.com/PatrickLehnerXI"><img src="https://avatars1.githubusercontent.com/u/19566691?v=4" width="100px;" alt=""/><br /><sub><b>Patrick Lehner</b></sub></a><br /><a href="https://github.com/theramis/Snapper/issues?q=author%3APatrickLehnerXI" title="Bug reports">🐛</a></td>
     <td align="center"><a href="https://github.com/plitwinski"><img src="https://avatars3.githubusercontent.com/u/25408297?v=4" width="100px;" alt=""/><br /><sub><b>Piotr Litwinski</b></sub></a><br /><a href="https://github.com/theramis/Snapper/issues?q=author%3Aplitwinski" title="Bug reports">🐛</a></td>
+    <td align="center"><a href="https://github.com/WarrenFerrell"><img src="https://avatars0.githubusercontent.com/u/8977001?v=4" width="100px;" alt=""/><br /><sub><b>Warren Ferrell</b></sub></a><br /><a href="https://github.com/theramis/Snapper/commits?author=WarrenFerrell" title="Code">💻</a></td>
   </tr>
 </table>
 

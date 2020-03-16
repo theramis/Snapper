@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Reflection;
@@ -23,19 +24,30 @@ namespace Snapper.Core.TestMethodResolver
 
         public ITestMethod ResolveTestMethod()
         {
-            var stackTrace = new StackTrace(1, true);
-            foreach (var stackFrame in stackTrace.GetFrames() ?? new StackFrame[0])
+            try
             {
-                var method = stackFrame.GetMethod();
+                var stackTrace = new StackTrace(1, true);
+                foreach (var stackFrame in stackTrace.GetFrames() ?? new StackFrame[0])
+                {
+                    var method = stackFrame.GetMethod();
 
-                if (IsAsyncMethod(method))
-                    method = GetMethodBaseOfAsyncMethod(method);
+                    if (IsAsyncMethod(method))
+                        method = GetMethodBaseOfAsyncMethod(method);
 
-                if (IsSnapperMethod(method))
-                    continue;
+                    if (IsSnapperMethod(method))
+                        continue;
 
-                if (TryGetTestMethod(method, stackFrame.GetFileName(), out var testMethod))
-                    return testMethod;
+                    if (TryGetTestMethod(method, stackFrame.GetFileName(), out var testMethod))
+                        return testMethod;
+                }
+            }
+            catch (UnableToDetermineTestFilePathException)
+            {
+                throw;
+            }
+            catch (Exception ex)
+            {
+                throw new SupportedTestMethodNotFoundException(ex);
             }
 
             throw new SupportedTestMethodNotFoundException();
@@ -74,6 +86,11 @@ namespace Snapper.Core.TestMethodResolver
                 if (tm.IsTestMethod())
                 {
                     testMethod = tm;
+
+                    if (fileName == null)
+                    {
+                        throw new UnableToDetermineTestFilePathException();
+                    }
                     return true;
                 }
             }

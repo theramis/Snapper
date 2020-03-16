@@ -37,5 +37,10 @@ namespace Snapper.Core
 
         public const string MalformedJsonSnapshotMessage
             = "The snapshot provided contains malformed JSON. See inner exception for details.";
+
+        public const string UnableToDetermineTestFilePathMessage
+            = "Unable to determine the file path of the test method. " +
+              "Make sure optimisation of the test project is disabled. " +
+              "See https://theramis.github.io/Snapper/#/pages/faqs for more info.";
     }
 }

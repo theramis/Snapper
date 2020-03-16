@@ -20,15 +20,18 @@ namespace Snapper
         }
 
         public void MatchSnapshot(object snapshot)
-            => MatchSnapshot(snapshot, null);
+            => MatchSnapshot(snapshot, childSnapshotName: null);
 
-        public void MatchSnapshot(object snapshot, string partialSnapshotName)
+        public void MatchSnapshot(object snapshot, string childSnapshotName)
         {
-            var snapId = _snapshotIdResolver.ResolveSnapshotId(partialSnapshotName);
+            var snapshotId = _snapshotIdResolver.ResolveSnapshotId(childSnapshotName);
+            MatchSnapshot(snapshot, snapshotId);
+        }
+
+        public void MatchSnapshot(object snapshot, SnapshotId snapshotId)
+        {
             var sanitisedSnapshot = _snapshotSanitiser.SanitiseSnapshot(snapshot);
-
-            var result = Snap(snapId, sanitisedSnapshot);
-
+            var result = Snap(snapshotId, sanitisedSnapshot);
             _snapshotAsserter.AssertSnapshot(result);
         }
     }

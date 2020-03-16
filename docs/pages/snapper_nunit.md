@@ -20,8 +20,17 @@ public class MyTestClass
             Key = "value"
         };
         // Best to use with theory tests
-        // See https://theramis.github.io/Snapper/snapper/basics.html#child-snapshots for more information about child snapshots
+        // See https://theramis.github.io/Snapper/#/pages/snapper/basics?id=child-snapshots for more information about child snapshots
         Assert.That(obj, Is.EqualToChildSnapshot("NamedSnapshot"));
+    }
+
+    [Test]
+    public void MyThirdTest(){
+        var obj = new {
+            Key = "value"
+        };
+        // See https://theramis.github.io/Snapper/#/pages/snapper/advanced_snapshot_control for more information about `SnapshotId`
+        Assert.That(obj, Is.EqualToSnapshot(new SnapshotId("dir", "class", "method", null, false)));
     }
 }
 ```

@@ -16,7 +16,7 @@ namespace Snapper.Core
             _testMethodResolver = testMethodResolver;
         }
 
-        public SnapshotId ResolveSnapshotId(string partialSnapshotName)
+        public SnapshotId ResolveSnapshotId(string childSnapshotName)
         {
             var testMethod = _testMethodResolver.ResolveTestMethod();
             var testBaseMethod = testMethod.BaseMethod;
@@ -24,19 +24,15 @@ namespace Snapper.Core
             var directory = Path.GetDirectoryName(testMethod.FileName);
             var className = testBaseMethod.DeclaringType?.Name;
 
+            var snapshotDirectory = Path.Combine(directory, SnapshotsDirectory);
             var storeSnapshotsPerClass = ShouldStoreSnapshotsPerClass(testBaseMethod);
 
-            if (storeSnapshotsPerClass)
-            {
-                var snapshotFilePath = Path.Combine(directory, SnapshotsDirectory, $"{className}.json");
-                return new SnapshotId(snapshotFilePath, testMethod.MethodName, partialSnapshotName);
-            }
-            else
-            {
-                var snapshotFileName = $"{className}{'_'}{testMethod.MethodName}";
-                var snapshotFilePath = Path.Combine(directory, SnapshotsDirectory, $"{snapshotFileName}.json");
-                return new SnapshotId(snapshotFilePath, partialSnapshotName);
-            }
+            return new SnapshotId(
+                snapshotDirectory,
+                className,
+                testMethod.MethodName,
+                childSnapshotName,
+                storeSnapshotsPerClass);
         }
 
         private static bool ShouldStoreSnapshotsPerClass(MemberInfo method)

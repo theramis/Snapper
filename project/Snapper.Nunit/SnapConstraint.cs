@@ -21,33 +21,54 @@ namespace Snapper.Nunit
             return new EqualToSnapshotConstraint();
         }
 
-        public static EqualToSnapshotConstraint EqualToChildSnapshot(string snapshotName)
+        public static EqualToSnapshotConstraint EqualToSnapshot(SnapshotId snapshotId)
         {
-            return new EqualToSnapshotConstraint(snapshotName);
+            return new EqualToSnapshotConstraint(snapshotId);
+        }
+
+        public static EqualToSnapshotConstraint EqualToChildSnapshot(string childSnapshotName)
+        {
+            return new EqualToSnapshotConstraint(childSnapshotName);
         }
     }
 
     public class EqualToSnapshotConstraint : Constraint
     {
-        private readonly string _snapshotName;
+        private readonly SnapshotId _snapshotId;
+        private readonly string _childSnapshotName;
 
-        public EqualToSnapshotConstraint(string snapshotName = null)
+        public EqualToSnapshotConstraint(string childSnapshotName = null)
         {
-            _snapshotName = snapshotName;
+            _childSnapshotName = childSnapshotName;
+        }
+
+        public EqualToSnapshotConstraint(SnapshotId snapshotId)
+        {
+            _snapshotId = snapshotId;
         }
 
         public override ConstraintResult ApplyTo<TActual>(TActual actual)
         {
-            var matchSnapshot = MatchSnapshot(actual);
-            return new NUnitConstraintResult(this, actual, matchSnapshot);
+            SnapResult snapResult;
+            if (_snapshotId != null)
+            {
+                var snapper = NUnitSnapperFactory.GetNUnitSnapper();
+                snapResult = snapper.MatchSnapshot(actual, _snapshotId);
+            }
+            else
+            {
+                snapResult = MatchSnapshot(actual);
+            }
+
+            return new NUnitConstraintResult(this, actual, snapResult);
         }
 
         private SnapResult MatchSnapshot(object actual)
         {
             var snapper = NUnitSnapperFactory.GetNUnitSnapper();
-            return _snapshotName == null
+            return _childSnapshotName == null
                    ? snapper.MatchSnapshot(actual)
-                   : snapper.MatchChildSnapshot(actual, _snapshotName);
+                   : snapper.MatchChildSnapshot(actual, _childSnapshotName);
         }
     }
 

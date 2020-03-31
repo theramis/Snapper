@@ -44,7 +44,7 @@ public void MyTest()
 }
 
 ```
-The test above is now asserting the `myUser` object with a snapshot stored on disk. Snapper helps you create this snapshot at the beginnging (see [Quick Start](quickstart.md)).
+The test above is now asserting the `myUser` object with a snapshot stored on disk. Snapper helps you create this snapshot at the beginnging (see [Quick Start](docs/pages/quickstart.md)).
 
 This is the basis of snapshot testing. The idea being a baseline is first generated (in this case a json file which is our snapshot) and then everytime the test runs the output is compared to the snapshot. If the snapshot and the output from the tests don't match the test fails!
 

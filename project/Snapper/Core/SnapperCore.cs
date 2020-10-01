@@ -36,14 +36,20 @@
 
         private bool ShouldUpdateSnapshot(object currentSnapshot, object newSnapshot)
         {
+            var snapshotsAreEqual = currentSnapshot != null
+                                    && _snapshotComparer.CompareSnapshots(currentSnapshot, newSnapshot);
+            if (!snapshotsAreEqual && _snapshotUpdateDecider.ShouldUpdateSnapshot())
+            {
+                return true;
+            }
+
             // Create snapshot if it doesn't currently exist and its not a CI env
             if (currentSnapshot == null)
             {
                 return !CiEnvironmentDetector.IsCiEnv();
             }
 
-            return !_snapshotComparer.CompareSnapshots(currentSnapshot, newSnapshot)
-                && _snapshotUpdateDecider.ShouldUpdateSnapshot();
+            return false;
         }
     }
 }

@@ -106,6 +106,10 @@ namespace Snapper.Tests
         public void SnapshotsDoesNotExist_SnapshotIsCreated()
         {
             // Arrange
+
+            // Tests run on CI so clearing the CI environment variable to emulate local machine
+            Environment.SetEnvironmentVariable("CI", null, EnvironmentVariableTarget.Process);
+
             var snapshotFilePath = GetSnapshotFilePath<SnapperSnapshotsPerClassTests>();
 
             var content = File.ReadAllText(snapshotFilePath);

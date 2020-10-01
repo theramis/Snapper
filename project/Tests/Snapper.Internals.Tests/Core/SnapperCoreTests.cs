@@ -120,6 +120,9 @@ namespace Snapper.Internals.Tests.Core
         [Fact]
         public void SnapshotDoesNotExist_ResultStatusIs_SnapshotUpdated()
         {
+            // Tests run on CI so clearing the CI environment variable to emulate local machine
+            Environment.SetEnvironmentVariable("CI", null, EnvironmentVariableTarget.Process);
+
             _store.Setup(a => a.GetSnapshot(It.IsAny<SnapshotId>())).Returns(null);
             _updateDecider.Setup(a => a.ShouldUpdateSnapshot()).Returns(false);
 

@@ -17,10 +17,8 @@
         protected SnapResult Snap(SnapshotId snapshotId, object newSnapshot)
         {
             var currentSnapshot = _snapshotStore.GetSnapshot(snapshotId);
-            var areSnapshotsEqual = currentSnapshot != null
-                                    && _snapshotComparer.CompareSnapshots(currentSnapshot, newSnapshot);
-
-            if (!areSnapshotsEqual && _snapshotUpdateDecider.ShouldUpdateSnapshot())
+            
+            if (ShouldUpdateSnapshot(currentSnapshot, newSnapshot))
             {
                 _snapshotStore.StoreSnapshot(snapshotId, newSnapshot);
                 return SnapResult.SnapshotUpdated(currentSnapshot, newSnapshot);
@@ -31,9 +29,21 @@
                 return SnapResult.SnapshotDoesNotExist(newSnapshot);
             }
 
-            return areSnapshotsEqual
+            return _snapshotComparer.CompareSnapshots(currentSnapshot, newSnapshot)
                 ? SnapResult.SnapshotsMatch(currentSnapshot, newSnapshot)
                 : SnapResult.SnapshotsDoNotMatch(currentSnapshot, newSnapshot);
+        }
+
+        private bool ShouldUpdateSnapshot(object currentSnapshot, object newSnapshot)
+        {
+            // Create snapshot if it doesn't currently exist and its not a CI env
+            if (currentSnapshot == null)
+            {
+                return !CiEnvironmentDetector.IsCiEnv();
+            }
+
+            return !_snapshotComparer.CompareSnapshots(currentSnapshot, newSnapshot)
+                && _snapshotUpdateDecider.ShouldUpdateSnapshot();
         }
     }
 }

@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.IO;
 using System.Runtime.CompilerServices;
 using Snapper.Attributes;
@@ -80,9 +80,10 @@ namespace Snapper.Tests
         }
 
         [Fact]
-        public void SnapshotDoesNotExist_SnapshotDoesNotExistException_IsThrown()
+        public void SnapshotDoesNotExist_And_IsCiEnv_SnapshotDoesNotExistException_IsThrown()
         {
             // Arrange
+            Environment.SetEnvironmentVariable("CI", "true", EnvironmentVariableTarget.Process);
             var snapshot = new
             {
                 TestValue = "value"
@@ -95,9 +96,41 @@ namespace Snapper.Tests
             Assert.NotNull(exception);
             Assert.Equal("Snapper.Exceptions.SnapshotDoesNotExistException", exception.GetType().FullName);
             Assert.Equal( $"A snapshot does not exist.{Environment.NewLine}{Environment.NewLine}" +
-                          "Apply the [UpdateSnapshots] attribute on the " +
-                          "test method or class and then run the test again to " +
-                          $"create a snapshot.{Environment.NewLine}", exception.Message);
+                          $"Run the test outside of a CI environment to create a snapshot.{Environment.NewLine}", exception.Message);
+
+            // Cleanup
+            Environment.SetEnvironmentVariable("CI", null, EnvironmentVariableTarget.Process);
+        }
+
+        [Fact]
+        public void SnapshotsDoesNotExist_SnapshotIsCreated()
+        {
+            // Arrange
+            var snapshotFilePath = GetSnapshotFilePath<SnapperSnapshotsPerClassTests>();
+
+            var content = File.ReadAllText(snapshotFilePath);
+            var snapshotToRemove = string.Join(
+                Environment.NewLine,
+                "  \"SnapshotsDoesNotExist_SnapshotIsCreated\": {",
+                "    \"TestValue\": \"doesNotExist\"",
+                "  }");
+
+            var newContent = content.Replace(snapshotToRemove, "");
+            File.WriteAllText(snapshotFilePath, newContent);
+
+            var snapshot = new
+            {
+                TestValue = "doesNotExist"
+            };
+
+            // Act
+            snapshot.ShouldMatchSnapshot();
+
+            // Assert
+            Assert.Contains(snapshotToRemove, File.ReadAllText(snapshotFilePath));
+
+            // Cleanup
+            File.WriteAllText(snapshotFilePath, newContent);
         }
 
         [Fact]

@@ -1,4 +1,4 @@
-using System.Runtime.CompilerServices;
+﻿using System.Runtime.CompilerServices;
 using Newtonsoft.Json.Linq;
 using NUnit.Framework;
 
@@ -14,7 +14,7 @@ namespace Snapper.Nunit.Tests
             {
                 {"TestProperty", "TestValue"}
             };
-            Assert.That(actual, Is.EqualToSnapshot());
+            Assert.That(actual, Matches.Snapshot());
         }
 
         [Test]
@@ -25,7 +25,7 @@ namespace Snapper.Nunit.Tests
             {
                 {"TestProperty2", "TestValue2"}
             };
-            Assert.That(actual, Is.EqualToChildSnapshot("ChildSnapshot"));
+            Assert.That(actual, Matches.ChildSnapshot("ChildSnapshot"));
         }
     }
 }

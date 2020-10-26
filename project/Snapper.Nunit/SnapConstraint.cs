@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using NUnit.Framework.Constraints;
 using Snapper.Core;
 
@@ -14,6 +14,7 @@ namespace Snapper.Nunit
         }
     }
 
+    [Obsolete("Snapper.Nunit.Is will be removed in a future release.  Please use Snapper.Nunit.Matches")]
     public class Is : NUnit.Framework.Is
     {
         public static EqualToSnapshotConstraint EqualToSnapshot()
@@ -22,6 +23,19 @@ namespace Snapper.Nunit
         }
 
         public static EqualToSnapshotConstraint EqualToChildSnapshot(string snapshotName)
+        {
+            return new EqualToSnapshotConstraint(snapshotName);
+        }
+    }
+
+    public class Matches
+    {
+        public static EqualToSnapshotConstraint Snapshot()
+        {
+            return new EqualToSnapshotConstraint();
+        }
+
+        public static EqualToSnapshotConstraint ChildSnapshot(string snapshotName)
         {
             return new EqualToSnapshotConstraint(snapshotName);
         }

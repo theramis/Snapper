@@ -1,6 +1,6 @@
-namespace Snapper.Core
+﻿namespace Snapper.Core
 {
-    internal enum SnapResultStatus
+    public enum SnapResultStatus
     {
         SnapshotDoesNotExist,
         SnapshotsMatch,

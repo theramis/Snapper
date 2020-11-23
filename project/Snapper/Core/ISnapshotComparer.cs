@@ -2,6 +2,6 @@
 {
     internal interface ISnapshotComparer
     {
-        bool CompareSnapshots(object oldSnapshot, object newSnapshot);
+        SnapResult CompareSnapshots(object oldSnapshot, object newSnapshot);
     }
 }

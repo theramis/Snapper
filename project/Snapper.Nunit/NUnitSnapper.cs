@@ -3,18 +3,21 @@ using Snapper.Json;
 
 namespace Snapper.Nunit
 {
-    internal class NUnitSnapper : SnapperCore
+    internal class NUnitSnapper
     {
         private readonly SnapshotIdResolver _snapshotIdResolver;
         private readonly JsonSnapshotSanitiser _snapshotSanitiser;
+        private readonly ISnapshotHandler _snapshotHandler;
 
-        public NUnitSnapper(ISnapshotStore snapshotStore, ISnapshotUpdateDecider snapshotUpdateDecider,
-            ISnapshotComparer snapshotComparer, SnapshotIdResolver snapshotIdResolver,
-            JsonSnapshotSanitiser snapshotSanitiser)
-            : base(snapshotStore, snapshotUpdateDecider, snapshotComparer)
+        public NUnitSnapper(
+            SnapshotIdResolver snapshotIdResolver,
+            JsonSnapshotSanitiser snapshotSanitiser,
+            ISnapshotHandler snapshotHandler)
+
         {
             _snapshotIdResolver = snapshotIdResolver;
             _snapshotSanitiser = snapshotSanitiser;
+            _snapshotHandler = snapshotHandler;
         }
 
         public SnapResult MatchSnapshot(object snapshot)
@@ -29,7 +32,7 @@ namespace Snapper.Nunit
         public SnapResult MatchSnapshot(object snapshot, SnapshotId snapshotId)
         {
             var sanitisedSnapshot = _snapshotSanitiser.SanitiseSnapshot(snapshot);
-            return Snap(snapshotId, sanitisedSnapshot);
+            return _snapshotHandler.Snap(snapshotId, sanitisedSnapshot);
         }
     }
 }

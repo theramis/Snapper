@@ -48,19 +48,9 @@ namespace Snapper.Core
         {
             var method = _testMethodResolver.ResolveTestMethod().BaseMethod;
 
-            var customAttributeProviders = new List<ICustomAttributeProvider>
+            foreach (var attr in method.GetCustomAttributes<UpdateSnapshotsAttribute>())
             {
-                method, // check method
-                method?.DeclaringType, // check class
-                method?.DeclaringType?.Assembly // check assembly
-            };
-
-            foreach (var customAttributeProvider in customAttributeProviders)
-            {
-                if (TryGetUpdateSnapshotsAttribute(customAttributeProvider, out var att))
-                {
-                    return !(att.IgnoreIfCi && IsCiEnv());
-                }
+                return !(attr.IgnoreIfCi && IsCiEnv());
             }
 
             return false;
@@ -68,7 +58,7 @@ namespace Snapper.Core
 
         private bool IsCiEnv()
         {
-            foreach (var envVarTarget in new[] { EnvironmentVariableTarget.Process, EnvironmentVariableTarget.Machine, EnvironmentVariableTarget.User})
+            foreach (var envVarTarget in new[] { EnvironmentVariableTarget.Process, EnvironmentVariableTarget.Machine, EnvironmentVariableTarget.User })
             {
                 var found = _ciEnvironmentVariables.Any(ciEnvironmentVariable =>
                         Environment.GetEnvironmentVariable(ciEnvironmentVariable, envVarTarget) != null);
@@ -79,14 +69,6 @@ namespace Snapper.Core
             }
 
             return false;
-        }
-
-        private static bool TryGetUpdateSnapshotsAttribute(ICustomAttributeProvider member, out UpdateSnapshotsAttribute attribute)
-        {
-            var attributes = member?.GetCustomAttributes(typeof(UpdateSnapshotsAttribute), true);
-
-            attribute = attributes?.FirstOrDefault() as UpdateSnapshotsAttribute;
-            return attributes?.Any() ?? false;
         }
     }
 }

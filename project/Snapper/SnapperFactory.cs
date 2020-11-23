@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using Snapper.Core;
 using Snapper.Core.TestMethodResolver;
 using Snapper.Json;
@@ -14,19 +14,35 @@ namespace Snapper
         private static Snapper CreateJsonSnapper()
         {
             var testMethodResolver = new TestMethodResolver();
-            return new Snapper(new JsonSnapshotStore(), new SnapshotUpdateDecider(testMethodResolver),
-                new JsonSnapshotComparer(), new SnapshotIdResolver(testMethodResolver), new JsonSnapshotSanitiser(),
-                new SnapshotAsserter());
+
+            var snapshotHandler = new CoreSnapshotHandler(
+                new JsonSnapshotStore(),
+                new JsonSnapshotComparer(),
+                new SnapshotUpdateDecider(testMethodResolver));
+
+            return new Snapper(
+                new SnapshotIdResolver(testMethodResolver),
+                new JsonSnapshotSanitiser(),
+                new SnapshotAsserter(),
+                new PostSnapshotHandler(snapshotHandler, testMethodResolver));
         }
 
         public static Snapper GetJsonInlineSnapper(object expectedSnapshot)
         {
             var testMethodResolver = new TestMethodResolver();
+
             var jsonSnapshotSanitiser = new JsonSnapshotSanitiser();
-            return new Snapper(new JsonSnapshotInMemoryStore(jsonSnapshotSanitiser, expectedSnapshot),
-                new AlwaysFalseSnapshotUpdateDecider(), new JsonSnapshotComparer(),
-                new SnapshotIdResolver(testMethodResolver), jsonSnapshotSanitiser,
-                new SnapshotAsserter());
+
+            var snapshotHandler = new CoreSnapshotHandler(
+                new JsonSnapshotInMemoryStore(jsonSnapshotSanitiser, expectedSnapshot),
+                new JsonSnapshotComparer(),
+                new AlwaysFalseSnapshotUpdateDecider());
+
+            return new Snapper(
+                new SnapshotIdResolver(testMethodResolver),
+                jsonSnapshotSanitiser,
+                new SnapshotAsserter(),
+                snapshotHandler);
         }
     }
 }

@@ -1,4 +1,5 @@
-﻿using FluentAssertions;
+﻿using System;
+using FluentAssertions;
 using Snapper.Core;
 using Snapper.Json;
 using Xunit;
@@ -18,7 +19,8 @@ namespace Snapper.Internals.Tests.Json
         public void Compare_SameObject()
         {
             var obj = new { v = 1 };
-            _comparer.CompareSnapshots(obj, obj).Should().BeTrue();
+            var result = _comparer.CompareSnapshots(obj, obj);
+            result.Status.Should().Be(SnapResultStatus.SnapshotsMatch);
         }
 
         [Fact]
@@ -26,7 +28,8 @@ namespace Snapper.Internals.Tests.Json
         {
             var obj1 = new { v = 1 };
             var obj2 = new { v = 1 };
-            _comparer.CompareSnapshots(obj1, obj2).Should().BeTrue();
+            var result = _comparer.CompareSnapshots(obj1, obj2);
+            result.Status.Should().Be(SnapResultStatus.SnapshotsMatch);
         }
 
         [Fact]
@@ -34,7 +37,8 @@ namespace Snapper.Internals.Tests.Json
         {
             var obj1 = new { v = 1, vv = 2 };
             var obj2 = new { vv = 2, v = 1 };
-            _comparer.CompareSnapshots(obj1, obj2).Should().BeTrue();
+            var result = _comparer.CompareSnapshots(obj1, obj2);
+            result.Status.Should().Be(SnapResultStatus.SnapshotsMatch);
         }
 
         [Fact]
@@ -57,7 +61,8 @@ namespace Snapper.Internals.Tests.Json
                     a = 1
                 }
             };
-            _comparer.CompareSnapshots(obj1, obj2).Should().BeTrue();
+            var result = _comparer.CompareSnapshots(obj1, obj2);
+            result.Status.Should().Be(SnapResultStatus.SnapshotsMatch);
         }
 
         [Fact]
@@ -65,7 +70,8 @@ namespace Snapper.Internals.Tests.Json
         {
             var obj1 = new { v = 1 };
             var obj2 = new { v = 2 };
-            _comparer.CompareSnapshots(obj1, obj2).Should().BeFalse();
+            var result = _comparer.CompareSnapshots(obj1, obj2);
+            result.Status.Should().Be(SnapResultStatus.SnapshotsDoNotMatch);
         }
 
         [Fact]
@@ -88,7 +94,8 @@ namespace Snapper.Internals.Tests.Json
                     a = 2
                 }
             };
-            _comparer.CompareSnapshots(obj1, obj2).Should().BeFalse();
+            var result = _comparer.CompareSnapshots(obj1, obj2);
+            result.Status.Should().Be(SnapResultStatus.SnapshotsDoNotMatch);
         }
 
         [Fact]
@@ -103,7 +110,24 @@ namespace Snapper.Internals.Tests.Json
             {
                 v = 1
             };
-            _comparer.CompareSnapshots(obj1, obj2).Should().BeFalse();
+            var result = _comparer.CompareSnapshots(obj1, obj2);
+            result.Status.Should().Be(SnapResultStatus.SnapshotsDoNotMatch);
+        }
+
+        [Fact]
+        public void Compare_Null()
+        {
+            var obj = new { v = 1 };
+            var result = _comparer.CompareSnapshots(null, obj);
+            result.Status.Should().Be(SnapResultStatus.SnapshotDoesNotExist);
+        }
+
+        [Fact]
+        public void Compare_fails_when_newSpapshot_is_null()
+        {
+            var obj = new { v = 1 };
+            Action test = () => _comparer.CompareSnapshots(obj, null);
+            test.Should().Throw<ArgumentNullException>();
         }
     }
 }

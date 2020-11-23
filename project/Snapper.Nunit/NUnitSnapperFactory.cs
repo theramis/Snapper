@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using Snapper.Core;
 using Snapper.Core.TestMethodResolver;
 using Snapper.Json;
@@ -15,8 +15,16 @@ namespace Snapper.Nunit
         private static NUnitSnapper CreateNUnitSnapper()
         {
             var testMethodResolver = new TestMethodResolver();
-            return new NUnitSnapper(new JsonSnapshotStore(), new SnapshotUpdateDecider(testMethodResolver),
-                new JsonSnapshotComparer(), new SnapshotIdResolver(testMethodResolver), new JsonSnapshotSanitiser());
+
+            var snapshotHandler = new CoreSnapshotHandler(
+                new JsonSnapshotStore(),
+                new JsonSnapshotComparer(),
+                new SnapshotUpdateDecider(testMethodResolver));
+
+            return new NUnitSnapper(
+                new SnapshotIdResolver(testMethodResolver),
+                new JsonSnapshotSanitiser(),
+                new PostSnapshotHandler(snapshotHandler, testMethodResolver));
         }
     }
 }

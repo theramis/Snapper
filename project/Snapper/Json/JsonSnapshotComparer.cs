@@ -5,12 +5,20 @@ namespace Snapper.Json
 {
     internal class JsonSnapshotComparer : ISnapshotComparer
     {
-        public bool CompareSnapshots(object oldSnap, object newSnap)
+        public SnapResult CompareSnapshots(object oldSnap, object newSnap)
         {
-            var old = JObjectHelper.FromObject(oldSnap);
+            if (oldSnap is null) return SnapResult.SnapshotDoesNotExist(newSnap);
+            else if (AreEqual(oldSnap, newSnap)) return SnapResult.SnapshotsMatch(oldSnap, newSnap);
+            else return SnapResult.SnapshotsDoNotMatch(oldSnap, newSnap);
+            
+        }
 
-            var @new = JObjectHelper.FromObject(newSnap);
+        private bool AreEqual(object oldSnapshot, object newSnapshot)
+        {
+            var old = JObjectHelper.FromObject(oldSnapshot);
+            var @new = JObjectHelper.FromObject(newSnapshot);
             @new = JObjectHelper.ParseFromString(@new.ToString());
+
             return JToken.DeepEquals(old, @new);
         }
     }

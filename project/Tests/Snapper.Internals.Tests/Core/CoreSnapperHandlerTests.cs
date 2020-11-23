@@ -5,37 +5,24 @@ using Xunit;
 
 namespace Snapper.Internals.Tests.Core
 {
-    internal class SnapperCoreProxy : SnapperCore
+    public class CoreSnapperHandlerTests
     {
-        public SnapperCoreProxy(ISnapshotStore snapshotStore,
-            ISnapshotUpdateDecider snapshotUpdateDecider,
-            ISnapshotComparer snapshotComparer)
-            : base(snapshotStore, snapshotUpdateDecider, snapshotComparer)
-        {
-        }
-
-        public new SnapResult Snap(SnapshotId snapshotId, object newSnapshot)
-        {
-            return base.Snap(snapshotId, newSnapshot);
-        }
-    }
-
-    public class SnapperCoreTests
-    {
-        private readonly object _obj = new {value = 1};
-        private readonly SnapperCoreProxy _snapper;
+        private readonly object _obj = new { value = 1 };
+        private readonly CoreSnapshotHandler _snapper;
         private readonly Mock<ISnapshotStore> _store;
         private readonly Mock<ISnapshotUpdateDecider> _updateDecider;
         private readonly Mock<ISnapshotComparer> _comparer;
 
-        public SnapperCoreTests()
+        public CoreSnapperHandlerTests()
         {
             _store = new Mock<ISnapshotStore>();
             _updateDecider = new Mock<ISnapshotUpdateDecider>();
             _comparer = new Mock<ISnapshotComparer>();
 
-            _snapper = new SnapperCoreProxy(_store.Object, _updateDecider.Object,
-                _comparer.Object);
+            _snapper = new CoreSnapshotHandler(
+                _store.Object,
+                _comparer.Object,
+                _updateDecider.Object);
         }
 
         [Fact]
@@ -44,13 +31,11 @@ namespace Snapper.Internals.Tests.Core
             _store.Setup(a => a.GetSnapshot(It.IsAny<SnapshotId>())).Returns(_obj);
             _updateDecider.Setup(a => a.ShouldUpdateSnapshot()).Returns(false);
             _comparer.Setup(a => a.CompareSnapshots(It.IsAny<object>(), It.IsAny<object>()))
-                .Returns(true);
+                .Returns(SnapResult.SnapshotsMatch(_obj, _obj));
 
             var result = _snapper.Snap(new SnapshotId("name", null, null, null), _obj);
 
-            result.Status.Should().BeEquivalentTo(SnapResultStatus.SnapshotsMatch);
-            result.OldSnapshot.Should().BeEquivalentTo(_obj);
-            result.NewSnapshot.Should().BeEquivalentTo(_obj);
+            result.Should().BeEquivalentTo(SnapResult.SnapshotsMatch(_obj, _obj));
         }
 
         [Fact]
@@ -59,47 +44,45 @@ namespace Snapper.Internals.Tests.Core
             _store.Setup(a => a.GetSnapshot(It.IsAny<SnapshotId>())).Returns(_obj);
             _updateDecider.Setup(a => a.ShouldUpdateSnapshot()).Returns(true);
             _comparer.Setup(a => a.CompareSnapshots(It.IsAny<object>(), It.IsAny<object>()))
-                .Returns(true);
+                .Returns(SnapResult.SnapshotsMatch(_obj, _obj));
 
             var result = _snapper.Snap(new SnapshotId("name", null, null, null), _obj);
 
             _store.Verify(a => a.StoreSnapshot(It.IsAny<SnapshotId>(), It.IsAny<object>()), Times.Never);
-            result.Status.Should().BeEquivalentTo(SnapResultStatus.SnapshotsMatch);
-            result.OldSnapshot.Should().BeEquivalentTo(_obj);
-            result.NewSnapshot.Should().BeEquivalentTo(_obj);
+            result.Should().BeEquivalentTo(SnapResult.SnapshotsMatch(_obj, _obj));
         }
 
         [Fact]
         public void SnapshotDoesNotMatch_ResultStatusIs_SnapshotsDoNotMatch()
         {
+            var newObj = new { value = 2 };
+
             _store.Setup(a => a.GetSnapshot(It.IsAny<SnapshotId>())).Returns(_obj);
             _updateDecider.Setup(a => a.ShouldUpdateSnapshot()).Returns(false);
             _comparer.Setup(a => a.CompareSnapshots(It.IsAny<object>(), It.IsAny<object>()))
-                .Returns(false);
+                .Returns(SnapResult.SnapshotsDoNotMatch(_obj, newObj));
 
-            var newObj = new {value = 2};
+            
             var result = _snapper.Snap(new SnapshotId("name", null, null, null), newObj);
 
-            result.Status.Should().BeEquivalentTo(SnapResultStatus.SnapshotsDoNotMatch);
-            result.OldSnapshot.Should().BeEquivalentTo(_obj);
-            result.NewSnapshot.Should().BeEquivalentTo(newObj);
+            result.Should().BeEquivalentTo(SnapResult.SnapshotsDoNotMatch(_obj, newObj));
         }
 
         [Fact]
         public void SnapshotDoesNotMatch_ShouldUpdate_ResultStatusIs_SnapshotUpdated()
         {
+            var newObj = new { value = 2 };
+
             _store.Setup(a => a.GetSnapshot(It.IsAny<SnapshotId>())).Returns(_obj);
             _updateDecider.Setup(a => a.ShouldUpdateSnapshot()).Returns(true);
             _comparer.Setup(a => a.CompareSnapshots(It.IsAny<object>(), It.IsAny<object>()))
-                .Returns(false);
+                .Returns(SnapResult.SnapshotsDoNotMatch(_obj, newObj));
 
-            var newObj = new {value = 2};
+            
             var result = _snapper.Snap(new SnapshotId("name", null, null, null), newObj);
 
             _store.Verify(a => a.StoreSnapshot(It.IsAny<SnapshotId>(), It.IsAny<object>()), Times.Once);
-            result.Status.Should().BeEquivalentTo(SnapResultStatus.SnapshotUpdated);
-            result.OldSnapshot.Should().BeEquivalentTo(_obj);
-            result.NewSnapshot.Should().BeEquivalentTo(newObj);
+            result.Should().BeEquivalentTo(SnapResult.SnapshotUpdated(_obj, newObj));
         }
 
         [Fact]
@@ -107,13 +90,13 @@ namespace Snapper.Internals.Tests.Core
         {
             _store.Setup(a => a.GetSnapshot(It.IsAny<SnapshotId>())).Returns(null);
             _updateDecider.Setup(a => a.ShouldUpdateSnapshot()).Returns(true);
+            _comparer.Setup(a => a.CompareSnapshots(It.IsAny<object>(), It.IsAny<object>()))
+               .Returns(SnapResult.SnapshotDoesNotExist(_obj));
 
             var result = _snapper.Snap(new SnapshotId("name", null, null, null), _obj);
 
             _store.Verify(a => a.StoreSnapshot(It.IsAny<SnapshotId>(), It.IsAny<object>()), Times.Once);
-            result.Status.Should().BeEquivalentTo(SnapResultStatus.SnapshotUpdated);
-            result.OldSnapshot.Should().BeNull();
-            result.NewSnapshot.Should().BeEquivalentTo(_obj);
+            result.Should().BeEquivalentTo(SnapResult.SnapshotUpdated(null, _obj));
         }
 
         [Fact]
@@ -121,12 +104,12 @@ namespace Snapper.Internals.Tests.Core
         {
             _store.Setup(a => a.GetSnapshot(It.IsAny<SnapshotId>())).Returns(null);
             _updateDecider.Setup(a => a.ShouldUpdateSnapshot()).Returns(false);
+            _comparer.Setup(a => a.CompareSnapshots(It.IsAny<object>(), It.IsAny<object>()))
+               .Returns(SnapResult.SnapshotDoesNotExist(_obj));
 
             var result = _snapper.Snap(new SnapshotId("name", null, null, null), _obj);
 
-            result.Status.Should().BeEquivalentTo(SnapResultStatus.SnapshotDoesNotExist);
-            result.OldSnapshot.Should().BeNull();
-            result.NewSnapshot.Should().BeEquivalentTo(_obj);
+            result.Should().BeEquivalentTo(SnapResult.SnapshotDoesNotExist(_obj));
         }
     }
 }

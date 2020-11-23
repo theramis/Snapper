@@ -13,7 +13,6 @@ namespace Snapper.Nunit
             SnapshotIdResolver snapshotIdResolver,
             JsonSnapshotSanitiser snapshotSanitiser,
             ISnapshotHandler snapshotHandler)
-
         {
             _snapshotIdResolver = snapshotIdResolver;
             _snapshotSanitiser = snapshotSanitiser;

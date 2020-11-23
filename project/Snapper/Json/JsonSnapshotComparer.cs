@@ -10,7 +10,6 @@ namespace Snapper.Json
             if (oldSnap is null) return SnapResult.SnapshotDoesNotExist(newSnap);
             else if (AreEqual(oldSnap, newSnap)) return SnapResult.SnapshotsMatch(oldSnap, newSnap);
             else return SnapResult.SnapshotsDoNotMatch(oldSnap, newSnap);
-            
         }
 
         private bool AreEqual(object oldSnapshot, object newSnapshot)

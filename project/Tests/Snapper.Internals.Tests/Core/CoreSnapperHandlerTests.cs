@@ -62,7 +62,6 @@ namespace Snapper.Internals.Tests.Core
             _comparer.Setup(a => a.CompareSnapshots(It.IsAny<object>(), It.IsAny<object>()))
                 .Returns(SnapResult.SnapshotsDoNotMatch(_obj, newObj));
 
-            
             var result = _snapper.Snap(new SnapshotId("name", null, null, null), newObj);
 
             result.Should().BeEquivalentTo(SnapResult.SnapshotsDoNotMatch(_obj, newObj));
@@ -78,7 +77,6 @@ namespace Snapper.Internals.Tests.Core
             _comparer.Setup(a => a.CompareSnapshots(It.IsAny<object>(), It.IsAny<object>()))
                 .Returns(SnapResult.SnapshotsDoNotMatch(_obj, newObj));
 
-            
             var result = _snapper.Snap(new SnapshotId("name", null, null, null), newObj);
 
             _store.Verify(a => a.StoreSnapshot(It.IsAny<SnapshotId>(), It.IsAny<object>()), Times.Once);

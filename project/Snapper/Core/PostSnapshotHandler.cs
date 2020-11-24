@@ -19,17 +19,16 @@ namespace Snapper.Core
 
         public SnapResult Snap(SnapshotId id, object newSnapshot)
         {
+            var method = _testMethodResolver.ResolveTestMethod().BaseMethod;
+
             var result = _snapshotHandler.Snap(id, newSnapshot);
 
-            foreach (var attr in GetAttributes()) attr.Handle(result);
+            foreach (var attr in method.GetCustomAttributes<PostSnapshotAttribute>())
+            {
+                attr.Handle(result);
+            }
 
             return result;
-        }
-
-        private IEnumerable<PostSnapshotAttribute> GetAttributes()
-        {
-            var method = _testMethodResolver.ResolveTestMethod().BaseMethod;
-            return method.GetCustomAttributes<PostSnapshotAttribute>();
         }
     }
 }

@@ -9,22 +9,10 @@ namespace Snapper.Json
     {
         private static readonly JsonSerializerSettings JsonSettings;
 
-        public static JObject ParseFromString(string jsonString)
-        {
-            return JsonConvert.DeserializeObject(jsonString, JsonSettings) as JObject;
-        }
-
-        public static JObject FromObject(object obj)
-        {
-            if (obj is JObject result)
-                return result;
-
-            return JObject.FromObject(obj, JsonSerializer.Create(JsonSettings));
-        }
-
         static JObjectHelper()
         {
             var type = typeof(ICustomSnapshotSerializerSettings);
+
             var types = AppDomain.CurrentDomain.GetAssemblies()
                 .SelectMany(s => s.GetTypes())
                 .Where(p => type.IsAssignableFrom(p) && p.IsClass && p.GetConstructor(Type.EmptyTypes) != null)
@@ -46,9 +34,20 @@ namespace Snapper.Json
         }
 
         private static JsonSerializerSettings Default => new() {DateParseHandling = DateParseHandling.None, MetadataPropertyHandling = MetadataPropertyHandling.Ignore};
+
+        public static JObject ParseFromString(string jsonString) => JsonConvert.DeserializeObject(jsonString, JsonSettings) as JObject;
+
+        public static JObject FromObject(object obj)
+        {
+            if (obj is JObject result)
+            {
+                return result;
+            }
+
+            return JObject.FromObject(obj, JsonSerializer.Create(JsonSettings));
+        }
     }
 
-   
     public interface ICustomSnapshotSerializerSettings
     {
         JsonSerializerSettings JsonSerializerSettings { get; }

@@ -47,7 +47,7 @@ namespace Snapper.Internals.Tests.Json
 
         public class CustomSnapshotSerializerSettings : ICustomSnapshotSerializerSettings
         {
-            public JsonSerializerSettings JsonSerializerSettings => new() {Converters = new List<JsonConverter> {new StringEnumConverter()}};
+            public JsonSerializerSettings JsonSerializerSettings => new JsonSerializerSettings {Converters = new List<JsonConverter> {new StringEnumConverter()}};
         }
     }
 }

@@ -33,7 +33,7 @@ namespace Snapper.Json
             }
         }
 
-        private static JsonSerializerSettings Default => new() {DateParseHandling = DateParseHandling.None, MetadataPropertyHandling = MetadataPropertyHandling.Ignore};
+        private static JsonSerializerSettings Default => new JsonSerializerSettings {DateParseHandling = DateParseHandling.None, MetadataPropertyHandling = MetadataPropertyHandling.Ignore};
 
         public static JObject ParseFromString(string jsonString) => JsonConvert.DeserializeObject(jsonString, JsonSettings) as JObject;
 

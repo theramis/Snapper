@@ -1,4 +1,4 @@
-using System.IO;
+﻿using System.IO;
 using System.Runtime.CompilerServices;
 using NUnit.Framework;
 using Snapper.Core;
@@ -17,7 +17,7 @@ namespace Snapper.Nunit.Tests
             };
 
             // Act/Assert
-            Assert.That(snapshot, Is.EqualToSnapshot(new SnapshotId(
+            Assert.That(snapshot, Matches.Snapshot(new SnapshotId(
                 Path.Combine(GetCurrentClassDirectory(), "_custom"),
                 nameof(NunitSnapperCustomTests),
                 nameof(SnapshotsMatch))));
@@ -36,7 +36,7 @@ namespace Snapper.Nunit.Tests
             };
 
             // Act/Assert
-            Assert.That(snapshot, Is.EqualToSnapshot(new SnapshotId(
+            Assert.That(snapshot, Matches.Snapshot(new SnapshotId(
                 Path.Combine(GetCurrentClassDirectory(), "_custom"),
                 nameof(NunitSnapperCustomTests),
                 nameof(TheorySnapshotsMatch),
@@ -53,7 +53,7 @@ namespace Snapper.Nunit.Tests
             };
 
             // Act/Assert
-            Assert.That(snapshot, Is.EqualToSnapshot(new SnapshotId(
+            Assert.That(snapshot, Matches.Snapshot(new SnapshotId(
                 Path.Combine(GetCurrentClassDirectory(), "_custom"),
                 nameof(NunitSnapperCustomTests),
                 nameof(TheorySnapshotsMatchWithPerClass),

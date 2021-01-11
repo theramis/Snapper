@@ -11,7 +11,7 @@ public class MyTestClass
         var obj = new {
             Key = "value"
         };
-        Assert.That(obj, Is.EqualToSnapshot());
+        Assert.That(obj, Matches.Snapshot());
     }
 
     [Test]
@@ -21,7 +21,7 @@ public class MyTestClass
         };
         // Best to use with theory tests
         // See https://theramis.github.io/Snapper/#/pages/snapper/basics?id=child-snapshots for more information about child snapshots
-        Assert.That(obj, Is.EqualToChildSnapshot("NamedSnapshot"));
+        Assert.That(obj, Matches.ChildSnapshot("NamedSnapshot"));
     }
 
     [Test]
@@ -30,7 +30,7 @@ public class MyTestClass
             Key = "value"
         };
         // See https://theramis.github.io/Snapper/#/pages/snapper/advanced_snapshot_control for more information about `SnapshotId`
-        Assert.That(obj, Is.EqualToSnapshot(new SnapshotId("dir", "class", "method", null, false)));
+        Assert.That(obj, Matches.Snapshot(new SnapshotId("dir", "class", "method", null, false)));
     }
 }
 ```

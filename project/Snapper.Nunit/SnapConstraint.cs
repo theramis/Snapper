@@ -40,6 +40,11 @@ namespace Snapper.Nunit
             return new EqualToSnapshotConstraint();
         }
 
+        public static EqualToSnapshotConstraint Snapshot(SnapshotId snapshotId)
+        {
+            return new EqualToSnapshotConstraint(snapshotId);
+        }
+
         public static EqualToSnapshotConstraint ChildSnapshot(string snapshotName)
         {
             return new EqualToSnapshotConstraint(snapshotName);

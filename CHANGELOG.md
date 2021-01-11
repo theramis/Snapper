@@ -1,9 +1,17 @@
 # Changelog
 All notable changes to the Snapper project.
 
+## [2.3.0] - 2021-01-11
+### Added
+- [Issue #69](https://github.com/theramis/Snapper/issues/69) [PR #71](https://github.com/theramis/Snapper/pull/71) Snapshots are now automatically generated on the first test run if the snapshot file does not exist.
+- [Issue #57](https://github.com/theramis/Snapper/issues/57) [PR #72](https://github.com/theramis/Snapper/pull/72) Introduced `Matches.Snapshot()` and `Matches.ChildSnapshot()` to `Snapper.Nunit` nuget package. Thanks to [@lilasquared](https://github.com/lilasquared) for the contribution.
+
+### Deprecated
+- [Issue #57](https://github.com/theramis/Snapper/issues/57) [PR #72](https://github.com/theramis/Snapper/pull/72) Deprecated `Snapper.Nunit.Is.EqualToSnapshot()` in `Snapper.Nunit`. This will be removed in Snapper V3. Thanks to [@lilasquared](https://github.com/lilasquared) for the contribution.
+
 ## [2.2.4] - 2020-03-16
 ### Added
-- [PR #60](https://github.com/theramis/Snapper/pull/60) **Experimental Feature**: Advanced snapshot file control! Get more control over how and where the snapshot file is created. See [here](https://theramis.github.io/Snapper/#/pages/snapper/advanced_snapshot_control) for more details. 
+- [PR #60](https://github.com/theramis/Snapper/pull/60) **Experimental Feature**: Advanced snapshot file control! Get more control over how and where the snapshot file is created. See [here](https://theramis.github.io/Snapper/#/pages/snapper/advanced_snapshot_control) for more details.
 Fixes the following issues: [#30](https://github.com/theramis/Snapper/issues/30) [#48](https://github.com/theramis/Snapper/issues/48) [#24](https://github.com/theramis/Snapper/issues/24).
 - [PR #58](https://github.com/theramis/Snapper/pull/58) `Snapper` can now detect the Azure DevOps CI Environment. Thanks to [@WarrenFerrell](https://github.com/WarrenFerrell) for the contribution.
 
@@ -132,6 +140,7 @@ The first stable release!
 - **Snapper.Json**: Extends Snapper.Core to provide storing snapshots in Json format
 - **Snapper.Json.Xunit**: Extends Snapper.Json and integrates with the XUnit testing framework.
 
+[2.3.0]: https://github.com/theramis/Snapper/compare/2.2.4...2.3.0
 [2.2.4]: https://github.com/theramis/Snapper/compare/2.2.3...2.2.4
 [2.2.3]: https://github.com/theramis/Snapper/compare/2.2.2...2.2.3
 [2.2.2]: https://github.com/theramis/Snapper/compare/2.2.1...2.2.2

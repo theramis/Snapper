@@ -28,9 +28,7 @@ build:
 test: off
 
 test_script:
-  - ps: dotnet test --no-build
-  - ps: dotnet test Tests/Snapper.Nunit.Tests/Snapper.Nunit.Tests.csproj --logger:Appveyor --no-build
-  - ps: dotnet test Tests/Snapper.TestFrameworkSupport.Tests/Snapper.TestFrameworkSupport.Tests.csproj --logger:Appveyor --no-build
+  - ps: dotnet test --no-build --logger:Appveyor --no-build
 
 deploy:
   - provider: NuGet

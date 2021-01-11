@@ -1,4 +1,4 @@
-using System.Runtime.CompilerServices;
+﻿using System.Runtime.CompilerServices;
 using Newtonsoft.Json.Linq;
 using NUnit.Framework;
 

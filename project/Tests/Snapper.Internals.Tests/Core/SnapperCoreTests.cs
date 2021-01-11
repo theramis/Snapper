@@ -1,4 +1,5 @@
-﻿using FluentAssertions;
+﻿using System;
+using FluentAssertions;
 using Moq;
 using Snapper.Core;
 using Xunit;
@@ -117,8 +118,26 @@ namespace Snapper.Internals.Tests.Core
         }
 
         [Fact]
-        public void SnapshotDoesNotExist_ResultStatusIs_SnapshotDoesNotExist()
+        public void SnapshotDoesNotExist_ResultStatusIs_SnapshotUpdated()
         {
+            // Tests run on CI so clearing the CI environment variable to emulate local machine
+            Environment.SetEnvironmentVariable("CI", null, EnvironmentVariableTarget.Process);
+
+            _store.Setup(a => a.GetSnapshot(It.IsAny<SnapshotId>())).Returns(null);
+            _updateDecider.Setup(a => a.ShouldUpdateSnapshot()).Returns(false);
+
+            var result = _snapper.Snap(new SnapshotId("name", null, null, null), _obj);
+
+            _store.Verify(a => a.StoreSnapshot(It.IsAny<SnapshotId>(), It.IsAny<object>()), Times.Once);
+            result.Status.Should().BeEquivalentTo(SnapResultStatus.SnapshotUpdated);
+            result.OldSnapshot.Should().BeNull();
+            result.NewSnapshot.Should().BeEquivalentTo(_obj);
+        }
+
+        [Fact]
+        public void SnapshotDoesNotExist_And_IsCiEnv_ResultStatusIs_SnapshotDoesNotExist()
+        {
+            Environment.SetEnvironmentVariable("CI", "true", EnvironmentVariableTarget.Process);
             _store.Setup(a => a.GetSnapshot(It.IsAny<SnapshotId>())).Returns(null);
             _updateDecider.Setup(a => a.ShouldUpdateSnapshot()).Returns(false);
 
@@ -127,6 +146,7 @@ namespace Snapper.Internals.Tests.Core
             result.Status.Should().BeEquivalentTo(SnapResultStatus.SnapshotDoesNotExist);
             result.OldSnapshot.Should().BeNull();
             result.NewSnapshot.Should().BeEquivalentTo(_obj);
+            Environment.SetEnvironmentVariable("CI", null, EnvironmentVariableTarget.Process);
         }
     }
 }

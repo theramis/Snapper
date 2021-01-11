@@ -33,6 +33,7 @@ namespace Snapper.Internals.Tests.Core
         {
             Environment.SetEnvironmentVariable(_envVar, value, EnvironmentVariableTarget.Process);
             _decider.ShouldUpdateSnapshot().Should().BeTrue();
+            Environment.SetEnvironmentVariable(_envVar, null, EnvironmentVariableTarget.Process);
         }
 
         [Theory]
@@ -44,6 +45,7 @@ namespace Snapper.Internals.Tests.Core
         {
             Environment.SetEnvironmentVariable(_envVar, value, EnvironmentVariableTarget.Process);
             _decider.ShouldUpdateSnapshot().Should().BeFalse();
+            Environment.SetEnvironmentVariable(_envVar, null, EnvironmentVariableTarget.Process);
         }
 
         [Theory]
@@ -54,6 +56,7 @@ namespace Snapper.Internals.Tests.Core
         {
             Environment.SetEnvironmentVariable(_envVar, value, EnvironmentVariableTarget.Process);
             _decider.ShouldUpdateSnapshot().Should().BeFalse();
+            Environment.SetEnvironmentVariable(_envVar, null, EnvironmentVariableTarget.Process);
         }
 
         [Fact]
@@ -69,6 +72,7 @@ namespace Snapper.Internals.Tests.Core
         {
             Environment.SetEnvironmentVariable(_envVar, "true", EnvironmentVariableTarget.Process);
             _decider.ShouldUpdateSnapshot().Should().BeTrue();
+            Environment.SetEnvironmentVariable(_envVar, null, EnvironmentVariableTarget.Process);
         }
 
         [Fact]
@@ -77,6 +81,7 @@ namespace Snapper.Internals.Tests.Core
         {
             Environment.SetEnvironmentVariable(_envVar, "False", EnvironmentVariableTarget.Process);
             _decider.ShouldUpdateSnapshot().Should().BeTrue();
+            Environment.SetEnvironmentVariable(_envVar, null, EnvironmentVariableTarget.Process);
         }
     }
 

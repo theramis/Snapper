@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.IO;
 using System.Runtime.CompilerServices;
 using Snapper.Attributes;
@@ -111,9 +111,10 @@ namespace Snapper.Tests
         }
 
         [Fact]
-        public void SnapshotDoesNotExist_SnapshotDoesNotExistException_IsThrown()
+        public void SnapshotDoesNotExist_And_IsCiEnv_SnapshotDoesNotExistException_IsThrown()
         {
             // Arrange
+            Environment.SetEnvironmentVariable("CI", "true", EnvironmentVariableTarget.Process);
             var snapshot = new
             {
                 TestValue = "value"
@@ -126,9 +127,45 @@ namespace Snapper.Tests
             Assert.NotNull(exception);
             Assert.Equal("Snapper.Exceptions.SnapshotDoesNotExistException", exception.GetType().FullName);
             Assert.Equal( $"A snapshot does not exist.{Environment.NewLine}{Environment.NewLine}" +
-                          "Apply the [UpdateSnapshots] attribute on the " +
-                          "test method or class and then run the test again to " +
-                          $"create a snapshot.{Environment.NewLine}", exception.Message);
+                          $"Run the test outside of a CI environment to create a snapshot.{Environment.NewLine}", exception.Message);
+
+            // Cleanup
+            Environment.SetEnvironmentVariable("CI", null, EnvironmentVariableTarget.Process);
+        }
+
+        [Fact]
+        public void SnapshotsDoesNotExist_SnapshotIsCreated()
+        {
+            // Tests run on CI so clearing the CI environment variable to emulate local machine
+            Environment.SetEnvironmentVariable("CI", null, EnvironmentVariableTarget.Process);
+
+            // Arrange
+            var snapshotFilePath = GetSnapshotFilePath<SnapperSnapshotsPerMethodTests>(
+                nameof(SnapshotsDoesNotExist_SnapshotIsCreated));
+
+            if (File.Exists(snapshotFilePath))
+                File.Delete(snapshotFilePath);
+
+            var snapshot = new
+            {
+                TestValue = "value"
+            };
+
+            // Act
+            snapshot.ShouldMatchSnapshot();
+
+            // Assert
+            Assert.True(File.Exists(snapshotFilePath));
+
+            var expectedSnapshotContent = string.Join(
+                Environment.NewLine,
+                "{",
+                "  \"TestValue\": \"value\"",
+                "}");
+            Assert.Equal(expectedSnapshotContent, File.ReadAllText(snapshotFilePath));
+
+            // Cleanup
+            File.Delete(snapshotFilePath);
         }
 
         [Fact]

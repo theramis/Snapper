@@ -4,7 +4,6 @@ using Snapper.Core;
 
 namespace Snapper.Json
 {
-    // TODO write tests for this class
     internal class JsonSnapshotStore : ISnapshotStore
     {
         public object GetSnapshot(SnapshotId snapshotId)

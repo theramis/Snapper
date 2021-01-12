@@ -13,7 +13,6 @@ namespace Snapper
         };
         
         public static readonly JsonSerializerSettings JsonSettings = Default;
-       
 
         static SnapperSettings()
         {

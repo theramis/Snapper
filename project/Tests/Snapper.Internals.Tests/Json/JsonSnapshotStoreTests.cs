@@ -45,9 +45,13 @@ namespace Snapper.Internals.Tests.Json
             result.Should().BeEquivalentTo(expected);
         }
 
-        public class CustomSnapshotSerializerSettings : ICustomSnapshotSerializerSettings
+        public class CustomSnapperSettings : SnapperSettings
         {
-            public JsonSerializerSettings JsonSerializerSettings => new JsonSerializerSettings {Converters = new List<JsonConverter> {new StringEnumConverter()}};
+            protected override JsonSerializerSettings Customize(JsonSerializerSettings defaultSettings)
+            {
+                defaultSettings.Converters = new List<JsonConverter> {new StringEnumConverter()};
+                return defaultSettings;
+            }
         }
     }
 }

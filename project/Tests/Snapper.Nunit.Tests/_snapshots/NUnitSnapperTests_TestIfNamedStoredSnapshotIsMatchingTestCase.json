@@ -1,0 +1,8 @@
+{
+  "ChildSnapshotForTestValue1": {
+    "TestProperty1": "TestValue1"
+  },
+  "ChildSnapshotForTestValue2": {
+    "TestProperty2": "TestValue2"
+  }
+}

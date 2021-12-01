@@ -18,6 +18,7 @@ namespace Snapper.Core.TestMethodResolver
                 new XunitTheoryMethod(method, fileName),
                 new NunitTestMethod(method, fileName),
                 new NunitTestCaseMethod(method, fileName),
+                new NunitTestCaseSourceMethod(method, fileName),
                 new NunitTheoryMethod(method, fileName),
                 new MSTestTestMethod(method, fileName),
                 new MSTestDataTestMethod(method, fileName),

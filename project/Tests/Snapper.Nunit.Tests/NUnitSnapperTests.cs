@@ -1,4 +1,5 @@
 ﻿using System.Runtime.CompilerServices;
+using System.Collections.Generic;
 using Newtonsoft.Json.Linq;
 using NUnit.Framework;
 
@@ -40,5 +41,21 @@ namespace Snapper.Nunit.Tests
             Assert.That(actual, Matches.ChildSnapshot($"ChildSnapshotFor{value}"));
         }
 
+        private static List<string> ExampleTestCaseSource = new List<string>
+        {
+            "TestValue1",
+            "TestValue2",
+        };
+
+        [TestCaseSource(nameof(ExampleTestCaseSource))]
+        [MethodImpl(MethodImplOptions.NoInlining)]
+        public void TestIfNamedStoredSnapshotIsMatchingTestCaseSource(string value)
+        {
+            var actual = new JObject
+            {
+                {"TestProperty", value}
+            };
+            Assert.That(actual, Matches.ChildSnapshot($"ChildSnapshotFor{value}"));
+        }
     }
 }

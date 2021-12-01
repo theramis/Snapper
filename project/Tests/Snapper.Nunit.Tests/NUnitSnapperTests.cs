@@ -27,5 +27,18 @@ namespace Snapper.Nunit.Tests
             };
             Assert.That(actual, Matches.ChildSnapshot("ChildSnapshot"));
         }
+
+        [TestCase("TestProperty1", "TestValue1")]
+        [TestCase("TestProperty2", "TestValue2")]
+        [MethodImpl(MethodImplOptions.NoInlining)]
+        public void TestIfNamedStoredSnapshotIsMatchingTestCase(string property, string value)
+        {
+            var actual = new JObject
+            {
+                {property, value}
+            };
+            Assert.That(actual, Matches.ChildSnapshot($"ChildSnapshotFor{value}"));
+        }
+
     }
 }

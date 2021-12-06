@@ -1,6 +1,10 @@
 # Changelog
 All notable changes to the Snapper project.
 
+## [2.3.1] - 2021-12-06
+### Added
+- [PR #86](https://github.com/theramis/Snapper/pull/86) Added support for NUnit `TestCase` and `TestCaseSource` attributes. Thanks to [@jaytulk](https://github.com/jaytulk) for the contribution.
+
 ## [2.3.0] - 2021-01-11
 ### Added
 - [Issue #69](https://github.com/theramis/Snapper/issues/69) [PR #71](https://github.com/theramis/Snapper/pull/71) Snapshots are now automatically generated on the first test run if the snapshot file does not exist.
@@ -140,6 +144,7 @@ The first stable release!
 - **Snapper.Json**: Extends Snapper.Core to provide storing snapshots in Json format
 - **Snapper.Json.Xunit**: Extends Snapper.Json and integrates with the XUnit testing framework.
 
+[2.3.1]: https://github.com/theramis/Snapper/compare/2.3.0...2.3.1
 [2.3.0]: https://github.com/theramis/Snapper/compare/2.2.4...2.3.0
 [2.2.4]: https://github.com/theramis/Snapper/compare/2.2.3...2.2.4
 [2.2.3]: https://github.com/theramis/Snapper/compare/2.2.2...2.2.3

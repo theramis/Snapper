@@ -80,6 +80,15 @@
         "code",
         "ideas"
       ]
+    },
+    {
+      "login": "jaytulk",
+      "name": "jaytulk",
+      "avatar_url": "https://avatars.githubusercontent.com/u/34781842?v=4",
+      "profile": "https://github.com/jaytulk",
+      "contributions": [
+        "code"
+      ]
     }
   ],
   "contributorsPerLine": 7,

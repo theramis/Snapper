@@ -110,6 +110,7 @@ Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/d
   <tr>
     <td align="center"><a href="https://github.com/lilasquared"><img src="https://avatars3.githubusercontent.com/u/3036779?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Aaron Roberts</b></sub></a><br /><a href="https://github.com/theramis/Snapper/commits?author=lilasquared" title="Code">💻</a> <a href="#ideas-lilasquared" title="Ideas, Planning, & Feedback">🤔</a></td>
     <td align="center"><a href="https://github.com/jaytulk"><img src="https://avatars.githubusercontent.com/u/34781842?v=4?s=100" width="100px;" alt=""/><br /><sub><b>jaytulk</b></sub></a><br /><a href="https://github.com/theramis/Snapper/commits?author=jaytulk" title="Code">💻</a></td>
+    <td align="center"><a href="https://github.com/albertomartinsanchez"><img src="https://avatars.githubusercontent.com/u/4971812?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Alberto Martín</b></sub></a><br /><a href="https://github.com/theramis/Snapper/issues?q=author%3Aalbertomartinsanchez" title="Bug reports">🐛</a></td>
   </tr>
 </table>
 

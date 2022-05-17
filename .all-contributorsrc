@@ -89,6 +89,15 @@
       "contributions": [
         "code"
       ]
+    },
+    {
+      "login": "albertomartinsanchez",
+      "name": "Alberto Martín",
+      "avatar_url": "https://avatars.githubusercontent.com/u/4971812?v=4",
+      "profile": "https://github.com/albertomartinsanchez",
+      "contributions": [
+        "bug"
+      ]
     }
   ],
   "contributorsPerLine": 7,

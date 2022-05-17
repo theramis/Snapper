@@ -49,7 +49,7 @@ namespace Snapper.Json
                 var rawSnapshotContent = GetRawSnapshotContent(snapshotId.FilePath);
                 newSnapshotToWrite = rawSnapshotContent == null
                     ? new JObject()
-                    : JObject.Parse(rawSnapshotContent);
+                    : JObjectHelper.ParseFromString(rawSnapshotContent);
 
                 if (snapshotId.PrimaryId != null && snapshotId.SecondaryId == null)
                 {

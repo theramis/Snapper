@@ -22,16 +22,16 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Snapper\Snapper.csproj"/>
-    <PackageReference Include="MinVer" Version="2.4.0">
+    <ProjectReference Include="..\Snapper\Snapper.csproj" />
+    <PackageReference Include="MinVer" Version="4.2.0">
       <PrivateAssets>all</PrivateAssets>
     </PackageReference>
-    <PackageReference Include="NUnit" Version="3.6.0"/>
-    <PackageReference Include="Microsoft.SourceLink.GitHub" Version="1.0.0" PrivateAssets="All"/>
+    <PackageReference Include="NUnit" Version="3.6.0" />
+    <PackageReference Include="Microsoft.SourceLink.GitHub" Version="1.1.1" PrivateAssets="All" />
   </ItemGroup>
 
   <ItemGroup>
-    <None Include="..\..\README.md" Pack="true" PackagePath="\"/>
+    <None Include="..\..\README.md" Pack="true" PackagePath="\" />
   </ItemGroup>
 
 </Project>

@@ -71,7 +71,7 @@ namespace Snapper.Nunit
             SnapResult snapResult;
             if (_snapshotId != null)
             {
-                var snapper = NUnitSnapperFactory.GetNUnitSnapper();
+                var snapper = SnapperFactory.GetJsonSnapper();
                 snapResult = snapper.MatchSnapshot(actual, _snapshotId);
             }
             else
@@ -84,10 +84,10 @@ namespace Snapper.Nunit
 
         private SnapResult MatchSnapshot(object actual)
         {
-            var snapper = NUnitSnapperFactory.GetNUnitSnapper();
+            var snapper = SnapperFactory.GetJsonSnapper();
             return _childSnapshotName == null
                    ? snapper.MatchSnapshot(actual)
-                   : snapper.MatchChildSnapshot(actual, _childSnapshotName);
+                   : snapper.MatchSnapshot(actual, _childSnapshotName);
         }
     }
 

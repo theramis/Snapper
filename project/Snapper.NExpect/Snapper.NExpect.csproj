@@ -1,0 +1,37 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFrameworks>netstandard2.0;net452</TargetFrameworks>
+    <Version>0.0.0</Version>
+    <Authors>Simar Kalra</Authors>
+    <RepositoryUrl>https://github.com/theramis/Snapper</RepositoryUrl>
+    <Description>Bringing Jest-esque Snapshot testing to C#.
+
+      See Project Site for more details
+    </Description>
+    <PackageProjectUrl>https://theramis.github.io/Snapper/</PackageProjectUrl>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
+    <PackageTags>testing, test, snapshot, jest, nexpect</PackageTags>
+    <LangVersion>latest</LangVersion>
+    <IsPackable>true</IsPackable>
+    <IsTestProject>false</IsTestProject>
+    <PublishRepositoryUrl>true</PublishRepositoryUrl>
+    <IncludeSymbols>true</IncludeSymbols>
+    <SymbolPackageFormat>snupkg</SymbolPackageFormat>
+    <PackageReadmeFile>README.md</PackageReadmeFile>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Snapper\Snapper.csproj" />
+    <PackageReference Include="NExpect" Version="1.0.276" />
+    <PackageReference Include="MinVer" Version="4.2.0">
+      <PrivateAssets>all</PrivateAssets>
+    </PackageReference>
+    <PackageReference Include="Microsoft.SourceLink.GitHub" Version="1.1.1" PrivateAssets="All" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="..\..\README.md" Pack="true" PackagePath="\" />
+  </ItemGroup>
+
+</Project>

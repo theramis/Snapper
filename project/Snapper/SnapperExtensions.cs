@@ -4,6 +4,8 @@ namespace Snapper
 {
     public static class SnapperExtensions
     {
+        private static SnapshotAsserter _snapshotAsserter = new SnapshotAsserter();
+        
         /// <summary>
         ///     Compares the provided object with the stored snapshot.
         /// </summary>
@@ -11,7 +13,8 @@ namespace Snapper
         public static void ShouldMatchSnapshot(this object snapshot)
         {
             var snapper = SnapperFactory.GetJsonSnapper();
-            snapper.MatchSnapshot(snapshot);
+            var result = snapper.MatchSnapshot(snapshot);
+            _snapshotAsserter.AssertSnapshot(result);
         }
 
         /// <summary>
@@ -28,7 +31,8 @@ namespace Snapper
         public static void ShouldMatchSnapshot(this object snapshot, SnapshotId snapshotId)
         {
             var snapper = SnapperFactory.GetJsonSnapper();
-            snapper.MatchSnapshot(snapshot, snapshotId);
+            var result = snapper.MatchSnapshot(snapshot, snapshotId);
+            _snapshotAsserter.AssertSnapshot(result);
         }
 
         /// <summary>
@@ -40,7 +44,8 @@ namespace Snapper
         public static void ShouldMatchChildSnapshot(this object snapshot, string childSnapshotName)
         {
             var snapper = SnapperFactory.GetJsonSnapper();
-            snapper.MatchSnapshot(snapshot, childSnapshotName);
+            var result = snapper.MatchSnapshot(snapshot, childSnapshotName);
+            _snapshotAsserter.AssertSnapshot(result);
         }
 
         /// <summary>
@@ -52,7 +57,8 @@ namespace Snapper
         public static void ShouldMatchInlineSnapshot(this object snapshot, object expectedSnapshot)
         {
             var snapper = SnapperFactory.GetJsonInlineSnapper(expectedSnapshot);
-            snapper.MatchSnapshot(snapshot);
+            var result = snapper.MatchSnapshot(snapshot);
+            _snapshotAsserter.AssertSnapshot(result);
         }
     }
 }

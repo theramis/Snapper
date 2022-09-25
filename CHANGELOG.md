@@ -1,6 +1,10 @@
 # Changelog
 All notable changes to the Snapper project.
 
+## [2.4.0] - 2022-05-17
+### Deprecated
+- [Issue #98](https://github.com/theramis/Snapper/issues/98) Removed support for .NET Framework 4.5. .NET 45 has reached end of life by microsoft and is no longer supported. See [here](https://endoflife.date/dotnetfx)
+
 ## [2.3.2] - 2022-05-17
 ### Bug Fix
 - [Issue #89](https://github.com/theramis/Snapper/issues/89) [PR #90](https://github.com/theramis/Snapper/pull/90) Fix newtonsoft corrupting dates when using Snapshots per class or child snapshots. Thanks to [@albertomartinsanchez](https://github.com/albertomartinsanchez) for surfacing the issue.

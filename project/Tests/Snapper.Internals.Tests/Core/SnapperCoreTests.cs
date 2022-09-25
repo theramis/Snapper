@@ -49,7 +49,7 @@ namespace Snapper.Internals.Tests.Core
 
             var result = _snapper.Snap(new SnapshotId("name", null, null, null), _obj);
 
-            result.Status.Should().BeEquivalentTo(SnapResultStatus.SnapshotsMatch);
+            result.Status.Should().Be(SnapResultStatus.SnapshotsMatch);
             result.OldSnapshot.Should().BeEquivalentTo(_obj);
             result.NewSnapshot.Should().BeEquivalentTo(_obj);
         }
@@ -65,7 +65,7 @@ namespace Snapper.Internals.Tests.Core
             var result = _snapper.Snap(new SnapshotId("name", null, null, null), _obj);
 
             _store.Verify(a => a.StoreSnapshot(It.IsAny<SnapshotId>(), It.IsAny<object>()), Times.Never);
-            result.Status.Should().BeEquivalentTo(SnapResultStatus.SnapshotsMatch);
+            result.Status.Should().Be(SnapResultStatus.SnapshotsMatch);
             result.OldSnapshot.Should().BeEquivalentTo(_obj);
             result.NewSnapshot.Should().BeEquivalentTo(_obj);
         }
@@ -81,7 +81,7 @@ namespace Snapper.Internals.Tests.Core
             var newObj = new {value = 2};
             var result = _snapper.Snap(new SnapshotId("name", null, null, null), newObj);
 
-            result.Status.Should().BeEquivalentTo(SnapResultStatus.SnapshotsDoNotMatch);
+            result.Status.Should().Be(SnapResultStatus.SnapshotsDoNotMatch);
             result.OldSnapshot.Should().BeEquivalentTo(_obj);
             result.NewSnapshot.Should().BeEquivalentTo(newObj);
         }
@@ -98,7 +98,7 @@ namespace Snapper.Internals.Tests.Core
             var result = _snapper.Snap(new SnapshotId("name", null, null, null), newObj);
 
             _store.Verify(a => a.StoreSnapshot(It.IsAny<SnapshotId>(), It.IsAny<object>()), Times.Once);
-            result.Status.Should().BeEquivalentTo(SnapResultStatus.SnapshotUpdated);
+            result.Status.Should().Be(SnapResultStatus.SnapshotUpdated);
             result.OldSnapshot.Should().BeEquivalentTo(_obj);
             result.NewSnapshot.Should().BeEquivalentTo(newObj);
         }
@@ -112,7 +112,7 @@ namespace Snapper.Internals.Tests.Core
             var result = _snapper.Snap(new SnapshotId("name", null, null, null), _obj);
 
             _store.Verify(a => a.StoreSnapshot(It.IsAny<SnapshotId>(), It.IsAny<object>()), Times.Once);
-            result.Status.Should().BeEquivalentTo(SnapResultStatus.SnapshotUpdated);
+            result.Status.Should().Be(SnapResultStatus.SnapshotUpdated);
             result.OldSnapshot.Should().BeNull();
             result.NewSnapshot.Should().BeEquivalentTo(_obj);
         }
@@ -129,7 +129,7 @@ namespace Snapper.Internals.Tests.Core
             var result = _snapper.Snap(new SnapshotId("name", null, null, null), _obj);
 
             _store.Verify(a => a.StoreSnapshot(It.IsAny<SnapshotId>(), It.IsAny<object>()), Times.Once);
-            result.Status.Should().BeEquivalentTo(SnapResultStatus.SnapshotUpdated);
+            result.Status.Should().Be(SnapResultStatus.SnapshotUpdated);
             result.OldSnapshot.Should().BeNull();
             result.NewSnapshot.Should().BeEquivalentTo(_obj);
         }
@@ -143,7 +143,7 @@ namespace Snapper.Internals.Tests.Core
 
             var result = _snapper.Snap(new SnapshotId("name", null, null, null), _obj);
 
-            result.Status.Should().BeEquivalentTo(SnapResultStatus.SnapshotDoesNotExist);
+            result.Status.Should().Be(SnapResultStatus.SnapshotDoesNotExist);
             result.OldSnapshot.Should().BeNull();
             result.NewSnapshot.Should().BeEquivalentTo(_obj);
             Environment.SetEnvironmentVariable("CI", null, EnvironmentVariableTarget.Process);

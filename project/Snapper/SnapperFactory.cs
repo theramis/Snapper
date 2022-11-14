@@ -8,8 +8,7 @@ namespace Snapper
     internal static class SnapperFactory
     {
         public static Snapper GetJsonSnapper() => JsonSnapper.Value;
-        private static readonly Lazy<Snapper> JsonSnapper =
-            new Lazy<Snapper>(CreateJsonSnapper);
+        private static readonly Lazy<Snapper> JsonSnapper = new(CreateJsonSnapper);
 
         private static Snapper CreateJsonSnapper()
         {

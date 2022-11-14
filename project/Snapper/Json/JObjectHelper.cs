@@ -1,4 +1,5 @@
-﻿using System.IO;
+﻿using System;
+using System.IO;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 
@@ -14,10 +15,11 @@ namespace Snapper.Json
 
         public static JObject ParseFromString(string jsonString)
         {
-            return JsonConvert.DeserializeObject(jsonString, JsonSettings) as JObject;
+            return JsonConvert.DeserializeObject(jsonString, JsonSettings) as JObject
+                   ?? throw new InvalidOperationException("Error when parsing snapshot.");
         }
 
-        public static JObject FromObject(object obj)
+        public static JObject FromObject(object? obj)
         {
             if (obj is JObject result)
                 return result;

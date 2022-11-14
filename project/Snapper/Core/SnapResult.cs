@@ -3,10 +3,10 @@ namespace Snapper.Core
     internal class SnapResult
     {
         public SnapResultStatus Status { get; }
-        public object OldSnapshot { get; }
+        public object? OldSnapshot { get; }
         public object NewSnapshot { get; }
 
-        private SnapResult(SnapResultStatus status, object oldSnapshot, object newSnapshot)
+        private SnapResult(SnapResultStatus status, object? oldSnapshot, object newSnapshot)
         {
             Status = status;
             OldSnapshot = oldSnapshot;
@@ -22,7 +22,7 @@ namespace Snapper.Core
         public static SnapResult SnapshotsDoNotMatch(object oldSnapshot, object newSnapshot)
             => new SnapResult(SnapResultStatus.SnapshotsDoNotMatch, oldSnapshot, newSnapshot);
 
-        public static SnapResult SnapshotUpdated(object oldSnapshot, object newSnapshot)
+        public static SnapResult SnapshotUpdated(object? oldSnapshot, object newSnapshot)
             => new SnapResult(SnapResultStatus.SnapshotUpdated, oldSnapshot, newSnapshot);
     }
 }

@@ -6,9 +6,9 @@ namespace Snapper.Core
     {
         internal string FilePath { get; }
 
-        internal string PrimaryId { get; }
+        internal string? PrimaryId { get; }
 
-        internal string SecondaryId { get; }
+        internal string? SecondaryId { get; }
 
         /// <summary>
         ///     Describes how and where the snapshot will be stored.
@@ -22,7 +22,7 @@ namespace Snapper.Core
         public SnapshotId(string snapshotDirectory,
             string className,
             string methodName,
-            string childSnapshotName = null,
+            string? childSnapshotName = null,
             bool storeSnapshotsPerClass = false)
         {
             if (storeSnapshotsPerClass)

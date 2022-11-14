@@ -7,7 +7,7 @@ namespace Snapper.Json
     // TODO write tests for this class
     internal class JsonSnapshotStore : ISnapshotStore
     {
-        public object GetSnapshot(SnapshotId snapshotId)
+        public object? GetSnapshot(SnapshotId snapshotId)
         {
             if (!File.Exists(snapshotId.FilePath))
                 return null;
@@ -68,7 +68,7 @@ namespace Snapper.Json
             File.WriteAllText(snapshotId.FilePath, newSnapshotToWrite.ToString());
         }
 
-        private static string GetRawSnapshotContent(string filePath)
+        private static string? GetRawSnapshotContent(string filePath)
         {
             if (!File.Exists(filePath))
                 return null;

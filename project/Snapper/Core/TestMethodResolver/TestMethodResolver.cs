@@ -40,7 +40,7 @@ namespace Snapper.Core.TestMethodResolver
                         continue;
 
                     if (TryGetTestMethod(method, stackFrame.GetFileName(), out var testMethod))
-                        return testMethod;
+                        return testMethod ?? throw new InvalidOperationException();
                 }
             }
             catch (UnableToDetermineTestFilePathException)
@@ -55,7 +55,7 @@ namespace Snapper.Core.TestMethodResolver
             throw new SupportedTestMethodNotFoundException();
         }
 
-        private static bool IsSnapperMethod(MemberInfo method)
+        private static bool IsSnapperMethod(MemberInfo? method)
         {
             var methodAssembly = method?.DeclaringType?.Assembly.FullName;
             var snapperAssembly = Assembly.GetAssembly(typeof(TestMethodResolver)).FullName;
@@ -65,7 +65,7 @@ namespace Snapper.Core.TestMethodResolver
         private static bool IsAsyncMethod(MemberInfo method)
             => typeof(IAsyncStateMachine).IsAssignableFrom(method.DeclaringType);
 
-        private static MethodBase GetMethodBaseOfAsyncMethod(MemberInfo asyncMethod)
+        private static MethodBase? GetMethodBaseOfAsyncMethod(MemberInfo asyncMethod)
         {
             var generatedType = asyncMethod?.DeclaringType;
             var originalClass = generatedType?.DeclaringType;
@@ -81,19 +81,22 @@ namespace Snapper.Core.TestMethodResolver
             return matchingMethods.SingleOrDefault();
         }
 
-        private static bool TryGetTestMethod(MemberInfo method, string fileName, out ITestMethod testMethod)
+        private static bool TryGetTestMethod(MemberInfo? method, string fileName, out ITestMethod? testMethod)
         {
-            foreach (var tm in GetTestMethods(method, fileName))
+            if (method != null)
             {
-                if (tm.IsTestMethod())
+                foreach (var tm in GetTestMethods(method, fileName))
                 {
-                    testMethod = tm;
-
-                    if (fileName == null)
+                    if (tm.IsTestMethod())
                     {
-                        throw new UnableToDetermineTestFilePathException();
+                        testMethod = tm;
+
+                        if (fileName == null)
+                        {
+                            throw new UnableToDetermineTestFilePathException();
+                        }
+                        return true;
                     }
-                    return true;
                 }
             }
 

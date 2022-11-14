@@ -17,7 +17,7 @@
         protected SnapResult Snap(SnapshotId snapshotId, object newSnapshot)
         {
             var currentSnapshot = _snapshotStore.GetSnapshot(snapshotId);
-            
+
             if (ShouldUpdateSnapshot(currentSnapshot, newSnapshot))
             {
                 _snapshotStore.StoreSnapshot(snapshotId, newSnapshot);
@@ -34,7 +34,7 @@
                 : SnapResult.SnapshotsDoNotMatch(currentSnapshot, newSnapshot);
         }
 
-        private bool ShouldUpdateSnapshot(object currentSnapshot, object newSnapshot)
+        private bool ShouldUpdateSnapshot(object? currentSnapshot, object newSnapshot)
         {
             var snapshotsAreEqual = currentSnapshot != null
                                     && _snapshotComparer.CompareSnapshots(currentSnapshot, newSnapshot);

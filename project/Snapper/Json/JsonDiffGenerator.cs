@@ -11,7 +11,7 @@ namespace Snapper.Json
         private const string RemovedLegendString = "- Snapshot";
         private const string AddedLegendString = "+ Received";
 
-        public static string GetDiffMessage(object currentSnapshot, object newSnapshot)
+        public static string GetDiffMessage(object? currentSnapshot, object newSnapshot)
         {
             var currentSnapshotJObject = JObjectHelper.FromObject(currentSnapshot);
             var newSnapshotJObject = JObjectHelper.FromObject(newSnapshot);

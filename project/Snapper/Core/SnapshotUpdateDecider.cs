@@ -36,7 +36,7 @@ namespace Snapper.Core
         {
             var method = _testMethodResolver.ResolveTestMethod().BaseMethod;
 
-            var customAttributeProviders = new List<ICustomAttributeProvider>
+            var customAttributeProviders = new List<ICustomAttributeProvider?>
             {
                 method, // check method
                 method?.DeclaringType, // check class
@@ -47,6 +47,10 @@ namespace Snapper.Core
             {
                 if (TryGetUpdateSnapshotsAttribute(customAttributeProvider, out var att))
                 {
+                    if (att == null)
+                    {
+                        return false;
+                    }
                     return !(att.IgnoreIfCi && CiEnvironmentDetector.IsCiEnv());
                 }
             }
@@ -54,12 +58,12 @@ namespace Snapper.Core
             return false;
         }
 
-        private static bool TryGetUpdateSnapshotsAttribute(ICustomAttributeProvider member, out UpdateSnapshotsAttribute attribute)
+        private static bool TryGetUpdateSnapshotsAttribute(ICustomAttributeProvider? member, out UpdateSnapshotsAttribute? attribute)
         {
             var attributes = member?.GetCustomAttributes(typeof(UpdateSnapshotsAttribute), true);
 
             attribute = attributes?.FirstOrDefault() as UpdateSnapshotsAttribute;
-            return attributes?.Any() ?? false;
+            return attribute != null;
         }
     }
 }

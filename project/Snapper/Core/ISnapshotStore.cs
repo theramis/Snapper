@@ -2,7 +2,7 @@
 {
     internal interface ISnapshotStore
     {
-        object GetSnapshot(SnapshotId snapshotId);
+        object? GetSnapshot(SnapshotId snapshotId);
 
         void StoreSnapshot(SnapshotId snapshotId, object snapshot);
     }

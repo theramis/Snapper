@@ -5,65 +5,64 @@ using System.Reflection;
 using Snapper.Attributes;
 using Snapper.Core.TestMethodResolver;
 
-namespace Snapper.Core
+namespace Snapper.Core;
+
+internal class SnapshotUpdateDecider : ISnapshotUpdateDecider
 {
-    internal class SnapshotUpdateDecider : ISnapshotUpdateDecider
+    private const string UpdateSnapshotEnvironmentVariableName = "UpdateSnapshots";
+    private readonly ITestMethodResolver _testMethodResolver;
+    private readonly string _envVarName;
+
+    public SnapshotUpdateDecider(ITestMethodResolver testMethodResolver,
+        string envVarName = UpdateSnapshotEnvironmentVariableName)
     {
-        private readonly ITestMethodResolver _testMethodResolver;
-        private const string UpdateSnapshotEnvironmentVariableName = "UpdateSnapshots";
-        private readonly string _envVarName;
+        _testMethodResolver = testMethodResolver;
+        _envVarName = envVarName;
+    }
 
-        public SnapshotUpdateDecider(ITestMethodResolver testMethodResolver,
-            string envVarName = UpdateSnapshotEnvironmentVariableName)
-        {
-            _testMethodResolver = testMethodResolver;
-            _envVarName = envVarName;
-        }
+    public bool ShouldUpdateSnapshot()
+        => ShouldUpdateSnapshotBasedOnEnvironmentVariable()
+           || ShouldUpdateSnapshotBasedOnAttribute();
 
-        public bool ShouldUpdateSnapshot()
-            => ShouldUpdateSnapshotBasedOnEnvironmentVariable()
-                   || ShouldUpdateSnapshotBasedOnAttribute();
-
-        private bool ShouldUpdateSnapshotBasedOnEnvironmentVariable()
-        {
-            var env = Environment.GetEnvironmentVariable(_envVarName);
-            if (env == null)
-                return false;
-            return bool.TryParse(env, out var value) && value;
-        }
-
-        private bool ShouldUpdateSnapshotBasedOnAttribute()
-        {
-            var method = _testMethodResolver.ResolveTestMethod().BaseMethod;
-
-            var customAttributeProviders = new List<ICustomAttributeProvider?>
-            {
-                method, // check method
-                method?.DeclaringType, // check class
-                method?.DeclaringType?.Assembly // check assembly
-            };
-
-            foreach (var customAttributeProvider in customAttributeProviders)
-            {
-                if (TryGetUpdateSnapshotsAttribute(customAttributeProvider, out var att))
-                {
-                    if (att == null)
-                    {
-                        return false;
-                    }
-                    return !(att.IgnoreIfCi && CiEnvironmentDetector.IsCiEnv());
-                }
-            }
-
+    private bool ShouldUpdateSnapshotBasedOnEnvironmentVariable()
+    {
+        var env = Environment.GetEnvironmentVariable(_envVarName);
+        if (env == null)
             return false;
-        }
+        return bool.TryParse(env, out var value) && value;
+    }
 
-        private static bool TryGetUpdateSnapshotsAttribute(ICustomAttributeProvider? member, out UpdateSnapshotsAttribute? attribute)
+    private bool ShouldUpdateSnapshotBasedOnAttribute()
+    {
+        var method = _testMethodResolver.ResolveTestMethod().BaseMethod;
+
+        var customAttributeProviders = new List<ICustomAttributeProvider?>
         {
-            var attributes = member?.GetCustomAttributes(typeof(UpdateSnapshotsAttribute), true);
+            method, // check method
+            method.DeclaringType, // check class
+            method.DeclaringType?.Assembly // check assembly
+        };
 
-            attribute = attributes?.FirstOrDefault() as UpdateSnapshotsAttribute;
-            return attribute != null;
+        foreach (var customAttributeProvider in customAttributeProviders)
+        {
+            if (TryGetUpdateSnapshotsAttribute(customAttributeProvider, out var att))
+            {
+                if (att == null)
+                {
+                    return false;
+                }
+                return !(att.IgnoreIfCi && CiEnvironmentDetector.IsCiEnv());
+            }
         }
+
+        return false;
+    }
+
+    private static bool TryGetUpdateSnapshotsAttribute(ICustomAttributeProvider? member, out UpdateSnapshotsAttribute? attribute)
+    {
+        var attributes = member?.GetCustomAttributes(typeof(UpdateSnapshotsAttribute), true);
+
+        attribute = attributes?.FirstOrDefault() as UpdateSnapshotsAttribute;
+        return attribute != null;
     }
 }

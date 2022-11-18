@@ -1,55 +1,53 @@
-﻿namespace Snapper.Core
+﻿using Snapper.Json;
+
+namespace Snapper.Core;
+
+// TODO is this still needed?
+internal class SnapperCore
 {
-    internal class SnapperCore
+    private readonly ISnapshotStore _snapshotStore;
+    private readonly ISnapshotUpdateDecider _snapshotUpdateDecider;
+
+    protected SnapperCore(ISnapshotStore snapshotStore, ISnapshotUpdateDecider snapshotUpdateDecider)
     {
-        private readonly ISnapshotStore _snapshotStore;
-        private readonly ISnapshotUpdateDecider _snapshotUpdateDecider;
-        private readonly ISnapshotComparer _snapshotComparer;
+        _snapshotStore = snapshotStore;
+        _snapshotUpdateDecider = snapshotUpdateDecider;
+    }
 
-        protected SnapperCore(ISnapshotStore snapshotStore, ISnapshotUpdateDecider snapshotUpdateDecider,
-            ISnapshotComparer snapshotComparer)
+    protected SnapResult Snap(JsonSnapshot newSnapshot)
+    {
+        var currentSnapshot = _snapshotStore.GetSnapshot(newSnapshot.Id);
+
+        if (ShouldUpdateSnapshot(currentSnapshot, newSnapshot))
         {
-            _snapshotStore = snapshotStore;
-            _snapshotUpdateDecider = snapshotUpdateDecider;
-            _snapshotComparer = snapshotComparer;
+            _snapshotStore.StoreSnapshot(newSnapshot);
+            return SnapResult.SnapshotUpdated(currentSnapshot, newSnapshot);
         }
 
-        protected SnapResult Snap(SnapshotId snapshotId, object newSnapshot)
+        if (currentSnapshot == null)
         {
-            var currentSnapshot = _snapshotStore.GetSnapshot(snapshotId);
-
-            if (ShouldUpdateSnapshot(currentSnapshot, newSnapshot))
-            {
-                _snapshotStore.StoreSnapshot(snapshotId, newSnapshot);
-                return SnapResult.SnapshotUpdated(currentSnapshot, newSnapshot);
-            }
-
-            if (currentSnapshot == null)
-            {
-                return SnapResult.SnapshotDoesNotExist(newSnapshot);
-            }
-
-            return _snapshotComparer.CompareSnapshots(currentSnapshot, newSnapshot)
-                ? SnapResult.SnapshotsMatch(currentSnapshot, newSnapshot)
-                : SnapResult.SnapshotsDoNotMatch(currentSnapshot, newSnapshot);
+            return SnapResult.SnapshotDoesNotExist(newSnapshot);
         }
 
-        private bool ShouldUpdateSnapshot(object? currentSnapshot, object newSnapshot)
+        return currentSnapshot.CompareValues(newSnapshot)
+            ? SnapResult.SnapshotsMatch(currentSnapshot, newSnapshot)
+            : SnapResult.SnapshotsDoNotMatch(currentSnapshot, newSnapshot);
+    }
+
+    private bool ShouldUpdateSnapshot(JsonSnapshot? currentSnapshot, JsonSnapshot newSnapshot)
+    {
+        var snapshotsAreEqual = currentSnapshot != null && currentSnapshot.CompareValues(newSnapshot);
+        if (!snapshotsAreEqual && _snapshotUpdateDecider.ShouldUpdateSnapshot())
         {
-            var snapshotsAreEqual = currentSnapshot != null
-                                    && _snapshotComparer.CompareSnapshots(currentSnapshot, newSnapshot);
-            if (!snapshotsAreEqual && _snapshotUpdateDecider.ShouldUpdateSnapshot())
-            {
-                return true;
-            }
-
-            // Create snapshot if it doesn't currently exist and its not a CI env
-            if (currentSnapshot == null)
-            {
-                return !CiEnvironmentDetector.IsCiEnv();
-            }
-
-            return false;
+            return true;
         }
+
+        // Create snapshot if it doesn't currently exist and its not a CI env
+        if (currentSnapshot == null)
+        {
+            return !CiEnvironmentDetector.IsCiEnv();
+        }
+
+        return false;
     }
 }

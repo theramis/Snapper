@@ -1,9 +1,10 @@
-﻿namespace Snapper.Core
-{
-    internal interface ISnapshotStore
-    {
-        object? GetSnapshot(SnapshotId snapshotId);
+﻿using Snapper.Json;
 
-        void StoreSnapshot(SnapshotId snapshotId, object snapshot);
-    }
+namespace Snapper.Core;
+
+internal interface ISnapshotStore
+{
+    JsonSnapshot? GetSnapshot(SnapshotId snapshotId);
+
+    void StoreSnapshot(JsonSnapshot snapshot);
 }

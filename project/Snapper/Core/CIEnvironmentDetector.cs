@@ -7,13 +7,18 @@ namespace Snapper.Core
     internal static class CiEnvironmentDetector
     {
         /// <summary>
-        ///     Based on https://github.com/watson/ci-info/blob/2012259979fc38517f8e3fc74daff714251b554d/index.js#L52-L59
+        ///     Based on https://github.com/watson/ci-info/blob/decd4f7afedaef0d9875a41b8049d207798db4b1/index.js#L56-L68
         /// </summary>
-        private static IEnumerable<string> CIEnvironmentVariables = new List<string>
+        private static readonly IEnumerable<string> CIEnvironmentVariables = new List<string>
         {
-            "CI", // Travis CI, CircleCI, Cirrus CI, Gitlab CI, Appveyor, CodeShip, dsari
-            "CONTINUOUS_INTEGRATION", // Travis CI, Cirrus CI
+            "BUILD_ID", // Jenkins, Cloudbees
             "BUILD_NUMBER", // Jenkins, TeamCity
+            "CI", // Travis CI, CircleCI, Cirrus CI, Gitlab CI, Appveyor, CodeShip, dsari
+            "CI_APP_ID", // Appflow
+            "CI_BUILD_ID", // Appflow
+            "CI_BUILD_NUMBER", // Appflow
+            "CI_NAME", // Codeship and others
+            "CONTINUOUS_INTEGRATION", // Travis CI, Cirrus CI
             "BUILD_BUILDNUMBER", // Azure DevOps
             "RUN_ID" // TaskCluster, dsari
         };

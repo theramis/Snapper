@@ -2,79 +2,84 @@
 using Newtonsoft.Json.Linq;
 using Snapper.Core;
 
-namespace Snapper.Json
+namespace Snapper.Json;
+
+// TODO write tests for this class
+internal class JsonSnapshotStore : ISnapshotStore
 {
-    // TODO write tests for this class
-    internal class JsonSnapshotStore : ISnapshotStore
+    private readonly SnapshotSettings _snapshotSettings;
+
+    public JsonSnapshotStore(SnapshotSettings snapshotSettings)
     {
-        public object? GetSnapshot(SnapshotId snapshotId)
-        {
-            if (!File.Exists(snapshotId.FilePath))
-                return null;
+        _snapshotSettings = snapshotSettings;
+    }
 
-            var fullSnapshot = JObjectHelper.ParseFromString(File.ReadAllText(snapshotId.FilePath));
-
-            if (snapshotId.PrimaryId == null && snapshotId.SecondaryId == null)
-                return fullSnapshot;
-
-            if (snapshotId.PrimaryId != null &&
-                fullSnapshot.TryGetValue(snapshotId.PrimaryId, out var partialSnapshot))
-            {
-                if (snapshotId.SecondaryId != null &&
-                    partialSnapshot is JObject partialSnapshotJObject &&
-                    partialSnapshotJObject.TryGetValue(snapshotId.SecondaryId, out partialSnapshot))
-                {
-                    return partialSnapshot;
-                }
-
-                return partialSnapshot;
-            }
+    public JsonSnapshot? GetSnapshot(SnapshotId snapshotId)
+    {
+        if (!File.Exists(snapshotId.FilePath))
             return null;
-        }
 
-        public void StoreSnapshot(SnapshotId snapshotId, object value)
+        var fullSnapshot = JObjectHelper.ParseFromString(File.ReadAllText(snapshotId.FilePath),
+            _snapshotSettings);
+
+        if (snapshotId.PrimaryId == null && snapshotId.SecondaryId == null)
+            return new JsonSnapshot(snapshotId, fullSnapshot);
+
+        if (snapshotId.PrimaryId != null &&
+            fullSnapshot.TryGetValue(snapshotId.PrimaryId, out var partialSnapshot))
         {
-            Directory.CreateDirectory(Path.GetDirectoryName(snapshotId.FilePath));
-
-            var newSnapshot = JObjectHelper.FromObject(value);
-
-            JToken newSnapshotToWrite;
-
-            if (snapshotId.PrimaryId == null && snapshotId.SecondaryId == null)
+            if (snapshotId.SecondaryId != null &&
+                partialSnapshot is JObject partialSnapshotJObject &&
+                partialSnapshotJObject.TryGetValue(snapshotId.SecondaryId, out partialSnapshot))
             {
-                newSnapshotToWrite = newSnapshot;
-            }
-            else
-            {
-                var rawSnapshotContent = GetRawSnapshotContent(snapshotId.FilePath);
-                newSnapshotToWrite = rawSnapshotContent == null
-                    ? new JObject()
-                    : JObjectHelper.ParseFromString(rawSnapshotContent);
-
-                if (snapshotId.PrimaryId != null && snapshotId.SecondaryId == null)
-                {
-                    newSnapshotToWrite[snapshotId.PrimaryId] = newSnapshot;
-                }
-                else if (snapshotId.PrimaryId != null && snapshotId.SecondaryId != null)
-                {
-                    var firstLevel = newSnapshotToWrite[snapshotId.PrimaryId];
-                    if (firstLevel == null)
-                        newSnapshotToWrite[snapshotId.PrimaryId] = new JObject();
-
-                    newSnapshotToWrite[snapshotId.PrimaryId][snapshotId.SecondaryId] = newSnapshot;
-                }
+                return new JsonSnapshot(snapshotId, (JObject) partialSnapshot);
             }
 
-            File.WriteAllText(snapshotId.FilePath, newSnapshotToWrite.ToString());
+            return new JsonSnapshot(snapshotId, (JObject) partialSnapshot);
         }
+        return null;
+    }
 
-        private static string? GetRawSnapshotContent(string filePath)
+    public void StoreSnapshot(JsonSnapshot newSnapshot)
+    {
+        Directory.CreateDirectory(Path.GetDirectoryName(newSnapshot.Id.FilePath));
+
+        JToken newSnapshotToWrite;
+
+        if (newSnapshot.Id.PrimaryId == null && newSnapshot.Id.SecondaryId == null)
         {
-            if (!File.Exists(filePath))
-                return null;
-
-            var content = File.ReadAllText(filePath);
-            return string.IsNullOrWhiteSpace(content) ? null : content;
+            newSnapshotToWrite = newSnapshot.Value;
         }
+        else
+        {
+            var rawSnapshotContent = GetRawSnapshotContent(newSnapshot.Id.FilePath);
+            newSnapshotToWrite = rawSnapshotContent == null
+                ? new JObject()
+                : JObjectHelper.ParseFromString(rawSnapshotContent, _snapshotSettings);
+
+            if (newSnapshot.Id.PrimaryId != null && newSnapshot.Id.SecondaryId == null)
+            {
+                newSnapshotToWrite[newSnapshot.Id.PrimaryId] = newSnapshot.Value;
+            }
+            else if (newSnapshot.Id.PrimaryId != null && newSnapshot.Id.SecondaryId != null)
+            {
+                var firstLevel = newSnapshotToWrite[newSnapshot.Id.PrimaryId];
+                if (firstLevel == null)
+                    newSnapshotToWrite[newSnapshot.Id.PrimaryId] = new JObject();
+
+                newSnapshotToWrite[newSnapshot.Id.PrimaryId][newSnapshot.Id.SecondaryId] = newSnapshot.Value;
+            }
+        }
+
+        File.WriteAllText(newSnapshot.Id.FilePath, newSnapshotToWrite.ToString());
+    }
+
+    private static string? GetRawSnapshotContent(string filePath)
+    {
+        if (!File.Exists(filePath))
+            return null;
+
+        var content = File.ReadAllText(filePath);
+        return string.IsNullOrWhiteSpace(content) ? null : content;
     }
 }

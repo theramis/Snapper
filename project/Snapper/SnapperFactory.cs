@@ -1,31 +1,27 @@
-using System;
 using Snapper.Core;
 using Snapper.Core.TestMethodResolver;
 using Snapper.Json;
 
-namespace Snapper
+namespace Snapper;
+
+internal static class SnapperFactory
 {
-    internal static class SnapperFactory
+    public static Snapper CreateJsonSnapper(SnapshotSettings? settings)
     {
-        public static Snapper GetJsonSnapper() => JsonSnapper.Value;
-        private static readonly Lazy<Snapper> JsonSnapper = new(CreateJsonSnapper);
+        settings ??= SnapshotSettings.New();
+        var testMethodResolver = new TestMethodResolver();
+        return new Snapper(new JsonSnapshotStore(settings), new SnapshotUpdateDecider(testMethodResolver),
+            new SnapshotIdResolver(testMethodResolver), new JsonSnapshotSanitiser(settings), settings);
+    }
 
-        private static Snapper CreateJsonSnapper()
-        {
-            var testMethodResolver = new TestMethodResolver();
-            return new Snapper(new JsonSnapshotStore(), new SnapshotUpdateDecider(testMethodResolver),
-                new JsonSnapshotComparer(), new SnapshotIdResolver(testMethodResolver), new JsonSnapshotSanitiser(),
-                new SnapshotAsserter());
-        }
-
-        public static Snapper GetJsonInlineSnapper(object expectedSnapshot)
-        {
-            var testMethodResolver = new TestMethodResolver();
-            var jsonSnapshotSanitiser = new JsonSnapshotSanitiser();
-            return new Snapper(new JsonSnapshotInMemoryStore(jsonSnapshotSanitiser, expectedSnapshot),
-                new AlwaysFalseSnapshotUpdateDecider(), new JsonSnapshotComparer(),
-                new SnapshotIdResolver(testMethodResolver), jsonSnapshotSanitiser,
-                new SnapshotAsserter());
-        }
+    public static Snapper GetJsonInlineSnapper(object expectedSnapshot, SnapshotSettings? settings)
+    {
+        settings ??= SnapshotSettings.New();
+        // TODO can probably remove the test resolver
+        var testMethodResolver = new TestMethodResolver();
+        var jsonSnapshotSanitiser = new JsonSnapshotSanitiser(settings);
+        return new Snapper(new JsonSnapshotInMemoryStore(jsonSnapshotSanitiser, settings, expectedSnapshot),
+            new AlwaysFalseSnapshotUpdateDecider(), new SnapshotIdResolver(testMethodResolver),
+            jsonSnapshotSanitiser, settings);
     }
 }

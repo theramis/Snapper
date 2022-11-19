@@ -4,11 +4,11 @@ namespace Snapper.Json;
 
 internal class JsonSnapshotGenerator
 {
-    private readonly SnapshotIdResolver _snapshotIdResolver;
+    private readonly ISnapshotIdResolver _snapshotIdResolver;
     private readonly JsonSnapshotSanitiser _snapshotSanitiser;
     private readonly SnapshotSettings _snapshotSettings;
 
-    public JsonSnapshotGenerator(SnapshotIdResolver snapshotIdResolver,
+    public JsonSnapshotGenerator(ISnapshotIdResolver snapshotIdResolver,
         JsonSnapshotSanitiser jsonSnapshotSanitiser, SnapshotSettings snapshotSettings)
     {
         _snapshotIdResolver = snapshotIdResolver;

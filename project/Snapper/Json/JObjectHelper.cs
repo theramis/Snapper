@@ -22,7 +22,7 @@ internal static class JObjectHelper
         }
         else
         {
-            result = JObject.FromObject(obj, JsonSerializer.Create());
+            result = JObject.FromObject(obj, JsonSerializer.Create(CreateSerialiserSettings(snapshotSettings)));
         }
 
         // Converting to a string first and reparsing because newtonsoft interprets the object

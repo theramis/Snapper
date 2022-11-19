@@ -207,6 +207,6 @@ namespace Snapper.Internals.Tests.Json
             => new JsonSnapshot(DummySnapshotId(), JObject.FromObject(val));
 
         private static SnapshotId DummySnapshotId()
-            => new SnapshotId("dir", "filename", "testname", false);
+            => new SnapshotId("dir", "filename", "testname");
     }
 }

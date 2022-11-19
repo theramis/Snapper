@@ -7,11 +7,9 @@ internal class JsonSnapshotInMemoryStore : ISnapshotStore
 {
     private readonly JObject _snapshot;
 
-    public JsonSnapshotInMemoryStore(JsonSnapshotSanitiser jsonSnapshotSanitiser,
-        SnapshotSettings snapshotSettings, object snapshot)
+    public JsonSnapshotInMemoryStore(JsonSnapshotSanitiser jsonSnapshotSanitiser, object snapshot)
     {
-        _snapshot = JObjectHelper.FromObject(jsonSnapshotSanitiser.SanitiseSnapshot(snapshot),
-            snapshotSettings);
+        _snapshot = jsonSnapshotSanitiser.SanitiseSnapshot(snapshot);
     }
 
     public JsonSnapshot GetSnapshot(SnapshotId snapshotId)

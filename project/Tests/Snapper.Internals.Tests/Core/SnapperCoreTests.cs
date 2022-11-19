@@ -8,25 +8,10 @@ using Xunit;
 
 namespace Snapper.Internals.Tests.Core;
 
-// TODO get rid of this because you'll be using Snapper directly
-internal class SnapperCoreProxy : SnapperCore
-{
-    public SnapperCoreProxy(ISnapshotStore snapshotStore,
-        ISnapshotUpdateDecider snapshotUpdateDecider)
-        : base(snapshotStore, snapshotUpdateDecider)
-    {
-    }
-
-    public new SnapResult Snap(JsonSnapshot newSnapshot)
-    {
-        return base.Snap(newSnapshot);
-    }
-}
-
 public class SnapperCoreTests
 {
     private readonly JObject _obj = JObject.FromObject(new {value = 1});
-    private readonly SnapperCoreProxy _snapper;
+    private readonly SnapperCore _snapperCore;
     private readonly Mock<ISnapshotStore> _store;
     private readonly Mock<ISnapshotUpdateDecider> _updateDecider;
 
@@ -35,7 +20,7 @@ public class SnapperCoreTests
         _store = new Mock<ISnapshotStore>();
         _updateDecider = new Mock<ISnapshotUpdateDecider>();
 
-        _snapper = new SnapperCoreProxy(_store.Object, _updateDecider.Object);
+        _snapperCore = new SnapperCore(_store.Object, _updateDecider.Object);
     }
 
     [Fact]
@@ -44,7 +29,7 @@ public class SnapperCoreTests
         _store.Setup(a => a.GetSnapshot(It.IsAny<SnapshotId>())).Returns(MakeJsonSnapshot(_obj));
         _updateDecider.Setup(a => a.ShouldUpdateSnapshot()).Returns(false);
 
-        var result = _snapper.Snap(MakeJsonSnapshot(_obj));
+        var result = _snapperCore.Snap(MakeJsonSnapshot(_obj));
 
         result.Status.Should().Be(SnapResultStatus.SnapshotsMatch);
         result.OldSnapshot.Value.Should().BeEquivalentTo(_obj);
@@ -57,7 +42,7 @@ public class SnapperCoreTests
         _store.Setup(a => a.GetSnapshot(It.IsAny<SnapshotId>())).Returns(MakeJsonSnapshot(_obj));
         _updateDecider.Setup(a => a.ShouldUpdateSnapshot()).Returns(true);
 
-        var result = _snapper.Snap(MakeJsonSnapshot(_obj));
+        var result = _snapperCore.Snap(MakeJsonSnapshot(_obj));
 
         _store.Verify(a => a.StoreSnapshot(It.IsAny<JsonSnapshot>()), Times.Never);
         result.Status.Should().Be(SnapResultStatus.SnapshotsMatch);
@@ -72,7 +57,7 @@ public class SnapperCoreTests
         _updateDecider.Setup(a => a.ShouldUpdateSnapshot()).Returns(false);
 
         var newObj = JObject.FromObject(new {value = 2});
-        var result = _snapper.Snap(MakeJsonSnapshot(newObj));
+        var result = _snapperCore.Snap(MakeJsonSnapshot(newObj));
 
         result.Status.Should().Be(SnapResultStatus.SnapshotsDoNotMatch);
         result.OldSnapshot.Value.Should().BeEquivalentTo(_obj);
@@ -86,7 +71,7 @@ public class SnapperCoreTests
         _updateDecider.Setup(a => a.ShouldUpdateSnapshot()).Returns(true);
 
         var newObj = JObject.FromObject(new {value = 2});
-        var result = _snapper.Snap(MakeJsonSnapshot(newObj));
+        var result = _snapperCore.Snap(MakeJsonSnapshot(newObj));
 
         _store.Verify(a => a.StoreSnapshot(It.IsAny<JsonSnapshot>()), Times.Once);
         result.Status.Should().Be(SnapResultStatus.SnapshotUpdated);
@@ -100,7 +85,7 @@ public class SnapperCoreTests
         _store.Setup(a => a.GetSnapshot(It.IsAny<SnapshotId>())).Returns((JsonSnapshot) null);
         _updateDecider.Setup(a => a.ShouldUpdateSnapshot()).Returns(true);
 
-        var result = _snapper.Snap(MakeJsonSnapshot(_obj));
+        var result = _snapperCore.Snap(MakeJsonSnapshot(_obj));
 
         _store.Verify(a => a.StoreSnapshot(It.IsAny<JsonSnapshot>()), Times.Once);
         result.Status.Should().Be(SnapResultStatus.SnapshotUpdated);
@@ -109,7 +94,7 @@ public class SnapperCoreTests
     }
 
     [Fact]
-    public void SnapshotDoesNotExist_ResultStatusIs_SnapshotUpdated()
+    public void SnapshotDoesNotExist_AndIsNotCI_ResultStatusIs_SnapshotUpdated()
     {
         // Tests run on CI so clearing the CI environment variable to emulate local machine
         Environment.SetEnvironmentVariable("CI", null, EnvironmentVariableTarget.Process);
@@ -117,7 +102,7 @@ public class SnapperCoreTests
         _store.Setup(a => a.GetSnapshot(It.IsAny<SnapshotId>())).Returns((JsonSnapshot) null);
         _updateDecider.Setup(a => a.ShouldUpdateSnapshot()).Returns(false);
 
-        var result = _snapper.Snap(MakeJsonSnapshot(_obj));
+        var result = _snapperCore.Snap(MakeJsonSnapshot(_obj));
 
         _store.Verify(a => a.StoreSnapshot(It.IsAny<JsonSnapshot>()), Times.Once);
         result.Status.Should().Be(SnapResultStatus.SnapshotUpdated);
@@ -132,7 +117,7 @@ public class SnapperCoreTests
         _store.Setup(a => a.GetSnapshot(It.IsAny<SnapshotId>())).Returns((JsonSnapshot) null);
         _updateDecider.Setup(a => a.ShouldUpdateSnapshot()).Returns(false);
 
-        var result = _snapper.Snap(MakeJsonSnapshot(_obj));
+        var result = _snapperCore.Snap(MakeJsonSnapshot(_obj));
 
         result.Status.Should().Be(SnapResultStatus.SnapshotDoesNotExist);
         result.OldSnapshot.Should().BeNull();
@@ -141,5 +126,5 @@ public class SnapperCoreTests
     }
 
     private static JsonSnapshot MakeJsonSnapshot(JObject obj)
-        => new JsonSnapshot(new SnapshotId("name", null, null, false), obj);
+        => new JsonSnapshot(new SnapshotId("", "", ""), obj);
 }

@@ -8,7 +8,6 @@ using Xunit;
 
 namespace Snapper.Internals.Tests.Core
 {
-    // TODO add more tests here
     public class SnapshotIdResolverTests
     {
         private readonly SnapshotIdResolver _snapshotIdResolver;

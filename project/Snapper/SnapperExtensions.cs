@@ -9,7 +9,7 @@ public static class SnapperExtensions
     public static void ShouldMatchSnapshot(this object snapshot)
     {
         var snapper = SnapperFactory.CreateJsonSnapper(null);
-        snapper.MatchSnapshot(snapshot).AssertSnapshot();
+        snapper.MatchSnapshot(snapshot, null).AssertSnapshot();
     }
 
     /// <summary>
@@ -20,7 +20,7 @@ public static class SnapperExtensions
     public static void ShouldMatchSnapshot(this object snapshot, SnapshotSettings snapshotSettings)
     {
         var snapper = SnapperFactory.CreateJsonSnapper(snapshotSettings);
-        snapper.MatchSnapshot(snapshot).AssertSnapshot();
+        snapper.MatchSnapshot(snapshot, null).AssertSnapshot();
     }
 
     /// <summary>
@@ -59,7 +59,7 @@ public static class SnapperExtensions
     public static void ShouldMatchInlineSnapshot(this object snapshot, object expectedSnapshot)
     {
         var snapper = SnapperFactory.GetJsonInlineSnapper(expectedSnapshot, null);
-        snapper.MatchSnapshot(snapshot).AssertSnapshot();
+        snapper.MatchSnapshot(snapshot, null).AssertSnapshot();
     }
 
     // TODO write tests and confirm test coverage
@@ -74,6 +74,6 @@ public static class SnapperExtensions
         SnapshotSettings snapshotSettings)
     {
         var snapper = SnapperFactory.GetJsonInlineSnapper(expectedSnapshot, snapshotSettings);
-        snapper.MatchSnapshot(snapshot).AssertSnapshot();
+        snapper.MatchSnapshot(snapshot, null).AssertSnapshot();
     }
 }

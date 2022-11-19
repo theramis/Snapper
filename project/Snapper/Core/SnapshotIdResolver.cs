@@ -18,6 +18,17 @@ internal class SnapshotIdResolver
         _testMethodResolver = testMethodResolver;
     }
 
+
+    // tests needed
+    /*
+    - inside class with store snapshots as class
+         - resolve based on snapshotsettings fully
+            - child
+            - normal
+            - test which one is applied
+
+    partial tests needed?
+     */
     public SnapshotId ResolveSnapshotId(string? childSnapshotName, SnapshotSettings snapshotSettings)
     {
         var testMethod = new Lazy<ITestMethod>(() => _testMethodResolver.ResolveTestMethod());
@@ -25,11 +36,24 @@ internal class SnapshotIdResolver
         var storeSnapshotsPerClass = snapshotSettings.ShouldStoreSnapshotsPerClass ??
                                      ShouldStoreSnapshotsPerClass(testMethod.Value);
         var snapshotDirectory = snapshotSettings.Directory ?? GetSnapshotDirectory(testMethod.Value);
-        var testName = snapshotSettings.TestName ?? testMethod.Value.MethodName;
-        var snapshotFileName = snapshotSettings.FileName ??
-                               GetSnapshotFileName(snapshotSettings, testMethod, testName, storeSnapshotsPerClass);
 
-        return new SnapshotId(snapshotDirectory, snapshotFileName, testName, storeSnapshotsPerClass, childSnapshotName);
+        var className = new Lazy<string?>(() =>
+            snapshotSettings.ClassName ?? testMethod.Value.BaseMethod.DeclaringType?.Name);
+        var testName = new Lazy<string?>(() =>
+            snapshotSettings.TestName ?? testMethod.Value.MethodName);
+
+        if (storeSnapshotsPerClass)
+        {
+            var fileName = snapshotSettings.FileName ?? $"{className.Value}";
+            var filePath = Path.Combine(snapshotDirectory, $"{fileName}.json");
+            return new SnapshotId(filePath, testName.Value, childSnapshotName);
+        }
+        else
+        {
+            var fileName = snapshotSettings.FileName ?? $"{className.Value}{'_'}{testName.Value}";
+            var filePath = Path.Combine(snapshotDirectory, $"{fileName}.json");
+            return new SnapshotId(filePath, childSnapshotName, null);
+        }
     }
 
     private static bool ShouldStoreSnapshotsPerClass(ITestMethod testMethod)
@@ -48,12 +72,5 @@ internal class SnapshotIdResolver
     {
         var directory = Path.GetDirectoryName(testMethod.FileName) ?? throw new InvalidOperationException();
         return Path.Combine(directory, SnapshotsDirectory);
-    }
-
-    private static string GetSnapshotFileName(SnapshotSettings snapshotSettings, Lazy<ITestMethod> testMethod,
-        string testName, bool storeSnapshotsPerClass)
-    {
-        var className = snapshotSettings.ClassName ?? testMethod.Value.BaseMethod.DeclaringType?.Name;
-        return storeSnapshotsPerClass ? $"{className}" : $"{className}{'_'}{testName}";
     }
 }

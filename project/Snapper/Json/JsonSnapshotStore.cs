@@ -27,13 +27,16 @@ internal class JsonSnapshotStore : ISnapshotStore
         if (snapshotId.PrimaryId != null &&
             fullSnapshot.TryGetValue(snapshotId.PrimaryId, out var partialSnapshot))
         {
-            if (snapshotId.SecondaryId != null &&
-                partialSnapshot is JObject partialSnapshotJObject &&
-                partialSnapshotJObject.TryGetValue(snapshotId.SecondaryId, out partialSnapshot))
+            if (snapshotId.SecondaryId != null)
             {
-                return new JsonSnapshot(snapshotId, (JObject) partialSnapshot);
-            }
+                if (partialSnapshot is JObject partialSnapshotJObject &&
+                    partialSnapshotJObject.TryGetValue(snapshotId.SecondaryId, out partialSnapshot))
+                {
+                    return new JsonSnapshot(snapshotId, (JObject) partialSnapshot);
+                }
 
+                return null;
+            }
             return new JsonSnapshot(snapshotId, (JObject) partialSnapshot);
         }
         return null;

@@ -1,5 +1,6 @@
 ﻿using System.IO;
 using System.Runtime.CompilerServices;
+using System.Text.RegularExpressions;
 using NUnit.Framework;
 using Snapper.Core;
 
@@ -17,10 +18,8 @@ namespace Snapper.Nunit.Tests
             };
 
             // Act/Assert
-            Assert.That(snapshot, Matches.Snapshot(new SnapshotId(
-                Path.Combine(GetCurrentClassDirectory(), "_custom"),
-                nameof(NunitSnapperCustomTests),
-                nameof(SnapshotsMatch))));
+            Assert.That(snapshot, Matches.Snapshot(SnapshotSettings.New()
+                .SnapshotDirectory(Path.Combine(GetCurrentClassDirectory(), "_custom"))));
         }
 
         [DatapointSource]
@@ -36,11 +35,8 @@ namespace Snapper.Nunit.Tests
             };
 
             // Act/Assert
-            Assert.That(snapshot, Matches.Snapshot(new SnapshotId(
-                Path.Combine(GetCurrentClassDirectory(), "_custom"),
-                nameof(NunitSnapperCustomTests),
-                nameof(TheorySnapshotsMatch),
-                data.ToString())));
+            Assert.That(snapshot, Matches.ChildSnapshot($"{data}", SnapshotSettings.New()
+                .SnapshotDirectory(Path.Combine(GetCurrentClassDirectory(), "_custom"))));
         }
 
         [Theory]
@@ -53,12 +49,9 @@ namespace Snapper.Nunit.Tests
             };
 
             // Act/Assert
-            Assert.That(snapshot, Matches.Snapshot(new SnapshotId(
-                Path.Combine(GetCurrentClassDirectory(), "_custom"),
-                nameof(NunitSnapperCustomTests),
-                nameof(TheorySnapshotsMatchWithPerClass),
-                data.ToString(),
-                true)));
+            Assert.That(snapshot, Matches.ChildSnapshot($"{data}", SnapshotSettings.New()
+                .SnapshotDirectory(Path.Combine(GetCurrentClassDirectory(), "_custom"))
+                .StoreSnapshotsPerClass(true)));
         }
 
         private static string GetCurrentClassDirectory([CallerFilePath] string callerFilePath = "")

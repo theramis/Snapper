@@ -6,11 +6,13 @@ namespace Snapper.Nunit;
 // TODO add more extensions with settings
 public class EqualToSnapshotConstraint : Constraint
 {
-    private readonly string _childSnapshotName;
+    private readonly string? _childSnapshotName;
+    private readonly SnapshotSettings? _snapshotSettings;
 
-    public EqualToSnapshotConstraint(string childSnapshotName = null)
+    public EqualToSnapshotConstraint(string? childSnapshotName = null, SnapshotSettings? snapshotSettings = null)
     {
         _childSnapshotName = childSnapshotName;
+        _snapshotSettings = snapshotSettings;
     }
 
     public override ConstraintResult ApplyTo<TActual>(TActual actual)
@@ -21,7 +23,7 @@ public class EqualToSnapshotConstraint : Constraint
 
     private SnapResult MatchSnapshot(object actual)
     {
-        var snapper = SnapperFactory.CreateJsonSnapper(null);
+        var snapper = SnapperFactory.CreateJsonSnapper(_snapshotSettings);
         return snapper.MatchSnapshot(actual, _childSnapshotName);
     }
 }

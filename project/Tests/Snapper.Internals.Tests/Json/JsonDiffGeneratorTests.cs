@@ -1,6 +1,8 @@
 using System;
 using System.Text;
 using FluentAssertions;
+using Newtonsoft.Json.Linq;
+using Snapper.Core;
 using Snapper.Json;
 using Xunit;
 
@@ -11,15 +13,15 @@ namespace Snapper.Internals.Tests.Json
         [Fact]
         public void ValueChangedTest()
         {
-            var currentSnapshot = new
+            var currentSnapshot = MakeJsonSnapshot(new
             {
                 Key = "Value"
-            };
+            });
 
-            var newSnapshot = new
+            var newSnapshot = MakeJsonSnapshot(new
             {
                 Key = "Value2"
-            };
+            });
 
             var result = JsonDiffGenerator.GetDiffMessage(currentSnapshot, newSnapshot);
 
@@ -35,16 +37,16 @@ namespace Snapper.Internals.Tests.Json
         [Fact]
         public void ValueRemovedTest()
         {
-            var currentSnapshot = new
+            var currentSnapshot = MakeJsonSnapshot(new
             {
                 Key = "Value",
                 Key2 = "Value"
-            };
+            });
 
-            var newSnapshot = new
+            var newSnapshot = MakeJsonSnapshot(new
             {
                 Key = "Value"
-            };
+            });
 
             var result = JsonDiffGenerator.GetDiffMessage(currentSnapshot, newSnapshot);
 
@@ -61,16 +63,16 @@ namespace Snapper.Internals.Tests.Json
         [Fact]
         public void ValueAddedTest()
         {
-            var currentSnapshot = new
+            var currentSnapshot = MakeJsonSnapshot(new
             {
                 Key = "Value"
-            };
+            });
 
-            var newSnapshot = new
+            var newSnapshot = MakeJsonSnapshot(new
             {
                 Key = "Value",
                 Key2 = "Value"
-            };
+            });
 
             var result = JsonDiffGenerator.GetDiffMessage(currentSnapshot, newSnapshot);
 
@@ -87,7 +89,7 @@ namespace Snapper.Internals.Tests.Json
         [Fact]
         public void ValueAddedTest_LargeObject()
         {
-            var currentSnapshot = new
+            var currentSnapshot = MakeJsonSnapshot(new
             {
                 Key = "Value",
                 Key1 = "Value",
@@ -95,9 +97,9 @@ namespace Snapper.Internals.Tests.Json
                 Key3 = "Value",
                 Key4 = "Value",
                 Key5 = "Value",
-            };
+            });
 
-            var newSnapshot = new
+            var newSnapshot = MakeJsonSnapshot(new
             {
                 Key = "Value",
                 Key1 = "Value",
@@ -106,7 +108,7 @@ namespace Snapper.Internals.Tests.Json
                 NewKey = "Value",
                 Key4 = "Value",
                 Key5 = "Value",
-            };
+            });
 
             var result = JsonDiffGenerator.GetDiffMessage(currentSnapshot, newSnapshot);
 
@@ -123,7 +125,7 @@ namespace Snapper.Internals.Tests.Json
         [Fact]
         public void ValueRemovedTest_LargeObject()
         {
-            var currentSnapshot = new
+            var currentSnapshot = MakeJsonSnapshot(new
             {
                 Key = "Value",
                 Key1 = "Value",
@@ -131,16 +133,16 @@ namespace Snapper.Internals.Tests.Json
                 Key3 = "Value",
                 Key4 = "Value",
                 Key5 = "Value",
-            };
+            });
 
-            var newSnapshot = new
+            var newSnapshot = MakeJsonSnapshot(new
             {
                 Key = "Value",
                 Key1 = "Value",
                 Key2 = "Value",
                 Key4 = "Value",
                 Key5 = "Value",
-            };
+            });
 
             var result = JsonDiffGenerator.GetDiffMessage(currentSnapshot, newSnapshot);
 
@@ -157,7 +159,7 @@ namespace Snapper.Internals.Tests.Json
         [Fact]
         public void ValueChangedTest_LargeObject()
         {
-            var currentSnapshot = new
+            var currentSnapshot = MakeJsonSnapshot(new
             {
                 Key = "Value",
                 Key1 = "Value",
@@ -165,9 +167,9 @@ namespace Snapper.Internals.Tests.Json
                 Key3 = "Value",
                 Key4 = "Value",
                 Key5 = "Value",
-            };
+            });
 
-            var newSnapshot = new
+            var newSnapshot = MakeJsonSnapshot(new
             {
                 Key = "Value",
                 Key1 = "Value",
@@ -175,7 +177,7 @@ namespace Snapper.Internals.Tests.Json
                 Key3 = "NewValue",
                 Key4 = "Value",
                 Key5 = "Value",
-            };
+            });
 
             var result = JsonDiffGenerator.GetDiffMessage(currentSnapshot, newSnapshot);
 
@@ -200,5 +202,11 @@ namespace Snapper.Internals.Tests.Json
             addLinesFunc.Invoke(diff);
             return diff.ToString();
         }
+
+        private JsonSnapshot MakeJsonSnapshot(object val)
+            => new JsonSnapshot(DummySnapshotId(), JObject.FromObject(val));
+
+        private static SnapshotId DummySnapshotId()
+            => new SnapshotId("dir", "filename", "testname", false);
     }
 }

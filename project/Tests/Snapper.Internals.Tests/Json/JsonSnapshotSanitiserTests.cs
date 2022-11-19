@@ -12,7 +12,7 @@ namespace Snapper.Internals.Tests.Json
 
         public JsonSnapshotSanitiserTests()
         {
-            _sanitiser = new JsonSnapshotSanitiser();
+            _sanitiser = new JsonSnapshotSanitiser(SnapshotSettings.New());
         }
 
         [Fact]

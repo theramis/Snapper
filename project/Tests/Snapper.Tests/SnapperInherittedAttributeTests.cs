@@ -22,7 +22,7 @@ namespace Snapper.Tests
         }
     }
 
-    [AttributeUsage(AttributeTargets.Method, AllowMultiple = false)]
+    [AttributeUsage(AttributeTargets.Method)]
     public class NewAndImprovedFactAttribute : FactAttribute
     {
         public NewAndImprovedFactAttribute(params Type[] skippingExceptions)

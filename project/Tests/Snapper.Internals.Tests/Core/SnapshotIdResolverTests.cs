@@ -7,6 +7,7 @@ using Xunit;
 
 namespace Snapper.Internals.Tests.Core
 {
+    // TODO add more tests here
     public class SnapshotIdResolverTests
     {
         private readonly SnapshotIdResolver _snapshotIdResolver;
@@ -20,7 +21,7 @@ namespace Snapper.Internals.Tests.Core
         [Fact]
         public void ResolveSnapshotId()
         {
-            var snapshotId = _snapshotIdResolver.ResolveSnapshotId(null);
+            var snapshotId = _snapshotIdResolver.ResolveSnapshotId(null, SnapshotSettings.New());
 
             var filePath = Path.Combine("Snapper.Internals.Tests", "Core",
                 "_snapshots", $"{nameof(SnapshotIdResolverTests)}_{nameof(ResolveSnapshotId)}.json");
@@ -33,7 +34,7 @@ namespace Snapper.Internals.Tests.Core
         [Fact]
         public void ResolveSnapshotId_WithPartialName()
         {
-            var snapshotId = _snapshotIdResolver.ResolveSnapshotId("partialName");
+            var snapshotId = _snapshotIdResolver.ResolveSnapshotId("partialName", SnapshotSettings.New());
 
             var filePath = Path.Combine("Snapper.Internals.Tests", "Core",
                 "_snapshots", $"{nameof(SnapshotIdResolverTests)}_{nameof(ResolveSnapshotId_WithPartialName)}.json");
@@ -58,7 +59,7 @@ namespace Snapper.Internals.Tests.Core
         [Fact]
         public void ResolveSnapshotId()
         {
-            var snapshotId = _snapshotIdResolver.ResolveSnapshotId(null);
+            var snapshotId = _snapshotIdResolver.ResolveSnapshotId(null, SnapshotSettings.New());
 
             var filePath = Path.Combine("Snapper.Internals.Tests", "Core",
                 "_snapshots", $"{nameof(SnapshotIdResolverPerClassTests)}.json");
@@ -71,7 +72,7 @@ namespace Snapper.Internals.Tests.Core
         [Fact]
         public void ResolveSnapshotId_WithPartialName()
         {
-            var snapshotId = _snapshotIdResolver.ResolveSnapshotId("partialName");
+            var snapshotId = _snapshotIdResolver.ResolveSnapshotId("partialName", SnapshotSettings.New());
 
             var filePath = Path.Combine("Snapper.Internals.Tests", "Core",
                 "_snapshots", $"{nameof(SnapshotIdResolverPerClassTests)}.json");

@@ -21,14 +21,12 @@ internal static class SnapperFactory
     {
         settings ??= SnapshotSettings.New();
 
-        // TODO can probably remove the test resolver
-        var testMethodResolver = new TestMethodResolver();
         var jsonSnapshotSanitiser = new JsonSnapshotSanitiser(settings);
 
-        var jsonSnapshotGenerator = new JsonSnapshotGenerator(new SnapshotIdResolver(testMethodResolver),
-            jsonSnapshotSanitiser, settings);
+        var jsonSnapshotGenerator = new JsonSnapshotGenerator(new EmptySnapshotIdResolver(), jsonSnapshotSanitiser,
+            settings);
         var snapperCore = new SnapperCore(new JsonSnapshotInMemoryStore(jsonSnapshotSanitiser, expectedSnapshot),
-            new SnapshotUpdateDecider(testMethodResolver));
+            new AlwaysFalseSnapshotUpdateDecider());
         return new Snapper(jsonSnapshotGenerator, snapperCore);
     }
 }

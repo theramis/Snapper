@@ -8,7 +8,7 @@ using Snapper.Core.TestMethodResolver.TestMethods;
 
 namespace Snapper.Core;
 
-internal class SnapshotIdResolver
+internal class SnapshotIdResolver : ISnapshotIdResolver
 {
     private readonly ITestMethodResolver _testMethodResolver;
     private const string SnapshotsDirectory = "_snapshots";
@@ -18,17 +18,6 @@ internal class SnapshotIdResolver
         _testMethodResolver = testMethodResolver;
     }
 
-
-    // tests needed
-    /*
-    - inside class with store snapshots as class
-         - resolve based on snapshotsettings fully
-            - child
-            - normal
-            - test which one is applied
-
-    partial tests needed?
-     */
     public SnapshotId ResolveSnapshotId(string? childSnapshotName, SnapshotSettings snapshotSettings)
     {
         var testMethod = new Lazy<ITestMethod>(() => _testMethodResolver.ResolveTestMethod());

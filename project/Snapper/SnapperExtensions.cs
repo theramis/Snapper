@@ -35,7 +35,6 @@ public static class SnapperExtensions
         snapper.MatchSnapshot(snapshot, childSnapshotName).AssertSnapshot();
     }
 
-    // TODO write tests and confirm test coverage
     /// <summary>
     ///     Compares the provided object with the stored child snapshot.
     ///     Takes in a unique child name, best used in theory tests.
@@ -62,7 +61,6 @@ public static class SnapperExtensions
         snapper.MatchSnapshot(snapshot, null).AssertSnapshot();
     }
 
-    // TODO write tests and confirm test coverage
     /// <summary>
     ///     Compares the provided object with an inline snapshot.
     ///     Use when snapshots are simple and small.

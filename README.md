@@ -50,7 +50,6 @@ This is the basis of snapshot testing. The idea being a baseline is first genera
 
 As you can see using Snapper the test is now much smaller and easier to read but that's not all. Using Snapper brings with it a lot more benefits!
 
-
 ## Why use Snapper?
 
 Benefits of using Snapper/snapshot testing vs traditional assertions
@@ -58,7 +57,6 @@ Benefits of using Snapper/snapshot testing vs traditional assertions
 - **Very difficult to miss properties to assert** - It's hard to validate that all properties have are being asserted using traditional assertions. By using Snapper the whole object asserted which means all properties are always asserted, so there is no chance of missing properties!
 - **Captures changes to the object being asserted** - It's quite common to add new properties to our objects over time. e.g. Adding `FirstName` to the `myUser` object above. Using traditional assertions the test would still pass and it's easy to forget to update the test. Using Snapper the test would immediately fail since it's a change in the system and the developer should verify if the change was expected!
 - **Much quicker to write tests** - Writing all those assertions above can be time consuming. With Snapper a json file is generated with the object which the developer can quickly verify!
-
 
 ## When to use Snapper?
 
@@ -68,27 +66,6 @@ Use cases where Snapper/snapshot testing really shines
 - **Golden Master testing** - [Golden master testing](https://en.wikipedia.org/wiki/Characterization_test) is a technique where you capture the behaviour of a system. Snapper is perfect for this as you can easily assert the behaviour without the complex setup and assertions. Snapper would also fail as soon as the behaviour of the system changes
 
 The use cases above are just some of the examples I've found where Snapper is super useful. Feel free to try them in other situation you think would be useful.
-
-<!-- ## Snapper V1 is deprecated
-After a lot of thought I've decided to deprecate Snapper V1.
-Snapper V1 was my first attempt at an OSS library and some of the decisions I made very early on made it very difficult to add new features.
-Snapper V2 is my second attempt at making the library easier to use and update.
-
-Snapper V1 consisted of the following NuGet packages all of which are deprecated:
-- Snapper.Core
-- Snapper.Json
-- Snapper.Json.Xunit
-- Snapper.Json.Nunit
-
-There is a migration guide available [here](https://theramis.github.io/Snapper/migration.html)
-
-The changes in V2 are documented in the [Changelog](https://theramis.github.io/Snapper/changelog.html)
-
-## Todo
-- Add logo to Nuget
-- Write tests for testing json store.
-- Update V1 package descriptions to mention deprecated
-- Use appveyor logger on all test projects -->
 
 ## Contributors ✨
 

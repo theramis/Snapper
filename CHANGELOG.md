@@ -1,9 +1,15 @@
 # Changelog
 All notable changes to the Snapper project.
 
-## [2.4.0] - 2022-05-17
+## [2.4.0] - 2022-12-10
+### Added
+- Custom snapshot settings! This feature provides you with more control of your snapshots! See [here](https://theramis.github.io/Snapper/#/pages/snapper/custom_snapshot_settings) for more details!
+  - This also fixes/solves the following issues: [Issue #100](https://github.com/theramis/Snapper/issues/100), [Issue #93](https://github.com/theramis/Snapper/issues/93), [Issue #84](https://github.com/theramis/Snapper/issues/84), [Issue #83](https://github.com/theramis/Snapper/issues/83) and [Issue #79](https://github.com/theramis/Snapper/issues/79)
+- Updated CI environment detection to detect more CI tools.
+
 ### Deprecated
 - [Issue #98](https://github.com/theramis/Snapper/issues/98) Removed support for .NET Framework 4.5. .NET 45 has reached end of life by microsoft and is no longer supported. See [here](https://endoflife.date/dotnetfx)
+- The experimental feature called "Advanced snapshot file control" has been removed. This has been replaced by the custom snapshot settings which has been added as part of this release.
 
 ## [2.3.2] - 2022-05-17
 ### Bug Fix
@@ -152,6 +158,7 @@ The first stable release!
 - **Snapper.Json**: Extends Snapper.Core to provide storing snapshots in Json format
 - **Snapper.Json.Xunit**: Extends Snapper.Json and integrates with the XUnit testing framework.
 
+[2.4.0]: https://github.com/theramis/Snapper/compare/2.3.2...2.4.0
 [2.3.2]: https://github.com/theramis/Snapper/compare/2.3.1...2.3.2
 [2.3.1]: https://github.com/theramis/Snapper/compare/2.3.0...2.3.1
 [2.3.0]: https://github.com/theramis/Snapper/compare/2.2.4...2.3.0

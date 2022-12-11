@@ -3,7 +3,6 @@ using Snapper.Core;
 
 namespace Snapper.Nunit;
 
-// TODO add more extensions with settings
 public class EqualToSnapshotConstraint : Constraint
 {
     private readonly string? _childSnapshotName;

@@ -29,12 +29,12 @@ There are currently three solutions for this issue.
 
 For more information see this issue: [theramis/snapper#16](https://github.com/theramis/Snapper/issues/16)
 
-If none of the solutions above work its possible you have encountered a usecase where Snapper is unable to determine the test. There has been one use reported use case like this before. See https://github.com/theramis/Snapper/issues/30. 
-In this case the recommended solution is to use [Advanced Snapshot file control](/pages/snapper/advanced_snapshot_control?id=advanced-snapshot-file-control) to create snapshots.
+If none of the solutions above work its possible you have encountered a usecase where Snapper is unable to determine the test. There has been one use reported use case like this before. See https://github.com/theramis/Snapper/issues/30.
+In this case the recommended solution is to use [Custom Snapshot Settings](/pages/snapper/custom_snapshot_settings?id=customising-snapshot-file-location) to create snapshots.
 
 ### Why am I getting a `UnableToDetermineTestFilePathException`?
 ```
-Snapper.Exceptions.UnableToDetermineTestFilePathException : Unable to determine the file path of the test method. 
+Snapper.Exceptions.UnableToDetermineTestFilePathException : Unable to determine the file path of the test method.
 Make sure optimisation of the test project is disabled. See https://theramis.github.io/Snapper/#/pages/faqs for more info.
 ```
 

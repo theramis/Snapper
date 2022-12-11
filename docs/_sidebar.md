@@ -8,7 +8,7 @@
     - [Basics](pages/snapper/basics.md)
     - [Updating Snapshots](pages/snapper/updating_snapshots.md)
     - [Storing Snapshots per class](pages/snapper/snapshots_per_class.md)
-    - [Advanced Snapshot file control](pages/snapper/advanced_snapshot_control.md)
+    - [Custom Snapshot Settings](pages/snapper/custom_snapshot_settings.md)
 
 - [Snapper.Nunit](pages/snapper_nunit.md)
 - [Test Frameworks](pages/supported_test_frameworks.md)

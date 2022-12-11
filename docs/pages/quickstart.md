@@ -3,7 +3,7 @@
 ## Prerequisites
 To run this quickstart, you need the following prerequisites:
 
-- An IDE such as VS 2019/Rider or your favourite text editor (e.g VS Code)
+- An IDE such as VS 2022/Rider or your favourite text editor (e.g VS Code)
 - Platform which supports .NET standard 2.0. e.g. .NET Core 2.0+
 - Nuget
 - Basic knowledge of how to write tests in C#

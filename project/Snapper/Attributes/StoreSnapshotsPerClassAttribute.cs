@@ -1,10 +1,8 @@
 using System;
 
-namespace Snapper.Attributes
+namespace Snapper.Attributes;
+
+[AttributeUsage(AttributeTargets.Class | AttributeTargets.Assembly)]
+public class StoreSnapshotsPerClassAttribute : Attribute
 {
-    // TODO add docs here
-    [AttributeUsage(AttributeTargets.Class | AttributeTargets.Assembly)]
-    public class StoreSnapshotsPerClassAttribute : Attribute
-    {
-    }
 }

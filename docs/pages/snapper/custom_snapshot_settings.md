@@ -76,4 +76,4 @@ public class MyTests
 }
 ```
 
-The best way to learn how these settings work is to have a look at some of the tests [here] or have a brief look at the logic [here] which should help you understand which settings are used when.
+The best way to learn how these settings work is to have a look at some of the tests [here](https://github.com/theramis/Snapper/blob/master/project/Tests/Snapper.Tests/SnapperCustomSettingsTests.cs) or have a brief look at the logic [here](https://github.com/theramis/Snapper/blob/master/project/Snapper/Core/SnapshotIdResolver.cs#L23-L44) which should help you understand which settings are used when.

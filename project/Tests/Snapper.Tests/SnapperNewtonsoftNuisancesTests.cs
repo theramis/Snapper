@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Runtime.CompilerServices;
-using Newtonsoft.Json.Linq;
+using System.Text.Json;
 using Snapper.Attributes;
 using Xunit;
 
@@ -86,7 +86,7 @@ namespace Snapper.Tests
         [MethodImpl(MethodImplOptions.NoInlining)]
         public void MetadataPropertiesAreReadAsStringsBySnapper_UsingObjectSnapshot_FileSnapshot(string metadataProp)
         {
-            var snapshot = JObject.Parse($@"{{
+            var snapshot = JsonSerializer.Deserialize<JsonElement>($@"{{
                 ""${metadataProp}"": ""metadata"",
                 ""key"": ""value""
             }}");
@@ -117,7 +117,7 @@ namespace Snapper.Tests
         [MethodImpl(MethodImplOptions.NoInlining)]
         public void MetadataPropertiesAreReadAsStringsBySnapper_UsingObjectSnapshot_InlineSnapshot(string metadataProp)
         {
-            var snapshot = JObject.Parse($@"{{
+            var snapshot = JsonSerializer.Deserialize<JsonElement>($@"{{
                 ""${metadataProp}"": ""metadata"",
                 ""key"": ""value""
             }}");

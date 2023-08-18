@@ -1,11 +1,11 @@
-using Newtonsoft.Json.Linq;
+﻿using System.Text.Json;
 using Snapper.Core;
 
 namespace Snapper.Json;
 
 internal class JsonSnapshotInMemoryStore : ISnapshotStore
 {
-    private readonly JObject _snapshot;
+    private readonly JsonElement _snapshot;
 
     public JsonSnapshotInMemoryStore(JsonSnapshotSanitiser jsonSnapshotSanitiser, object snapshot)
     {

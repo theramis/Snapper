@@ -1,7 +1,7 @@
 ﻿using System;
+using System.Text.Json;
 using FluentAssertions;
 using Moq;
-using Newtonsoft.Json.Linq;
 using Snapper.Core;
 using Snapper.Json;
 using Xunit;
@@ -10,7 +10,7 @@ namespace Snapper.Internals.Tests.Core;
 
 public class SnapperCoreTests
 {
-    private readonly JObject _obj = JObject.FromObject(new {value = 1});
+    private readonly JsonElement _obj = JsonSerializer.SerializeToElement(new {value = 1});
     private readonly SnapperCore _snapperCore;
     private readonly Mock<ISnapshotStore> _store;
     private readonly Mock<ISnapshotUpdateDecider> _updateDecider;
@@ -56,7 +56,7 @@ public class SnapperCoreTests
         _store.Setup(a => a.GetSnapshot(It.IsAny<SnapshotId>())).Returns(MakeJsonSnapshot(_obj));
         _updateDecider.Setup(a => a.ShouldUpdateSnapshot()).Returns(false);
 
-        var newObj = JObject.FromObject(new {value = 2});
+        var newObj = JsonSerializer.SerializeToElement(new {value = 2});
         var result = _snapperCore.Snap(MakeJsonSnapshot(newObj));
 
         result.Status.Should().Be(SnapResultStatus.SnapshotsDoNotMatch);
@@ -70,7 +70,7 @@ public class SnapperCoreTests
         _store.Setup(a => a.GetSnapshot(It.IsAny<SnapshotId>())).Returns(MakeJsonSnapshot(_obj));
         _updateDecider.Setup(a => a.ShouldUpdateSnapshot()).Returns(true);
 
-        var newObj = JObject.FromObject(new {value = 2});
+        var newObj = JsonSerializer.SerializeToElement(new {value = 2});
         var result = _snapperCore.Snap(MakeJsonSnapshot(newObj));
 
         _store.Verify(a => a.StoreSnapshot(It.IsAny<JsonSnapshot>()), Times.Once);
@@ -125,6 +125,6 @@ public class SnapperCoreTests
         Environment.SetEnvironmentVariable("CI", null, EnvironmentVariableTarget.Process);
     }
 
-    private static JsonSnapshot MakeJsonSnapshot(JObject obj)
+    private static JsonSnapshot MakeJsonSnapshot(JsonElement obj)
         => new JsonSnapshot(new SnapshotId("", "", ""), obj);
 }

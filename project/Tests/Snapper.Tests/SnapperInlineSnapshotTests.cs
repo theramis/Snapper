@@ -1,4 +1,4 @@
-using System.Runtime.CompilerServices;
+﻿using System.Runtime.CompilerServices;
 using Xunit;
 
 namespace Snapper.Tests
@@ -30,7 +30,7 @@ namespace Snapper.Tests
 
             snapshot.ShouldMatchInlineSnapshot(@"
             {
-                'TestValue' : 'value'
+                ""TestValue"" : ""value""
             }");
         }
 

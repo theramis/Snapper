@@ -1,13 +1,13 @@
-﻿using Newtonsoft.Json.Linq;
+﻿using System.Text.Json;
 using Snapper.Core;
 
 namespace Snapper.Json;
 
-internal record JsonSnapshot(SnapshotId Id, JObject Value)
+internal record JsonSnapshot(SnapshotId Id, JsonElement Value)
 {
     public bool CompareValues(JsonSnapshot other)
     {
-        return JToken.DeepEquals(Value, other.Value);
+        return JsonElementHelper.JsonEquals(Value, other.Value);
     }
 }
 

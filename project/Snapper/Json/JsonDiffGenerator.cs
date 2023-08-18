@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Text;
@@ -17,7 +17,7 @@ internal static class JsonDiffGenerator
         var newSnapshotJObject = newSnapshot.Value;
 
         var dmp = new diff_match_patch();
-        var a = dmp.diff_linesToChars(currentSnapshotJObject.ToString(), newSnapshotJObject.ToString());
+        var a = dmp.diff_linesToChars(JsonElementHelper.ToString(currentSnapshotJObject), JsonElementHelper.ToString(newSnapshotJObject));
         var lineText1 = (string) a[0];
         var lineText2 = (string) a[1];
         var lineArray = (List<string>) a[2];

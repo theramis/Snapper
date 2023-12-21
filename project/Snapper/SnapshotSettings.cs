@@ -18,6 +18,7 @@ public class SnapshotSettings
     public static Action<JsonSerializerSettings>? GlobalSnapshotSerialiserSettings;
 
     internal bool? ShouldStoreSnapshotsPerClass;
+    internal bool? ShouldUpdateSnapshots;
     internal string? Directory;
     internal string? FileName;
     internal string? ClassName;
@@ -54,6 +55,18 @@ public class SnapshotSettings
     public SnapshotSettings StoreSnapshotsPerClass(bool storeSnapshotsPerClass)
     {
         ShouldStoreSnapshotsPerClass = storeSnapshotsPerClass;
+        return this;
+    }
+
+    /// <summary>
+    /// Specifies if snapshots should be updated, taking precedence over the environment variable and 
+    /// <see cref="UpdateSnapshotsAttribute"/>.
+    /// </summary>
+    /// <param name="updateSnapshots">Whether to update snapshots or not</param>
+    /// <returns></returns>
+    public SnapshotSettings UpdateSnapshots(bool updateSnapshots)
+    {
+        ShouldUpdateSnapshots = updateSnapshots;
         return this;
     }
 

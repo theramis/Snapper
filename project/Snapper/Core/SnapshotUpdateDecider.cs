@@ -12,17 +12,24 @@ internal class SnapshotUpdateDecider : ISnapshotUpdateDecider
     private const string UpdateSnapshotEnvironmentVariableName = "UpdateSnapshots";
     private readonly ITestMethodResolver _testMethodResolver;
     private readonly string _envVarName;
+    private readonly SnapshotSettings? _settings;
 
     public SnapshotUpdateDecider(ITestMethodResolver testMethodResolver,
-        string envVarName = UpdateSnapshotEnvironmentVariableName)
+        string envVarName = UpdateSnapshotEnvironmentVariableName,
+        SnapshotSettings? settings = null)
     {
         _testMethodResolver = testMethodResolver;
         _envVarName = envVarName;
+        _settings = settings;
     }
 
     public bool ShouldUpdateSnapshot()
-        => ShouldUpdateSnapshotBasedOnEnvironmentVariable()
-           || ShouldUpdateSnapshotBasedOnAttribute();
+        => ShouldUpdateSnapshotBasedOnSettings() ?? 
+        (ShouldUpdateSnapshotBasedOnEnvironmentVariable() 
+        || ShouldUpdateSnapshotBasedOnAttribute());
+
+    private bool? ShouldUpdateSnapshotBasedOnSettings()
+        => _settings?.ShouldUpdateSnapshots;
 
     private bool ShouldUpdateSnapshotBasedOnEnvironmentVariable()
     {

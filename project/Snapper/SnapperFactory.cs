@@ -1,4 +1,4 @@
-using Snapper.Core;
+﻿using Snapper.Core;
 using Snapper.Core.TestMethodResolver;
 using Snapper.Json;
 
@@ -13,7 +13,7 @@ internal static class SnapperFactory
         var jsonSnapshotGenerator = new JsonSnapshotGenerator(new SnapshotIdResolver(testMethodResolver),
             new JsonSnapshotSanitiser(settings), settings);
         var snapperCore = new SnapperCore(new JsonSnapshotStore(settings),
-                new SnapshotUpdateDecider(testMethodResolver));
+                new SnapshotUpdateDecider(testMethodResolver, settings: settings));
         return new Snapper(jsonSnapshotGenerator, snapperCore);
     }
 

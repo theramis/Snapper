@@ -15,3 +15,8 @@ Snapper will check for a `[UpdateSnapshots]` attribute when running tests. If it
 
 By default when the attribute is used, Snapper will try detect whether the tests are running in a CI environment. If a CI environment is detected then the presence of the `[UpdateSnapshots]` will be ignored.
 This can be disabled by setting the `ignoreIfCi` flag to false on the attribute. e.g. `[UpdateSnapshots(false)]`
+
+## Update via custom settings
+Sometimes Snapper has trouble determining reading the update snapshot attribute above.
+In such cases you can use the custom settings to override whether the snapshot should be updated or not.
+See the [relevant docs](pages/snapper/custom_snapshot_settings?id=updating-snapshot-using-custom-settings).

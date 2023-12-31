@@ -167,29 +167,29 @@ public class SnapperCustomSettingsTests
         var filePath = Path.Combine(GetCurrentClassDirectory(), "_snapshots",
             $"{nameof(SnapperCustomSettingsTests)}_{nameof(SnapshotRespectsCustomUpdateSnapshots)}.json");
 
-        try
+        // Arrange
+        var snapshot = new
         {
-            // Arrange
-            var snapshot = new
-            {
-                TestValue = "value"
-            };
-
-            // Act
-            var settings = SnapshotSettings.New()
-                .UpdateSnapshots(true);
-            snapshot.ShouldMatchSnapshot(settings);
-
-            // Assert
-            Assert.True(File.Exists(filePath));
-
-            var snapshotContent = File.ReadAllText(filePath);
-            Assert.Contains("\"TestValue\": \"value\"", snapshotContent);
-        }
-        finally
+            TestValue = "value"
+        };
+        snapshot.ShouldMatchSnapshot(); // Creates the initial snapshot
+        snapshot = new
         {
-            File.Delete(filePath);
-        }
+            TestValue = "updated"
+        };
+
+        // Act
+        var settings = SnapshotSettings.New()
+            .UpdateSnapshots(true);
+        snapshot.ShouldMatchSnapshot(settings);
+
+        // Assert
+        Assert.True(File.Exists(filePath));
+
+        var snapshotContent = File.ReadAllText(filePath);
+        Assert.Contains("\"TestValue\": \"updated\"", snapshotContent);
+
+        if (File.Exists(filePath)) File.Delete(filePath);
     }
 
     [Theory]
@@ -200,41 +200,36 @@ public class SnapperCustomSettingsTests
         var filePath = Path.Combine(GetCurrentClassDirectory(), "_snapshots",
             $"{nameof(SnapperCustomSettingsTests)}_{nameof(SnapshotRespectsCustomUpdateSnapshotsOverEnvironmentVariable)}.json");
 
-        try
+        // Arrange
+        var snapshot = new
         {
-            // Arrange
-            var snapshot = new
-            {
-                TestValue = "somevalue"
-            };
-            snapshot.ShouldMatchSnapshot(); // Creates the initial snapshot
+            TestValue = "somevalue"
+        };
+        snapshot.ShouldMatchChildSnapshot($"{shouldUpdate}"); // Creates the initial snapshot
 
-            snapshot = new
-            {
-                TestValue = "value"
-            };
-            Environment.SetEnvironmentVariable("UpdateSnapshots", $"{!shouldUpdate}");
-
-            // Act
-            var settings = SnapshotSettings.New()
-                .UpdateSnapshots(shouldUpdate);
-            var exception = Record.Exception(() => snapshot.ShouldMatchSnapshot(settings));
-
-            // Assert
-            if (shouldUpdate)
-            {
-                Assert.Null(exception);
-            }
-            else
-            {
-                Assert.NotNull(exception);
-                Assert.Equal("Snapper.Exceptions.SnapshotsDoNotMatchException", exception.GetType().FullName);
-            }
-        }
-        finally
+        snapshot = new
         {
-            if (File.Exists(filePath)) File.Delete(filePath);
+            TestValue = "value"
+        };
+        Environment.SetEnvironmentVariable("UpdateSnapshots", $"{!shouldUpdate}");
+
+        // Act
+        var settings = SnapshotSettings.New()
+            .UpdateSnapshots(shouldUpdate);
+        var exception = Record.Exception(() => snapshot.ShouldMatchChildSnapshot($"{shouldUpdate}", settings));
+
+        // Assert
+        if (shouldUpdate)
+        {
+            Assert.Null(exception);
         }
+        else
+        {
+            Assert.NotNull(exception);
+            Assert.Equal("Snapper.Exceptions.SnapshotsDoNotMatchException", exception.GetType().FullName);
+        }
+
+        if (File.Exists(filePath)) File.Delete(filePath);
     }
 
     private static string GetCurrentClassDirectory([CallerFilePath] string callerFilePath = "")

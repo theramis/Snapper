@@ -1,6 +1,10 @@
 # Changelog
 All notable changes to the Snapper project.
 
+## [2.4.1] - 2023-12-30
+### Added
+- Introduces the ability to update snapshots via Custom snapshot settings. This solves [Issue #104](https://github.com/theramis/Snapper/issues/104). Thanks to [@ptjhuang](https://github.com/ptjhuang) for the contribution!
+
 ## [2.4.0] - 2022-12-10
 ### Added
 - Custom snapshot settings! This feature provides you with more control of your snapshots! See [here](https://theramis.github.io/Snapper/#/pages/snapper/custom_snapshot_settings) for more details!

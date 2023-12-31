@@ -77,3 +77,15 @@ public class MyTests
 ```
 
 The best way to learn how these settings work is to have a look at some of the tests [here](https://github.com/theramis/Snapper/blob/master/project/Tests/Snapper.Tests/SnapperCustomSettingsTests.cs) or have a brief look at the logic [here](https://github.com/theramis/Snapper/blob/master/project/Snapper/Core/SnapshotIdResolver.cs#L23-L44) which should help you understand which settings are used when.
+
+## Updating Snapshot using custom settings
+
+You can set whether the snapshot should be updated or not.
+
+```csharp
+var settings = SnapshotSettings.New()
+    .UpdateSnapshots(true);
+
+// Snapshot will be updated
+snapshot.ShouldMatchSnapshot(settings);
+```

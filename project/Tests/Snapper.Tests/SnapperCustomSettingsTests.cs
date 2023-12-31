@@ -1,4 +1,5 @@
-﻿using System.IO;
+﻿using System;
+using System.IO;
 using System.Linq;
 using System.Net;
 using System.Runtime.CompilerServices;
@@ -158,6 +159,77 @@ public class SnapperCustomSettingsTests
         {
             SnapshotSettings.GlobalSnapshotSerialiserSettings = null;
         }
+    }
+
+    [Fact]
+    public void SnapshotRespectsCustomUpdateSnapshots()
+    {
+        var filePath = Path.Combine(GetCurrentClassDirectory(), "_snapshots",
+            $"{nameof(SnapperCustomSettingsTests)}_{nameof(SnapshotRespectsCustomUpdateSnapshots)}.json");
+
+        // Arrange
+        var snapshot = new
+        {
+            TestValue = "value"
+        };
+        snapshot.ShouldMatchSnapshot(); // Creates the initial snapshot
+        snapshot = new
+        {
+            TestValue = "updated"
+        };
+
+        // Act
+        var settings = SnapshotSettings.New()
+            .UpdateSnapshots(true);
+        snapshot.ShouldMatchSnapshot(settings);
+
+        // Assert
+        Assert.True(File.Exists(filePath));
+
+        var snapshotContent = File.ReadAllText(filePath);
+        Assert.Contains("\"TestValue\": \"updated\"", snapshotContent);
+
+        if (File.Exists(filePath)) File.Delete(filePath);
+    }
+
+    [Theory]
+    [InlineData(true)]
+    [InlineData(false)]
+    public void SnapshotRespectsCustomUpdateSnapshotsOverEnvironmentVariable(bool shouldUpdate)
+    {
+        var filePath = Path.Combine(GetCurrentClassDirectory(), "_snapshots",
+            $"{nameof(SnapperCustomSettingsTests)}_{nameof(SnapshotRespectsCustomUpdateSnapshotsOverEnvironmentVariable)}.json");
+
+        // Arrange
+        var snapshot = new
+        {
+            TestValue = "somevalue"
+        };
+        snapshot.ShouldMatchChildSnapshot($"{shouldUpdate}"); // Creates the initial snapshot
+
+        snapshot = new
+        {
+            TestValue = "value"
+        };
+        Environment.SetEnvironmentVariable("UpdateSnapshots", $"{!shouldUpdate}");
+
+        // Act
+        var settings = SnapshotSettings.New()
+            .UpdateSnapshots(shouldUpdate);
+        var exception = Record.Exception(() => snapshot.ShouldMatchChildSnapshot($"{shouldUpdate}", settings));
+
+        // Assert
+        if (shouldUpdate)
+        {
+            Assert.Null(exception);
+        }
+        else
+        {
+            Assert.NotNull(exception);
+            Assert.Equal("Snapper.Exceptions.SnapshotsDoNotMatchException", exception.GetType().FullName);
+        }
+
+        if (File.Exists(filePath)) File.Delete(filePath);
     }
 
     private static string GetCurrentClassDirectory([CallerFilePath] string callerFilePath = "")

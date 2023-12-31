@@ -98,6 +98,15 @@
       "contributions": [
         "bug"
       ]
+    },
+    {
+      "login": "ptjhuang",
+      "name": "Peter Huang",
+      "avatar_url": "https://avatars.githubusercontent.com/u/5620750?v=4",
+      "profile": "https://github.com/ptjhuang",
+      "contributions": [
+        "code"
+      ]
     }
   ],
   "contributorsPerLine": 7,
@@ -105,5 +114,7 @@
   "projectOwner": "theramis",
   "repoType": "github",
   "repoHost": "https://github.com",
-  "skipCi": true
+  "skipCi": true,
+  "commitType": "docs",
+  "commitConvention": "angular"
 }

@@ -1,8 +1,6 @@
 ﻿using System.IO;
 using System.Runtime.CompilerServices;
-using System.Text.RegularExpressions;
 using NUnit.Framework;
-using Snapper.Core;
 
 namespace Snapper.Nunit.Tests
 {

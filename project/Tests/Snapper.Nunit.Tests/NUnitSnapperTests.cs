@@ -1,6 +1,6 @@
 ﻿using System.Runtime.CompilerServices;
 using System.Collections.Generic;
-using Newtonsoft.Json.Linq;
+using System.Text.Json;
 using NUnit.Framework;
 
 namespace Snapper.Nunit.Tests
@@ -11,10 +11,9 @@ namespace Snapper.Nunit.Tests
         [MethodImpl(MethodImplOptions.NoInlining)]
         public void TestIfStoredSnapshotIsMatching()
         {
-            var actual = new JObject
-            {
-                {"TestProperty", "TestValue"}
-            };
+            var actual = JsonSerializer.SerializeToElement(
+                new Dictionary<string, string> { { "TestProperty", "TestValue" } }
+            );
             Assert.That(actual, Matches.Snapshot());
         }
 
@@ -22,10 +21,9 @@ namespace Snapper.Nunit.Tests
         [MethodImpl(MethodImplOptions.NoInlining)]
         public void TestIfNamedStoredSnapshotIsMatching()
         {
-            var actual = new JObject
-            {
-                {"TestProperty2", "TestValue2"}
-            };
+            var actual = JsonSerializer.SerializeToElement(
+                new Dictionary<string, string> { { "TestProperty2", "TestValue2" } }
+            );
             Assert.That(actual, Matches.ChildSnapshot("ChildSnapshot"));
         }
 
@@ -34,10 +32,7 @@ namespace Snapper.Nunit.Tests
         [MethodImpl(MethodImplOptions.NoInlining)]
         public void TestIfNamedStoredSnapshotIsMatchingTestCase(string property, string value)
         {
-            var actual = new JObject
-            {
-                {property, value}
-            };
+            var actual = JsonSerializer.SerializeToElement(new Dictionary<string, string> { { property, value } });
             Assert.That(actual, Matches.ChildSnapshot($"ChildSnapshotFor{value}"));
         }
 
@@ -51,10 +46,7 @@ namespace Snapper.Nunit.Tests
         [MethodImpl(MethodImplOptions.NoInlining)]
         public void TestIfNamedStoredSnapshotIsMatchingTestCaseSource(string value)
         {
-            var actual = new JObject
-            {
-                {"TestProperty", value}
-            };
+            var actual = JsonSerializer.SerializeToElement(new Dictionary<string, string> { { "TestProperty", value } });
             Assert.That(actual, Matches.ChildSnapshot($"ChildSnapshotFor{value}"));
         }
     }

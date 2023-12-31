@@ -1,4 +1,4 @@
-using Snapper.Exceptions;
+﻿using Snapper.Exceptions;
 using Snapper.Json;
 
 namespace Snapper.Core;

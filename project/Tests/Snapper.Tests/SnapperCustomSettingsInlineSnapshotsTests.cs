@@ -1,6 +1,6 @@
 ﻿using System.Linq;
 using System.Net;
-using Newtonsoft.Json.Converters;
+using System.Text.Json.Serialization;
 using Xunit;
 
 namespace Snapper.Tests;
@@ -36,7 +36,7 @@ public class SnapperCustomSettingsInlineSnapshotTests
         var settings = SnapshotSettings.New()
             .SnapshotSerializerSettings(s =>
             {
-                s.Converters.Add(new StringEnumConverter());
+                s.Converters.Add(new JsonStringEnumConverter());
             });
         snapshot.ShouldMatchInlineSnapshot("{ \"TestValue\":\"OK\"}", settings);
     }
@@ -52,7 +52,7 @@ public class SnapperCustomSettingsInlineSnapshotTests
         // Setup Global Settings
         SnapshotSettings.GlobalSnapshotSerialiserSettings = (s) =>
         {
-            s.Converters.Add(new StringEnumConverter());
+            s.Converters.Add(new JsonStringEnumConverter());
         };
 
         // Act
@@ -63,7 +63,7 @@ public class SnapperCustomSettingsInlineSnapshotTests
                 .SnapshotSerializerSettings(s =>
                 {
                     // this should be called later on and proves that the global one was applied first
-                    contains = s.Converters.Any(c => c.GetType() == typeof(StringEnumConverter));
+                    contains = s.Converters.Any(c => c.GetType() == typeof(JsonStringEnumConverter));
                 });
             snapshot.ShouldMatchInlineSnapshot("{ \"TestValue\":\"OK\"}", settings);
 

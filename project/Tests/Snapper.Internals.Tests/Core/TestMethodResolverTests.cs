@@ -1,5 +1,4 @@
-using System.Diagnostics.CodeAnalysis;
-using System.IO;
+﻿using System.IO;
 using FluentAssertions;
 using Snapper.Core.TestMethodResolver;
 using Xunit;

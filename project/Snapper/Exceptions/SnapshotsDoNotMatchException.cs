@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using Snapper.Core;
 
 namespace Snapper.Exceptions

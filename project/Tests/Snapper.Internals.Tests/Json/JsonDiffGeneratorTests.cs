@@ -1,7 +1,7 @@
-using System;
+﻿using System;
 using System.Text;
+using System.Text.Json;
 using FluentAssertions;
-using Newtonsoft.Json.Linq;
 using Snapper.Core;
 using Snapper.Json;
 using Xunit;
@@ -204,7 +204,7 @@ namespace Snapper.Internals.Tests.Json
         }
 
         private JsonSnapshot MakeJsonSnapshot(object val)
-            => new JsonSnapshot(DummySnapshotId(), JObject.FromObject(val));
+            => new JsonSnapshot(DummySnapshotId(), JsonSerializer.SerializeToElement(val));
 
         private static SnapshotId DummySnapshotId()
             => new SnapshotId("dir", "filename", "testname");

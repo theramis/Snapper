@@ -1,5 +1,5 @@
 ﻿using System;
-using Newtonsoft.Json;
+using System.Text.Json;
 using Snapper.Attributes;
 
 namespace Snapper;
@@ -15,7 +15,7 @@ public class SnapshotSettings
     /// Use this method to configure global serialiser settings for how snapshots are serialised/de-serialised
     /// This method is called first before settings are configured by <see cref="SnapshotSerializerSettings"/>
     /// </summary>
-    public static Action<JsonSerializerSettings>? GlobalSnapshotSerialiserSettings;
+    public static Action<JsonSerializerOptions?>? GlobalSnapshotSerialiserSettings;
 
     internal bool? ShouldStoreSnapshotsPerClass;
     internal bool? ShouldUpdateSnapshots;
@@ -23,8 +23,8 @@ public class SnapshotSettings
     internal string? FileName;
     internal string? ClassName;
     internal string? TestName;
-    internal Action<JsonSerializerSettings>? SnapshotSerialiserSettings;
-
+    internal Action<JsonSerializerOptions>? SnapshotSerialiserSettings;
+  
     public static SnapshotSettings New() => new();
 
     /// <summary>
@@ -95,7 +95,7 @@ public class SnapshotSettings
     /// This method is called AFTER settings are configured by <see cref="GlobalSnapshotSerialiserSettings"/>
     /// </summary>
     /// <param name="func">Method to configure serialiser settings</param>
-    public SnapshotSettings SnapshotSerializerSettings(Action<JsonSerializerSettings> func)
+    public SnapshotSettings SnapshotSerializerSettings(Action<JsonSerializerOptions> func)
     {
         SnapshotSerialiserSettings = func;
         return this;

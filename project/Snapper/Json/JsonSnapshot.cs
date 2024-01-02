@@ -1,13 +1,13 @@
-﻿using System.Text.Json;
+﻿using System.Text.Json.Nodes;
 using Snapper.Core;
 
 namespace Snapper.Json;
 
-internal record JsonSnapshot(SnapshotId Id, JsonElement Value)
+internal record JsonSnapshot(SnapshotId Id, JsonNode Value)
 {
     public bool CompareValues(JsonSnapshot other)
     {
-        return JsonElementHelper.JsonEquals(Value, other.Value);
+        return JsonNodeHelper.JsonEquals(Value, other.Value);
     }
 }
 

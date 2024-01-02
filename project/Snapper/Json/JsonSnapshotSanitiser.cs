@@ -1,6 +1,5 @@
-﻿using System;
-using System.Text.Json;
-using Snapper.Exceptions;
+﻿using System.Text.Json;
+using System.Text.Json.Nodes;
 
 namespace Snapper.Json;
 
@@ -13,19 +12,19 @@ internal class JsonSnapshotSanitiser
         _snapshotSettings = snapshotSettings;
     }
 
-    public JsonElement SanitiseSnapshot(object snapshot)
+    public JsonNode SanitiseSnapshot(object snapshot)
     {
         if (snapshot is string stringSnapshot)
         {
             try
             {
-                return JsonElementHelper.ParseFromString(stringSnapshot, _snapshotSettings);
+                return JsonNodeHelper.ParseFromString(stringSnapshot, _snapshotSettings);
             }
             catch (JsonException e)
             {
             }
         }
 
-        return JsonElementHelper.FromObject(snapshot, _snapshotSettings);
+        return JsonNodeHelper.FromObject(snapshot, _snapshotSettings);
     }
 }

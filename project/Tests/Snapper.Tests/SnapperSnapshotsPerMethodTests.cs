@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Runtime.CompilerServices;
 using Snapper.Attributes;
@@ -215,6 +216,45 @@ namespace Snapper.Tests
 
             // Act/Assert
             snapshot.ShouldMatchChildSnapshot(data.ToString());
+        }
+
+        [Fact]
+        [MethodImpl(MethodImplOptions.NoInlining)]
+        public void PrimitiveIntSnapshot()
+        {
+            1.ShouldMatchSnapshot();
+        }
+
+        [Theory]
+        [InlineData(1)]
+        [InlineData(2.1)]
+        [InlineData(true)]
+        [InlineData('a')]
+        [InlineData("string")]
+        [MethodImpl(MethodImplOptions.NoInlining)]
+        public void PrimitivesTheorySnapshots(object obj)
+        {
+            obj.ShouldMatchChildSnapshot(obj.ToString() ?? string.Empty);
+        }
+
+        [Fact]
+        [MethodImpl(MethodImplOptions.NoInlining)]
+        public void ArraySnapshot()
+        {
+            new List<int> { 1, 2, 3 }.ShouldMatchSnapshot();
+        }
+
+        [Theory]
+        [InlineData(1)]
+        [InlineData(2.1)]
+        [InlineData(true)]
+        [InlineData('a')]
+        [InlineData("string")]
+        [MethodImpl(MethodImplOptions.NoInlining)]
+        public void ArrayTheorySnapshots(object obj)
+        {
+            var list = new List<object> { obj, obj, obj };
+            list.ShouldMatchChildSnapshot(obj.ToString() ?? string.Empty);
         }
 
         private static string GetSnapshotFilePath<T>(string methodName, [CallerFilePath] string callerFilePath = "")

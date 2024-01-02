@@ -1,4 +1,5 @@
 ﻿using System.Text.Json;
+using System.Text.Json.Nodes;
 using FluentAssertions;
 using Snapper.Json;
 using Xunit;
@@ -23,7 +24,7 @@ namespace Snapper.Internals.Tests.Json
                 Key = "Value"
             });
 
-            sanitisedObject.Should().BeEquivalentTo(JsonSerializer.SerializeToElement(new
+            JsonNode.DeepEquals(sanitisedObject, JsonSerializer.SerializeToNode(new
             {
                 Key = "Value"
             }));
@@ -39,7 +40,7 @@ namespace Snapper.Internals.Tests.Json
         {
             var sanitisedObject = _sanitiser.SanitiseSnapshot(obj);
 
-            sanitisedObject.Should().BeEquivalentTo(JsonSerializer.SerializeToElement(obj));
+            JsonNode.DeepEquals(sanitisedObject, JsonSerializer.SerializeToNode(obj));
         }
 
         [Fact]
@@ -49,7 +50,7 @@ namespace Snapper.Internals.Tests.Json
                                                               "\"Key\" : \"value\"" +
                                                               "}");
 
-            sanitisedObject.Should().BeEquivalentTo(JsonSerializer.SerializeToElement(new
+            JsonNode.DeepEquals(sanitisedObject, JsonSerializer.SerializeToNode(new
             {
                 Key = "value"
             }));
@@ -59,20 +60,20 @@ namespace Snapper.Internals.Tests.Json
         public void InvalidJsonStringTest()
         {
             var sanitisedObject = _sanitiser.SanitiseSnapshot("{ " + "\"Key\" : \"value\"");
-            sanitisedObject.Should()
-                .BeEquivalentTo(
-                    JsonSerializer.SerializeToElement("{ \"Key\" : \"value\"")
-                );
+
+            JsonNode.DeepEquals(sanitisedObject, JsonSerializer.SerializeToNode("{ \"Key\" : \"value\""));
         }
 
         [Fact]
         public void MalformedJsonStringTest()
         {
-            var exception = Record.Exception(() => _sanitiser.SanitiseSnapshot("{ " +
-                                                               "\"Key\" ======== \"value\"" +
-                                                               "}"));
+            var sanitisedObject = _sanitiser.SanitiseSnapshot("{ " +
+                                                              "\"Key\" ======== \"value\"" +
+                                                              "}");
 
-            exception.Should().BeNull();
+            JsonNode.DeepEquals(sanitisedObject, JsonSerializer.SerializeToNode("{ " +
+                "\"Key\" ======== \"value\"" +
+                "}"));
         }
     }
 }

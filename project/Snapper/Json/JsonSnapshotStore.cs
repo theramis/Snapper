@@ -1,5 +1,4 @@
 ﻿using System.IO;
-using System.Text.Json;
 using System.Text.Json.Nodes;
 using Snapper.Core;
 
@@ -19,19 +18,18 @@ internal class JsonSnapshotStore : ISnapshotStore
         if (!File.Exists(snapshotId.FilePath))
             return null;
 
-        var fullSnapshot = JsonElementHelper.ParseFromString(File.ReadAllText(snapshotId.FilePath),
+        var fullSnapshot = JsonNodeHelper.ParseFromString(File.ReadAllText(snapshotId.FilePath),
             _snapshotSettings);
 
         if (snapshotId.PrimaryId == null && snapshotId.SecondaryId == null)
             return new JsonSnapshot(snapshotId, fullSnapshot);
 
         if (snapshotId.PrimaryId != null &&
-            fullSnapshot.TryGetProperty(snapshotId.PrimaryId, out var partialSnapshot))
+            fullSnapshot.TryGetValue(snapshotId.PrimaryId, out var partialSnapshot))
         {
             if (snapshotId.SecondaryId != null)
             {
-                if (partialSnapshot is var partialSnapshotJObject &&
-                    partialSnapshotJObject.TryGetProperty(snapshotId.SecondaryId, out partialSnapshot))
+                if (partialSnapshot.TryGetValue(snapshotId.SecondaryId, out partialSnapshot))
                 {
                     return new JsonSnapshot(snapshotId, partialSnapshot);
                 }
@@ -50,18 +48,18 @@ internal class JsonSnapshotStore : ISnapshotStore
         if (newSnapshot.Id.PrimaryId == null && newSnapshot.Id.SecondaryId == null)
         {
             var newSnapshotToWrite = newSnapshot.Value;
-            File.WriteAllText(newSnapshot.Id.FilePath, JsonElementHelper.ToString(newSnapshotToWrite, _snapshotSettings));
+            File.WriteAllText(newSnapshot.Id.FilePath, JsonNodeHelper.ToString(newSnapshotToWrite, _snapshotSettings));
         }
         else
         {
             var rawSnapshotContent = GetRawSnapshotContent(newSnapshot.Id.FilePath);
             var newSnapshotToWrite = rawSnapshotContent == null
                 ? new JsonObject()
-                : JsonElementHelper.ParseNodeFromString(rawSnapshotContent, _snapshotSettings)!;
+                : JsonNodeHelper.ParseFromString(rawSnapshotContent, _snapshotSettings)!;
 
             if (newSnapshot.Id.PrimaryId != null && newSnapshot.Id.SecondaryId == null)
             {
-                newSnapshotToWrite[newSnapshot.Id.PrimaryId] = JsonObject.Create(newSnapshot.Value);
+                newSnapshotToWrite[newSnapshot.Id.PrimaryId] = newSnapshot.Value;
             }
             else if (newSnapshot.Id.PrimaryId != null && newSnapshot.Id.SecondaryId != null)
             {
@@ -69,9 +67,9 @@ internal class JsonSnapshotStore : ISnapshotStore
                 if (firstLevel == null)
                     newSnapshotToWrite[newSnapshot.Id.PrimaryId] = new JsonObject();
 
-                newSnapshotToWrite[newSnapshot.Id.PrimaryId]![newSnapshot.Id.SecondaryId] = JsonObject.Create(newSnapshot.Value);
+                newSnapshotToWrite[newSnapshot.Id.PrimaryId]![newSnapshot.Id.SecondaryId] = newSnapshot.Value;
             }
-            File.WriteAllText(newSnapshot.Id.FilePath, JsonElementHelper.ToString(newSnapshotToWrite, _snapshotSettings));
+            File.WriteAllText(newSnapshot.Id.FilePath, JsonNodeHelper.ToString(newSnapshotToWrite, _snapshotSettings));
         }
     }
 

@@ -1,11 +1,11 @@
-﻿using System.Text.Json;
+﻿using System.Text.Json.Nodes;
 using Snapper.Core;
 
 namespace Snapper.Json;
 
 internal class JsonSnapshotInMemoryStore : ISnapshotStore
 {
-    private readonly JsonElement _snapshot;
+    private readonly JsonNode _snapshot;
 
     public JsonSnapshotInMemoryStore(JsonSnapshotSanitiser jsonSnapshotSanitiser, object snapshot)
     {

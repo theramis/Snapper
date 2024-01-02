@@ -204,7 +204,7 @@ namespace Snapper.Internals.Tests.Json
         }
 
         private JsonSnapshot MakeJsonSnapshot(object val)
-            => new JsonSnapshot(DummySnapshotId(), JsonSerializer.SerializeToElement(val));
+            => new JsonSnapshot(DummySnapshotId(), JsonSerializer.SerializeToNode(val));
 
         private static SnapshotId DummySnapshotId()
             => new SnapshotId("dir", "filename", "testname");

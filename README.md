@@ -90,6 +90,7 @@ Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/d
       <td align="center" valign="top" width="14.28%"><a href="https://github.com/jaytulk"><img src="https://avatars.githubusercontent.com/u/34781842?v=4?s=100" width="100px;" alt="jaytulk"/><br /><sub><b>jaytulk</b></sub></a><br /><a href="https://github.com/theramis/Snapper/commits?author=jaytulk" title="Code">💻</a></td>
       <td align="center" valign="top" width="14.28%"><a href="https://github.com/albertomartinsanchez"><img src="https://avatars.githubusercontent.com/u/4971812?v=4?s=100" width="100px;" alt="Alberto Martín"/><br /><sub><b>Alberto Martín</b></sub></a><br /><a href="https://github.com/theramis/Snapper/issues?q=author%3Aalbertomartinsanchez" title="Bug reports">🐛</a></td>
       <td align="center" valign="top" width="14.28%"><a href="https://github.com/ptjhuang"><img src="https://avatars.githubusercontent.com/u/5620750?v=4?s=100" width="100px;" alt="Peter Huang"/><br /><sub><b>Peter Huang</b></sub></a><br /><a href="https://github.com/theramis/Snapper/commits?author=ptjhuang" title="Code">💻</a></td>
+      <td align="center" valign="top" width="14.28%"><a href="https://github.com/JTeeuwissen"><img src="https://avatars.githubusercontent.com/u/15076530?v=4?s=100" width="100px;" alt="J Teeuwissen"/><br /><sub><b>J Teeuwissen</b></sub></a><br /><a href="https://github.com/theramis/Snapper/commits?author=JTeeuwissen" title="Code">💻</a></td>
     </tr>
   </tbody>
 </table>

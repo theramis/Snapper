@@ -17,9 +17,4 @@
   <ItemGroup>
     <ProjectReference Include="..\..\Snapper\Snapper.csproj" />
   </ItemGroup>
-  <ItemGroup>
-    <None Update="xunit.runner.json">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-  </ItemGroup>
 </Project>

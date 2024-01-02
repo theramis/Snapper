@@ -4,7 +4,7 @@ using Xunit;
 
 namespace Snapper.Tests
 {
-    public class SnapperInherittedAttributeTests
+    public class SnapperInherittedAttributeTests : BaseTest
     {
         [NewAndImprovedFactAttribute]
         [MethodImpl(MethodImplOptions.NoInlining)]

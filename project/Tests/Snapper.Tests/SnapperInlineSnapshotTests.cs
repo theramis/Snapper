@@ -3,7 +3,7 @@ using Xunit;
 
 namespace Snapper.Tests
 {
-    public class SnapperInlineSnapshotTests
+    public class SnapperInlineSnapshotTests : BaseTest
     {
         [Fact]
         [MethodImpl(MethodImplOptions.NoInlining)]

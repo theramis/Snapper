@@ -10,7 +10,7 @@ namespace Snapper.Tests
     ///     This class contains tests which test that the nuisances of newtonsoft are avoided in Snapper
     /// </summary>
     [StoreSnapshotsPerClass]
-    public class SnapperNewtonsoftNuisancesTests
+    public class SnapperNewtonsoftNuisancesTests : BaseTest
     {
         [Fact]
         [MethodImpl(MethodImplOptions.NoInlining)]

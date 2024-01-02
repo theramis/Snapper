@@ -7,7 +7,7 @@ using Xunit;
 
 namespace Snapper.Tests;
 
-public class SnapperCustomSettingsChildSnapshotsTests
+public class SnapperCustomSettingsChildSnapshotsTests : BaseTest
 {
     [Fact]
     public void SnapshotUsesDefaultSettings()

@@ -107,6 +107,15 @@
       "contributions": [
         "code"
       ]
+    },
+    {
+      "login": "JTeeuwissen",
+      "name": "J Teeuwissen",
+      "avatar_url": "https://avatars.githubusercontent.com/u/15076530?v=4",
+      "profile": "https://github.com/JTeeuwissen",
+      "contributions": [
+        "code"
+      ]
     }
   ],
   "contributorsPerLine": 7,

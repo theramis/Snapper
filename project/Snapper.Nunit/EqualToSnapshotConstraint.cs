@@ -8,7 +8,7 @@ public class EqualToSnapshotConstraint : Constraint
     private readonly string? _childSnapshotName;
     private readonly SnapshotSettings? _snapshotSettings;
 
-    public Description => DisplayName;
+    public override string Description { get => DisplayName; }
 
     public EqualToSnapshotConstraint(string? childSnapshotName = null, SnapshotSettings? snapshotSettings = null)
     {
